@@ -12,6 +12,7 @@
   * Some means (an annotation perhaps?) for saying "This test is supposed to fail"
   * Provide an #HREF variable to provide access to the href of <a> elements.
   * Command: insertText (Easy and useful)
+  * Story pages that automatically run child tests and report success / failure. Perhaps a new "runTest" command?
   * Looping
   * Warning if encounter attribute on Concordion namespace that is not supported, i.e. catch typos.
   * Improve XML parsing error messages (e.g. show context)
