@@ -1,0 +1,42 @@
+#summary Features we could add to Concordion.
+
+= Feature Ideas =
+
+  * Support for Maven builds
+  * Support for IntelliJ IDEA projects
+  * Copy referenced resources (e.g. images, stylesheets) to the output directory.
+  * Reduce the embedded CSS to a minimal set (just enough to support successes / failures / stack trace toggling).
+  * Write a realistic sample application (e.g. a blog) using the tool and the approach.
+  * Support TestNG
+  * Add code coverage to build
+  * Some means (an annotation perhaps?) for saying "This test is supposed to fail"
+  * Provide an #HREF variable to provide access to the href of <a> elements.
+  * Command: insertText (Easy and useful)
+  * Looping
+  * Warning if encounter attribute on Concordion namespace that is not supported, i.e. catch typos.
+  * Improve XML parsing error messages (e.g. show context)
+  * Improve rendering of failures & exceptions on <b> or <strong> (Don't want the whole message to be in bold). Similarly: <em> and <i>
+  * Print console "(Expected)" after an expected test failure
+  * Detect broken links
+  * assertEquals nested actions
+  * Catch common mistakes and provide useful messages (e.g. Prevent "execute" on <tr><th> row Common mistake to put execute on <tr> instead of <table>)
+  * Do a screencast
+  * Commands on detail rows should override commands on header rows
+  * Allow the user to supply the failure text for assertTrue
+  * Improved exceptions on <a> elements
+  * Command: include
+  * Ability to create lists of objects from tables E.g. in command/exception/Exception.html
+  * Allow sections of the document to be marked "expected to fail"
+  * Document extension points with examples
+  * Improve handling of row-level exceptions (should be XHTML compliant)
+  * Detect and prevent child tags where not reachable
+  * For exceptions, display the values of relevant variables
+  * forEach: Support lists <ol> and <ul>
+  * assertEquals: Show diffs within a string
+  * Shortcut for  "set" variable = camel case heading
+  * forEach: Support arrays
+  * Log a debug transcript
+  * Improve stack traces inside <pre> elements Could use !important to set font family
+  * Support colspan
+  * Export PDF
+  * Multiple root objects to provide the ability to add (mix-in) several "fittings" to remove duplication of code across fixtures. E.g. {{{public void setUp() { add(new PersonFitting()); } }}}
