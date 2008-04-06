@@ -32,7 +32,7 @@
 
         <javac classpathref="compile.classpath"
                destdir="${dir.classes}"
-               srcdir="src:test:spec"
+               srcdir="src/main/java:src/test/java"
                debug="yes"
                failonerror="yes"
                source="1.5"
@@ -40,9 +40,8 @@
         />
 
         <copy todir="${dir.classes}">
-            <fileset dir="src" excludes="**/*.java" />
-            <fileset dir="test" excludes="**/*.java" />
-            <fileset dir="spec" excludes="**/*.java" />
+            <fileset dir="src/main/resources" />
+            <fileset dir="src/test/resources" />
         </copy>
     </target>
 
@@ -61,11 +60,7 @@
             <formatter type="plain" />
 
             <batchtest todir="${dir.test.output}">
-                <fileset dir="test">
-                    <include name="**/*Test.java"/>
-                    <exclude name="**/Abstract*"/>
-                </fileset>
-                <fileset dir="spec">
+                <fileset dir="src/test/java">
                     <include name="**/*Test.java"/>
                     <exclude name="**/Abstract*"/>
                 </fileset>
@@ -95,11 +90,11 @@
 
     <target name="dist" depends="clean,build">
         <zip destfile="${dir.dist}/${productName}-${version}.zip" compress="true">
-        	<zipfileset prefix="${productName}-${version}" dir=".">
-	            <exclude name="dist/*-src.zip"/>
-	            <exclude name="build/**"/>
-	            <exclude name="bin/**"/>
-        	</zipfileset>
+            <zipfileset prefix="${productName}-${version}" dir=".">
+                <exclude name="dist/*-src.zip"/>
+                <exclude name="build/**"/>
+                <exclude name="bin/**"/>
+            </zipfileset>
         </zip>
     </target>
 
