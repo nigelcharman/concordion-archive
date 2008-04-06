@@ -17,3 +17,9 @@ Development Rules
 * Never check a failing test into the repository. (Though you can
   check-in unimplemented acceptance test HTML for new feature ideas). 
 
+
+
+Building
+--------
+
+mvn clean install
