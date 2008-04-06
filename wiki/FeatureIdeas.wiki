@@ -11,7 +11,7 @@
   * Add code coverage to build
   * Some means (an annotation perhaps?) for saying "This test is supposed to fail"
   * Provide an #HREF variable to provide access to the href of <a> elements.
-  * Command: insertText (Easy and useful)
+  * Command: echo (evaluates an expression and inserts result into the output. This will be easy and useful)
   * Story pages that automatically run child tests and report success / failure. Perhaps a new "runTest" command?
   * Looping
   * Warning if encounter attribute on Concordion namespace that is not supported, i.e. catch typos.
