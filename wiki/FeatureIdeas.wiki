@@ -2,7 +2,7 @@
 
 = Feature Ideas =
 
-  * Support for Maven builds
+  * Upload onto Maven repositories
   * Support for IntelliJ IDEA projects
   * Copy referenced resources (e.g. images, stylesheets) to the output directory.
   * Reduce the embedded CSS to a minimal set (just enough to support successes / failures / stack trace toggling).
