@@ -2,13 +2,13 @@
 
 = Feature Ideas =
 
-  * Upload onto Maven repositories
+  * Upload onto Maven repositories (see http://maven.apache.org/repository/index.html)
   * Support for IntelliJ IDEA projects
-  * Copy referenced resources (e.g. images, stylesheets) to the output directory.
+  * Copy referenced resources (e.g. images, stylesheets) to the output directory. (see http://maven.apache.org/plugins/maven-site-plugin/)
   * Reduce the embedded CSS to a minimal set (just enough to support successes / failures / stack trace toggling).
   * Write a realistic sample application (e.g. a blog) using the tool and the approach.
   * Support TestNG
-  * Add code coverage to build
+  * Add code coverage to build (see http://mojo.codehaus.org/cobertura-maven-plugin/)
   * Some means (an annotation perhaps?) for saying "This test is supposed to fail"
   * Provide an #HREF variable to provide access to the href of <a> elements.
   * Command: echo (evaluates an expression and inserts result into the output. This will be easy and useful)
@@ -21,7 +21,7 @@
   * Detect broken links
   * assertEquals nested actions
   * Catch common mistakes and provide useful messages (e.g. Prevent "execute" on <tr><th> row Common mistake to put execute on <tr> instead of <table>)
-  * Do a screencast
+  * Do a screencast (see http://www.debugmode.com/wink/)
   * Commands on detail rows should override commands on header rows
   * Allow the user to supply the failure text for assertTrue
   * Improved exceptions on <a> elements
