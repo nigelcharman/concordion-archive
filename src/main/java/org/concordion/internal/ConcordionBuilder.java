@@ -12,6 +12,7 @@ import org.concordion.api.Target;
 import org.concordion.internal.command.AssertEqualsCommand;
 import org.concordion.internal.command.AssertEqualsListener;
 import org.concordion.internal.command.AssertTrueCommand;
+import org.concordion.internal.command.EchoCommand;
 import org.concordion.internal.command.ExecuteCommand;
 import org.concordion.internal.command.LocalTextDecorator;
 import org.concordion.internal.command.SetCommand;
@@ -49,6 +50,7 @@ public class ConcordionBuilder {
     private AssertTrueCommand assertTrueCommand = new AssertTrueCommand();
     private ExecuteCommand executeCommand = new ExecuteCommand();
     private VerifyRowsCommand verifyRowsCommand = new VerifyRowsCommand();
+    private EchoCommand echoCommand = new EchoCommand();
     private File baseOutputDir;
     private ThrowableCaughtPublisher throwableListenerPublisher = new ThrowableCaughtPublisher();
     
@@ -61,15 +63,14 @@ public class ConcordionBuilder {
         withApprovedCommand(NAMESPACE_CONCORDION_2007, "assertEquals", assertEqualsCommand);
         withApprovedCommand(NAMESPACE_CONCORDION_2007, "assertTrue", assertTrueCommand);
         withApprovedCommand(NAMESPACE_CONCORDION_2007, "verifyRows", verifyRowsCommand);
+        withApprovedCommand(NAMESPACE_CONCORDION_2007, "echo", echoCommand);
         
-        executeCommand.setExpressionValidator(new BannedWordsValidator());
         assertEqualsCommand.addAssertEqualsListener(new AssertEqualsResultRenderer());
         assertTrueCommand.addAssertEqualsListener(new AssertEqualsResultRenderer());
         verifyRowsCommand.addVerifyRowsListener(new VerifyRowsResultRenderer());
         documentParser.addDocumentParsingListener(new DocumentStructureImprover());
         String stylesheetContent = IOUtil.readResourceAsString(EMBEDDED_STYLESHEET_RESOURCE);
         documentParser.addDocumentParsingListener(new StylesheetEmbedder(stylesheetContent));
-        
     }
     
     public ConcordionBuilder withSource(Source source) {

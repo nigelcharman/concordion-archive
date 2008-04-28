@@ -4,24 +4,13 @@ import org.concordion.api.Evaluator;
 import org.concordion.api.ResultRecorder;
 import org.concordion.internal.CommandCall;
 import org.concordion.internal.CommandCallList;
-import org.concordion.internal.ExpressionValidator;
 import org.concordion.internal.Row;
 import org.concordion.internal.TableSupport;
 
 public class ExecuteCommand extends AbstractCommand {
 
-    private ExpressionValidator expressionValidator;
-    
-    public void setExpressionValidator(ExpressionValidator expressionValidator) {
-        this.expressionValidator = expressionValidator;
-    }
-    
     @Override
     public void execute(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
-        if (expressionValidator != null) {
-            expressionValidator.validate(commandCall.getExpression());
-        }
-        
         Strategy strategy;
         if (commandCall.getElement().isNamed("table")) {
             strategy = new TableStrategy();
