@@ -2,7 +2,7 @@
 
 = Feature Ideas =
 
-  * Upload onto Maven repositories (see http://maven.apache.org/repository/index.html)
+  * ~~Upload onto Maven repositories (see http://maven.apache.org/repository/index.html)~~
   * Support for IntelliJ IDEA projects
   * Copy referenced resources (e.g. images, stylesheets) to the output directory. (see http://maven.apache.org/plugins/maven-site-plugin/)
   * Reduce the embedded CSS to a minimal set (just enough to support successes / failures / stack trace toggling).
