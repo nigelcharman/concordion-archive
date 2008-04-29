@@ -1,0 +1,183 @@
+#summary Maven-based project with a sample
+#labels Phase-Deploy
+
+= Introduction =
+
+Recently we have released Concordion 1.3.0, that is actually the same code as in Concordion 1.2.0 but now the project can be built using [http://maven.apache.org Maven]. This page illustrates how to build a maven-based project and run the acceptance tests using Concordion.
+
+
+= Details =
+
+== Source code ==
+
+You can find the source code in https://concordion.googlecode.com/svn/concordion-samples/trunk and the files are:
+{{{
+- pom.xml
+- src/test/java/org/concordion/samples/DemoTest.java
+- src/test/resources/org/concordion/samples/Demo.html
+- src/test/resources/concordion.css
+}}}
+
+== Build the project ==
+
+Checkout the project, move to the folder where pom.xml is and execute Maven using the following command:
+{{{
+$ mvn clean test
+}}}
+
+The output in the console is something like:
+{{{
+[INFO] Scanning for projects...
+[INFO] ----------------------------------------------------------------------------
+[INFO] Building Unnamed - org.concordion:samples:jar:0.0.1-SNAPSHOT
+[INFO]    task-segment: [clean, test]
+[INFO] ----------------------------------------------------------------------------
+[INFO] clean:clean
+[INFO] Deleting directory C:\Concordion\concordion-samples\target
+[INFO] Deleting directory C:\Concordion\concordion-samples\target\classes
+[INFO] Deleting directory C:\Concordion\concordion-samples\target\test-classes
+[INFO] Deleting directory C:\Concordion\concordion-samples\target\site
+[INFO] resources:resources
+[INFO] Using default encoding to copy filtered resources.
+[INFO] compiler:compile
+[INFO] No sources to compile
+[INFO] resources:testResources
+[INFO] Using default encoding to copy filtered resources.
+[INFO] compiler:testCompile
+[INFO] Compiling 1 source file to C:\Concordion\concordion-samples\target\test-classes
+[INFO] surefire:test
+[INFO] Surefire report directory: C:\Concordion\concordion-samples\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running org.concordion.samples.DemoTest
+C:\Concordion\concordion-samples\target\concordion\org\concordion\samples\Demo.html
+Successes: 3, Failures: 0
+
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.341 sec
+
+Results :
+
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] ----------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL org.concordion:samples:jar:0.0.1-SNAPSHOT (  task-segment: [clean, test] )
+[INFO] ----------------------------------------------------------------------------
+[INFO] Total time: 3 second
+[INFO] Finished at: Wed Apr 30 00:12:06 CEST 2008
+[INFO] Memory 4M/13M
+[INFO] ----------------------------------------------------------------------------
+}}}
+
+The results of the execution are in:
+  * target/surefire-reports : the txt with the results of executing the tests (the plugin surefire)
+  * target/concordion : the html files processed by concordion
+
+== How it works? ==
+
+=== pom.xml ===
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.concordion</groupId>
+  <artifactId>samples</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+    <dependency>
+      <groupId>org.concordion</groupId>
+      <artifactId>concordion</artifactId>
+      <version>1.3.0</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+}}}
+The dependency is needed to compile the tests written in Java (under src/test/java).
+
+{{{
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+        </configuration>
+      </plugin>
+}}}
+Needed to compile Java classes that use annotations (the sample is written using Junit 4).
+
+{{{
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <systemProperties>
+            <property>
+              <name>concordion.output.dir</name>
+              <value>target/concordion</value>
+            </property>
+          </systemProperties>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+}}}
+Surefire is the plugin that compiles and executes the test cases written in Java (by default matching "`src/test/java/**/*Test.java`"). In order to tell ConcordionRunner where to leave the html files after executing the tests, we set the systemProperty "concordion.output.dir".
+
+=== DemoTest.java ===
+{{{
+package org.concordion.samples;
+
+import org.concordion.integration.junit4.ConcordionRunner;
+import org.junit.runner.RunWith;
+
+@RunWith(ConcordionRunner.class)
+public class DemoTest {
+    
+    public String greetingFor(String firstName) {
+        return String.format("Hello %s!", firstName);
+    }
+}
+}}}
+
+=== Demo.html ===
+{{{
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<link href="../../../concordion.css" rel="stylesheet" type="text/css" />
+<body>
+
+    <h1>Demo</h1>
+
+    <p>
+    	After a user logs into the system, a greeting is
+    	displayed saying "Hello [user's first name]!"
+    </p>
+
+    <div class="example">
+
+		<h3>Example</h3>
+		
+        <p>
+            When user <b concordion:set="#firstName">Bob</b>
+            logs in, the greeting will be:
+            <b concordion:assertEquals="greetingFor(#firstName)">Hello Bob!</b>
+        </p>
+        
+        <p>
+            The first name <span concordion:assertTrue="#firstName.startsWith(#letter)">starts 
+            with <b concordion:set="#letter">B</b></span>.
+        </p>
+        
+        <p>
+            The first name <span concordion:assertTrue="#firstName.startsWith(#letter)">starts 
+            with <b concordion:set="#letter">B</b></span>.
+        </p>
+    </div>
+
+</body>
+</html>
+}}}
