@@ -3,24 +3,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                       http://maven.apache.org/maven-v4_0_0.xsd">
-	<!--
-		~ The build instructions given were:
-		~
-		~ Usage:
-		~
-		~ mvn clean install
-		~
-		~
-		~ Creating an ibiblio upload bundle :
-		~
-		~ Main instructions here: http://maven.apache.org/guides/mini/guide-central-repository-upload.html
-		~
-		~ mvn source:jar repository:bundle-create
-		~
-		~ When you are all done, open a JIRA upload request (http://jira.codehaus.org/browse/MAVENUPLOAD)
-		~ attaching the file target/concordion-<version>-bundle.jar
-		~
-	-->
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.concordion</groupId>
 	<artifactId>concordion</artifactId>
@@ -173,10 +155,11 @@
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
 					<descriptorRefs>
-						<descriptorRef>
-							jar-with-dependencies
-						</descriptorRef>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
+					<descriptors>
+						<descriptor>src/main/assembly/distribution.xml</descriptor>
+					</descriptors>
 				</configuration>
 				<executions>
 					<execution>
