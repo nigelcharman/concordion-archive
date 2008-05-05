@@ -61,4 +61,4 @@
   * Add code coverage to build (see http://mojo.codehaus.org/cobertura-maven-plugin)
     * Execute {{{mvn clean test site}}} and open {{{target/site/cobertura/index.html}}}
   * Command: echo (evaluates an expression and inserts result into the output. This will be easy and useful)
-    * See revision 20 in SVN
+    * See [http://code.google.com/p/concordion/source/detail?r=20 revision 20 in SVN]
