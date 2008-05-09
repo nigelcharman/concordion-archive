@@ -2,16 +2,9 @@
 
 = Feature Ideas =
 
-== _I cannot live without it_ ideas (important and urgent) ==
-
-== _It would be very useful_ ideas (important) ==
-
-== _I really need it (but I still have a workaround)_ ideas (urgent) ==
-
-== _It would be nice_ (not important or urgent) ==
-
-== Not yet classified ideas ==
-
+  * Add these feature ideas as "Issues" instead of writing them here...
+  * Type adapters
+  * Merge XCordion ideas into Concordion
   * Give a priority to all these ideas (maybe use the _issues_ tab for this would be better)
   * Support for IntelliJ IDEA projects
   * Copy referenced resources (e.g. images, stylesheets) to the output directory.
@@ -54,11 +47,14 @@
   * Multiple root objects to provide the ability to add (mix-in) several "fittings" to remove duplication of code across fixtures. E.g. {{{public void setUp() { add(new PersonFitting()); } }}}
   * Maven plugin for customized options instead of general Surefire settings
 
-== Already done ideas ==
+== 1.3.0 ==
 
   * Upload onto Maven repositories (see http://maven.apache.org/repository/index.html)
     * http://tech.groups.yahoo.com/group/concordion/message/64
   * Add code coverage to build (see http://mojo.codehaus.org/cobertura-maven-plugin)
     * Execute {{{mvn clean test site}}} and open {{{target/site/cobertura/index.html}}}
+
+== 1.3.1 ==
+
   * Command: echo (evaluates an expression and inserts result into the output. This will be easy and useful)
     * See [http://code.google.com/p/concordion/source/detail?r=20 revision 20 in SVN]
