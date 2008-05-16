@@ -6,7 +6,6 @@
   * Type adapters
   * Merge XCordion ideas into Concordion
   * Give a priority to all these ideas (maybe use the _issues_ tab for this would be better)
-  * Support for IntelliJ IDEA projects (Do we need anything more appart from Maven support?)
   * Copy referenced resources (e.g. images, stylesheets) to the output directory.
   * Reduce the embedded CSS to a minimal set (just enough to support successes / failures / stack trace toggling).
   * Write a realistic sample application (e.g. a blog) using the tool and the approach.
