@@ -8,9 +8,10 @@
   * Give a priority to all these ideas (maybe use the _issues_ tab for this would be better)
   * Copy referenced resources (e.g. images, stylesheets) to the output directory.
   * Reduce the embedded CSS to a minimal set (just enough to support successes / failures / stack trace toggling).
-  * Write a realistic sample application (e.g. a blog) using the tool and the approach.
+  * Write a realistic sample application using the tool and the approach.
     * a blog
     * a product catalog (that can evolve later to a shop or something else)
+    * a standard pet-store e.g. [http://ibatis.apache.org/overview.html iBatis JPetstore]
     * _any more ideas?_
   * Support TestNG
   * Some means (an annotation perhaps?) for saying "This test is supposed to fail"
