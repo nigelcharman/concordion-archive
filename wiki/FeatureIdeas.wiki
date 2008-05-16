@@ -6,10 +6,13 @@
   * Type adapters
   * Merge XCordion ideas into Concordion
   * Give a priority to all these ideas (maybe use the _issues_ tab for this would be better)
-  * Support for IntelliJ IDEA projects
+  * Support for IntelliJ IDEA projects (Do we need anything more appart from Maven support?)
   * Copy referenced resources (e.g. images, stylesheets) to the output directory.
   * Reduce the embedded CSS to a minimal set (just enough to support successes / failures / stack trace toggling).
   * Write a realistic sample application (e.g. a blog) using the tool and the approach.
+    * a blog
+    * a product catalog (that can evolve later to a shop or something else)
+    * _any more ideas?_
   * Support TestNG
   * Some means (an annotation perhaps?) for saying "This test is supposed to fail"
   * Provide an #HREF variable to provide access to the href of <a> elements.
@@ -45,7 +48,14 @@
     * [http://en.wikipedia.org/wiki/OpenDocument ODF]
     * RSS/Atom
   * Multiple root objects to provide the ability to add (mix-in) several "fittings" to remove duplication of code across fixtures. E.g. {{{public void setUp() { add(new PersonFitting()); } }}}
-  * Maven plugin for customized options instead of general Surefire settings
+  * Maven plugin for:
+    * customized options instead of general Surefire settings
+    * generating an index.html for every test suite run by Concordion and link all together
+
+== 1.3.1 ==
+
+  * Command: echo (evaluates an expression and inserts result into the output. This will be easy and useful)
+    * See [http://code.google.com/p/concordion/source/detail?r=20 revision 20 in SVN]
 
 == 1.3.0 ==
 
@@ -53,8 +63,3 @@
     * http://tech.groups.yahoo.com/group/concordion/message/64
   * Add code coverage to build (see http://mojo.codehaus.org/cobertura-maven-plugin)
     * Execute {{{mvn clean test site}}} and open {{{target/site/cobertura/index.html}}}
-
-== 1.3.1 ==
-
-  * Command: echo (evaluates an expression and inserts result into the output. This will be easy and useful)
-    * See [http://code.google.com/p/concordion/source/detail?r=20 revision 20 in SVN]
