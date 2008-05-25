@@ -40,10 +40,10 @@ The goal `test` is the command to the surefire plugin that executes the tests.
 			<configuration>
 				<skip>false</skip>
 				<includes>
-					<include>**/*Test.class</include>
+					<include>**/*Test.java</include>
 				</includes>
 				<excludes>
-					<exclude>spec/**Test.class</exclude>
+					<exclude>**/spec/**/*Test.java</exclude>
 					<exclude>**/Abstract*</exclude>
 				</excludes>
 			</configuration>
@@ -60,10 +60,9 @@ With skip = false I'm saying surefire to execute with this configuration: includ
 			<configuration>
 				<skip>false</skip>
 				<includes>
-					<include>spec/**Test.java</include>
+					<include>**/spec/**/*Test.java</include>
 				</includes>
 				<excludes>
-					<exclude>**/*Test.java</exclude>
 					<exclude>**/Abstract*</exclude>
 				</excludes>
 			</configuration>
@@ -74,3 +73,8 @@ Similar to the execution `unit-test`, the execution `acceptance-test` executes t
 	</executions>
 </plugin>
 }}}
+
+
+  * When I want to execute only the unit-tests, I run "mvn clean test".
+  * When I want to execute both unit and acceptance-tests, I run "mvn clean integration-test"
+  * If I want to run only the acceptance-tests, I change the flag skip = false to true.
