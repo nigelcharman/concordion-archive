@@ -1,0 +1,14 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<link href="../../../concordion.css" rel="stylesheet" type="text/css" />
+<body>
+
+    <h1>Type Adapter Motivating Example</h1>
+
+    <p>
+        The minimum delivery charge is $10.00.  For example, even if the total cost of an order is
+        $<span concordion:set="#orderTotal">0.01</span>, the delivery charge will be
+        $<span concordion:assertEquals="deliveryChargeFor(#orderTotal)">10.00</span>.
+    </p>
+
+</body>
+</html>
