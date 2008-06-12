@@ -11,6 +11,7 @@ import org.concordion.api.SpecificationReader;
 import org.concordion.api.Target;
 import org.concordion.internal.command.AssertEqualsCommand;
 import org.concordion.internal.command.AssertEqualsListener;
+import org.concordion.internal.command.AssertFalseCommand;
 import org.concordion.internal.command.AssertTrueCommand;
 import org.concordion.internal.command.EchoCommand;
 import org.concordion.internal.command.ExecuteCommand;
@@ -48,6 +49,7 @@ public class ConcordionBuilder {
     private SpecificationCommand specificationCommand = new SpecificationCommand();
     private AssertEqualsCommand assertEqualsCommand = new AssertEqualsCommand();
     private AssertTrueCommand assertTrueCommand = new AssertTrueCommand();
+    private AssertFalseCommand assertFalseCommand = new AssertFalseCommand();
     private ExecuteCommand executeCommand = new ExecuteCommand();
     private VerifyRowsCommand verifyRowsCommand = new VerifyRowsCommand();
     private EchoCommand echoCommand = new EchoCommand();
@@ -62,11 +64,13 @@ public class ConcordionBuilder {
         withApprovedCommand(NAMESPACE_CONCORDION_2007, "set", new SetCommand());
         withApprovedCommand(NAMESPACE_CONCORDION_2007, "assertEquals", assertEqualsCommand);
         withApprovedCommand(NAMESPACE_CONCORDION_2007, "assertTrue", assertTrueCommand);
+        withApprovedCommand(NAMESPACE_CONCORDION_2007, "assertFalse", assertFalseCommand);
         withApprovedCommand(NAMESPACE_CONCORDION_2007, "verifyRows", verifyRowsCommand);
         withApprovedCommand(NAMESPACE_CONCORDION_2007, "echo", echoCommand);
         
         assertEqualsCommand.addAssertEqualsListener(new AssertEqualsResultRenderer());
         assertTrueCommand.addAssertEqualsListener(new AssertEqualsResultRenderer());
+        assertFalseCommand.addAssertEqualsListener(new AssertEqualsResultRenderer());
         verifyRowsCommand.addVerifyRowsListener(new VerifyRowsResultRenderer());
         documentParser.addDocumentParsingListener(new DocumentStructureImprover());
         String stylesheetContent = IOUtil.readResourceAsString(EMBEDDED_STYLESHEET_RESOURCE);
