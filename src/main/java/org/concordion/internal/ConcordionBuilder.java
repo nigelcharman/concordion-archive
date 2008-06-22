@@ -16,6 +16,7 @@ import org.concordion.internal.command.AssertTrueCommand;
 import org.concordion.internal.command.EchoCommand;
 import org.concordion.internal.command.ExecuteCommand;
 import org.concordion.internal.command.LocalTextDecorator;
+import org.concordion.internal.command.RunCommand;
 import org.concordion.internal.command.SetCommand;
 import org.concordion.internal.command.SpecificationCommand;
 import org.concordion.internal.command.ThrowableCatchingDecorator;
@@ -51,6 +52,7 @@ public class ConcordionBuilder {
     private AssertTrueCommand assertTrueCommand = new AssertTrueCommand();
     private AssertFalseCommand assertFalseCommand = new AssertFalseCommand();
     private ExecuteCommand executeCommand = new ExecuteCommand();
+    private RunCommand runCommand = new RunCommand();
     private VerifyRowsCommand verifyRowsCommand = new VerifyRowsCommand();
     private EchoCommand echoCommand = new EchoCommand();
     private File baseOutputDir;
@@ -60,6 +62,7 @@ public class ConcordionBuilder {
         throwableListenerPublisher.addThrowableListener(new ThrowableRenderer());
         
         withApprovedCommand("", "specification", specificationCommand);
+        withApprovedCommand(NAMESPACE_CONCORDION_2007, "run", runCommand);
         withApprovedCommand(NAMESPACE_CONCORDION_2007, "execute", executeCommand);
         withApprovedCommand(NAMESPACE_CONCORDION_2007, "set", new SetCommand());
         withApprovedCommand(NAMESPACE_CONCORDION_2007, "assertEquals", assertEqualsCommand);
