@@ -46,6 +46,30 @@ public class SimpleEvaluatorTest extends TestCase {
     public int square(int x) {
         return x * x;
     }
+    
+    public Outer getOuter() {
+        return new Outer();
+    }
+    
+    public class Outer {
+        private Inner inner;
+        public Outer() {
+            inner = new Inner();
+        }
+        public Inner getInner() {
+            return inner;
+        }
+        public class Inner {
+            public int getValue() {
+                return 1;
+            }
+        }
+    }
+    
+    public void testAccessInnerVariable() {
+        evaluator.setVariable("#result", this);
+        assertEquals(1, evaluator.evaluate("#result.outer.inner.value"));
+    }
 
     public void testEvaluationsCanCreateVariables() throws Exception {
         evaluator.setVariable("#x", "10");
