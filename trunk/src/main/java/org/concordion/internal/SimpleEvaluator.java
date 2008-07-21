@@ -29,25 +29,7 @@ public class SimpleEvaluator extends OgnlEvaluator {
     
     public static void validateEvaluationExpression(String expression) {
         
-        // myProp
-        // myMethod()
-        // myMethod(#var1)
-        // myMethod(#var1, #var2)
-        // #var
-        // #var.myProp
-        // #var.myProp.myProp
-        // #var = myProp
-        // #var = myMethod()
-        // #var = myMethod(#var1)
-        // #var = myMethod(#var1, #var2)
-        // #var ? 's1' : 's2'
-        // myProp ? 's1' : 's2'
-        // myMethod() ? 's1' : 's2'
-        // myMethod(#var1) ? 's1' : 's2'
-        // myMethod(#var1, #var2) ? 's1' : 's2'
-        // #var.myMethod()
-        // #var.myMethod(#var1)
-        // #var.myMethod(#var1, #var2)
+        // Examples of possible expressions in test.concordion.internal.ExpressionTest
         
         String METHOD_CALL_PARAMS = METHOD_NAME_PATTERN + " *\\( *" + RHS_VARIABLE_PATTERN + "(, *" + RHS_VARIABLE_PATTERN + " *)*\\)";
         String METHOD_CALL_NO_PARAMS = METHOD_NAME_PATTERN + " *\\( *\\)";
@@ -58,7 +40,7 @@ public class SimpleEvaluator extends OgnlEvaluator {
         regexs.add(METHOD_CALL_NO_PARAMS);
         regexs.add(METHOD_CALL_PARAMS);
         regexs.add(RHS_VARIABLE_PATTERN);
-        regexs.add(LHS_VARIABLE_PATTERN + "\\." + PROPERTY_NAME_PATTERN);
+        regexs.add(LHS_VARIABLE_PATTERN + "(\\." + PROPERTY_NAME_PATTERN +  ")+");
         regexs.add(LHS_VARIABLE_PATTERN + " *= *" + PROPERTY_NAME_PATTERN);
         regexs.add(LHS_VARIABLE_PATTERN + " *= *" + METHOD_CALL_NO_PARAMS);
         regexs.add(LHS_VARIABLE_PATTERN + " *= *" + METHOD_CALL_PARAMS);
