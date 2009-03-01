@@ -3,20 +3,18 @@ package test.concordion.internal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.io.File;
 import java.io.IOException;
 
 import nu.xom.Document;
 import nu.xom.Nodes;
 
-import org.apache.commons.io.FileUtils;
 import org.concordion.Concordion;
 import org.concordion.api.Resource;
 import org.concordion.api.ResultSummary;
 import org.concordion.internal.ConcordionBuilder;
 import org.concordion.internal.XMLParser;
+import org.concordion.internal.util.IOUtil;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import test.concordion.StubSource;
@@ -29,7 +27,6 @@ public class ConcordionTest {
 
 	private static final String NON_EXISTING_RESOURCE = "/does/not/exist";
 	private static final String DUMMY_RESOURCE = "/mytest";
-	private static final String BASEPATH = "src/test/resources/test/concordion/internal/";
 
 	@Before
 	public void setUp() {
@@ -88,7 +85,8 @@ public class ConcordionTest {
 		Concordion concordion = createConcordion(source, target);
 		
 		Object fixture = new Object() {
-			public String getGreeting() {
+			@SuppressWarnings("unused")
+            public String getGreeting() {
 				return "Hello Bo!";
 			}
 		};
@@ -110,12 +108,6 @@ public class ConcordionTest {
 			assertEquals("Hello Bo!", failures.get(0).query(
 					"ins[@class='actual']").get(0).getValue());
 		}
-	}
-	
-	@Ignore
-	@Test
-	public void testProcessException() {
-		
 	}
 
 	@Test
@@ -191,9 +183,7 @@ public class ConcordionTest {
 	}
 
 	private void addDocumentToSource(String fileName, String resourceName) throws IOException {
-		String document = FileUtils.readFileToString(new File(BASEPATH
-				+ fileName));
+		String document = IOUtil.readResourceAsString("/test/concordion/internal/" + fileName);
 		source.addResource(resourceName, document);
 	}
-
 }
