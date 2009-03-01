@@ -15,6 +15,7 @@ public class SpikeTest extends ConcordionTestCase {
         
     }
     
+    @SuppressWarnings("serial")
     public Collection<Person> getPeople() {
         return new ArrayList<Person>() {{
             add(new Person("John", "Travolta"));
