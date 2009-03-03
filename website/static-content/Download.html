@@ -31,27 +31,47 @@
 <h1>Download</h1>
 
 
-<h2>Latest Release Candidate: 1.3.1-RC3 &nbsp; (01-Mar-2009)</h2>
+<h2>Latest Release Candidate: 1.3.1-RC4 &nbsp; (03-Mar-2009)</h2>
 
 <ul>
-    <li><a href="dist/1.3.1-RC3/concordion-1.3.1-RC3.zip">concordion-1.3.1-RC3.zip</a>
+    <li><a href="dist/1.3.1-RC4/concordion-1.3.1-RC4.zip">concordion-1.3.1-RC4.zip</a>
     (full distribution including source code and all dependencies)</li>
     <li>Requires: Java 1.5 or above</li>
 
-    <li>New command: <a href="dist/1.3.1-RC3/test-output/concordion/spec/concordion/command/run/Run.html"><b>concordion:run</b></a>
+    <li>New command: <b>concordion:run</b>
     (contributed by Stein Kåre Skytteren) lets you link to another specification and run it,
-    displaying the link's background in green / red appropriately.
+    displaying the link's background in green / red / gray as appropriate.
 
     You might use this to create a page containing a list of all the acceptance tests
     for a feature, in a similar way you would use a JUnit test suite.
+    [<a href="dist/1.3.1-RC4/test-output/concordion/spec/concordion/command/run/Run.html">More details</a>]
     </li>
 
     <li>Upgraded to support <a class="externalLink" href="http://www.junit.org/">JUnit 4.5</a>.</li>
 
     <li>Special variable <code>"#HREF"</code> provides access to href attribute for a link. This
         can be used when you want to reference test data from a specification.
-        (<a href="dist/1.3.1-RC3/test-output/concordion/spec/concordion/command/execute/AccessToLinkHref.html">Example</a>)
+        [<a href="dist/1.3.1-RC4/test-output/concordion/spec/concordion/command/execute/AccessToLinkHref.html">More details</a>]
     </li>
+
+    <li>Annotations (@ExpectedToPass, @ExpectedToFail, and @Unimplemented) to allow
+    partially-completed specifications to be executed as part of the build without
+    breaking it. [<a href="dist/1.3.1-RC4/test-output/concordion/spec/concordion/annotation/Annotation.html">More details</a>]
+
+<pre class="java">
+import org.concordion.api.ExpectedToFail;
+import org.concordion.integration.junit3.ConcordionTestCase;
+
+<b>@ExpectedToFail</b>
+public class GreetingTest extends ConcordionTestCase {
+
+   public String greetingFor(String firstName) {
+        ...
+   }
+</pre>
+
+    </li>
+
 
     <li><b>Please feedback any questions / issues to the <a class="externalLink" href="http://tech.groups.yahoo.com/group/concordion/join">mailing list</a>.</b></p>
 
