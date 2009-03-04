@@ -16,15 +16,15 @@
   * Looping
   * Warning if encounter attribute on Concordion namespace that is not supported, i.e. catch typos.
   * Improve XML parsing error messages (e.g. show context)
-  * Improve rendering of failures & exceptions on <b> or <strong> (Don't want the whole message to be in bold). Similarly: <em> and <i>
+  * Improve rendering of failures &amp; exceptions on &lt;b&gt; or &lt;strong&gt; (Don't want the whole message to be in bold). Similarly: &lt;em&gt; and &lt;i&gt;
   * Print console "(Expected)" after an expected test failure
   * Detect broken links
   * assertEquals nested actions
-  * Catch common mistakes and provide useful messages (e.g. Prevent "execute" on <tr><th> row Common mistake to put execute on <tr> instead of <table>)
+  * Catch common mistakes and provide useful messages (e.g. Prevent "execute" on &lt;tr&gt;&lt;th&gt; row Common mistake to put execute on &lt;tr&gt; instead of &lt;table&gt;)
   * Do a screencast (see http://www.debugmode.com/wink/)
   * Commands on detail rows should override commands on header rows
   * Allow the user to supply the failure text for assertTrue
-  * Improved exceptions on <a> elements
+  * Improved exceptions on &lt;a&gt; elements
   * Command: include
   * Ability to create lists of objects from tables E.g. in command/exception/Exception.html
   * Allow sections of the document to be marked "expected to fail"
@@ -32,12 +32,12 @@
   * Improve handling of row-level exceptions (should be XHTML compliant)
   * Detect and prevent child tags where not reachable
   * For exceptions, display the values of relevant variables
-  * forEach: Support lists <ol> and <ul>
+  * forEach: Support lists &lt;ol&gt; and &lt;ul&gt;
   * assertEquals: Show diffs within a string
   * Shortcut for  "set" variable = camel case heading
   * forEach: Support arrays
   * Log a debug transcript
-  * Improve stack traces inside <pre> elements Could use !important to set font family
+  * Improve stack traces inside &lt;pre&gt; elements Could use !important to set font family
   * Support colspan
   * Export formats:
     * PDF
@@ -51,7 +51,7 @@
 == 1.3.1-RC4 ==
 
   * Some means (an annotation perhaps?) for saying "This test is supposed to fail"
-  * Provide an #HREF variable to provide access to the href of <a> elements.
+  * Provide an #HREF variable to provide access to the href of &lt;a&gt; elements.
   * Command: echo (evaluates an expression and inserts result into the output. This will be easy and useful)
     * See [http://code.google.com/p/concordion/source/detail?r=20 revision 20 in SVN]
 
