@@ -16,7 +16,6 @@
   * Warning if encounter attribute on Concordion namespace that is not supported, i.e. catch typos.
   * Improve XML parsing error messages (e.g. show context)
   * Improve rendering of failures & exceptions on {{{<b>}}} or {{{<strong>}}} (Don't want the whole message to be in bold). Similarly: {{{<em>}}} and {{{<i>}}}
-  * Print console "(Expected)" after an expected test failure
   * Detect broken links
   * assertEquals nested actions
   * Catch common mistakes and provide useful messages (e.g. Prevent "execute" on {{{<tr>}}}{{{<th>}}} row Common mistake to put execute on {{{<tr>}}} instead of {{{<table>}}})
@@ -51,6 +50,7 @@
 == 1.3.1-RC4 ==
 
   * Some means (an annotation perhaps?) for saying "This test is supposed to fail"
+  * Print console "(Expected)" after an expected test failure
   * Provide an #HREF variable to provide access to the href of {{{<a>}}} elements.
   * Command: echo (evaluates an expression and inserts result into the output. This will be easy and useful)
     * See [http://code.google.com/p/concordion/source/detail?r=20 revision 20 in SVN]
