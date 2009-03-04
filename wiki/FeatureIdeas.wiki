@@ -16,7 +16,6 @@
     * Improve rendering of failures & exceptions on {{{<b>}}} or {{{<strong>}}} (Don't want the whole message to be in bold). Similarly: {{{<em>}}} and {{{<i>}}}
     * Detect broken links
     * Catch common mistakes and provide useful messages (e.g. Prevent "execute" on {{{<tr>}}}{{{<th>}}} row Common mistake to put execute on {{{<tr>}}} instead of {{{<table>}}})
-    * Improved exceptions on {{{<a>}}} elements
     * For exceptions, display the values of relevant variables
     * Detect and prevent child tags where not reachable
     * Improve stack traces inside {{{<pre>}}} elements Could use !important to set font family
@@ -46,8 +45,9 @@
     * generating an index.html for every test suite run by Concordion and link all together
   * Mark fixture methods as @Unimplemented and display results on the output appropriately (e.g. gray background?)
 
-== 1.3.1-RC4 ==
+== 1.3.1-RC5 ==
 
+  * Improved exceptions on {{{<a>}}} elements (no longer prints stack-trace within the link)
   * Story pages that automatically run child tests and report success / failure. Perhaps a new "runTest" command?
   * Some means (an annotation perhaps?) for saying "This test is supposed to fail"
   * Print console "(Expected)" after an expected test failure
