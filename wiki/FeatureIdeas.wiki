@@ -7,7 +7,6 @@
     * a standard pet-store e.g. [http://ibatis.apache.org/overview.html iBatis JPetstore]
     * _any more ideas?_
   * Support TestNG
-  * Story pages that automatically run child tests and report success / failure. Perhaps a new "runTest" command?
   * Looping
   * Warning if encounter attribute on Concordion namespace that is not supported, i.e. catch typos.
   * Improve XML parsing error messages (e.g. show context)
@@ -45,6 +44,7 @@
 
 == 1.3.1-RC4 ==
 
+  * Story pages that automatically run child tests and report success / failure. Perhaps a new "runTest" command?
   * Some means (an annotation perhaps?) for saying "This test is supposed to fail"
   * Print console "(Expected)" after an expected test failure
   * Provide an #HREF variable to provide access to the href of {{{<a>}}} elements.
