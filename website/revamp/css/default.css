@@ -2,17 +2,24 @@ body {
   background-color: #b7b7b0;
   margin-top: 20px;
 }
-p {
-  font-family: Arial;
+* {
+  line-height: 145%;
+}
+p, li, td, th, h1, h2, h3, h4 {
+  font-family: Arial, Helvetica, SansSerif;
+}
+p, code, pre, li, td, th, h4 {
+  font-size: 10pt;  
 }
 .page {
-  background-color: white;
+  background-color: #fcfcfa;
   width: 896px;
   margin: 0 auto;
   min-height: 800px;
 }
-.header {
-  margin: 0px 64px 0px 64px;
+.content {
+  margin: 0px 64px 64px 64px;
+
 }
 .copyright {
     width: 850px;
