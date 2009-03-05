@@ -1,0 +1,26 @@
+body {
+  background-color: #b7b7b0;
+  margin-top: 20px;
+}
+p {
+  font-family: Arial;
+}
+.page {
+  background-color: white;
+  width: 896px;
+  margin: 0 auto;
+  min-height: 800px;
+}
+.header {
+  margin: 0px 64px 0px 64px;
+}
+.copyright {
+    width: 850px;
+    margin: 0 auto;
+    text-align: right;
+    padding: 4px;
+}
+.copyright * {
+    font-size: 10pt;
+    color: #333;
+}
