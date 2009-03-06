@@ -5,10 +5,13 @@ body {
 * {
   line-height: 145%;
 }
-p, li, td, th, h1, h2, h3, h4 {
+p, li, td, th, h1, h2, h3, h4, .copyright {
   font-family: Arial, Helvetica, SansSerif;
 }
-p, code, pre, li, td, th, h4 {
+p, li, td, th, h4 {
+  font-size: 11pt;  
+}
+code, pre {
   font-size: 10pt;  
 }
 .page {
@@ -18,16 +21,14 @@ p, code, pre, li, td, th, h4 {
   min-height: 800px;
 }
 .content {
-  margin: 0px 64px 64px 64px;
+  margin: 0px 64px 4px 64px;
 
 }
 .copyright {
-    width: 850px;
-    margin: 0 auto;
+    width: 889px;
+    margin: 0px auto 0px auto;
     text-align: right;
     padding: 4px;
-}
-.copyright * {
-    font-size: 10pt;
+    font-size: 9pt;
     color: #333;
 }
