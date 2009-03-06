@@ -26,9 +26,11 @@ code, pre {
 }
 .copyright {
     width: 889px;
-    margin: 0px auto 0px auto;
+    margin: 0px auto;
     text-align: right;
     padding: 4px;
+}
+.copyright, .copyright * {
     font-size: 9pt;
     color: #333;
 }
