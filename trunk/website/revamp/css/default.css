@@ -16,16 +16,16 @@ code, pre {
 }
 .page {
   background-color: #fcfcfa;
-  width: 896px;
+  width: 916px;
   margin: 0 auto;
-  min-height: 800px;
+  min-height: 690px;
 }
 .content {
   margin: 0px 64px 4px 64px;
 
 }
 .copyright {
-    width: 889px;
+    width: 909px;
     margin: 0px auto;
     text-align: right;
     padding: 4px;
