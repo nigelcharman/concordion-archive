@@ -16,16 +16,16 @@ code, pre {
 }
 .page {
   background-color: #fcfcfa;
-  width: 916px;
+  width: 966px;
   margin: 0 auto;
   min-height: 690px;
 }
 .content {
   margin: 0px 64px 4px 64px;
-
+  padding-top: 20px;
 }
 .copyright {
-    width: 909px;
+    width: 959px;
     margin: 0px auto;
     text-align: right;
     padding: 4px;
@@ -33,4 +33,26 @@ code, pre {
 .copyright, .copyright * {
     font-size: 9pt;
     color: #333;
+}
+.header {
+  padding: 0px 64px 44px 64px;
+  border-bottom: 2px solid #e6e6dd;
+  background-color: white;
+}
+.openSourceLogo {
+  margin-top: 38px;
+  float: right;
+}
+.keyPoint {
+  font-size: 13pt;
+  font-weight: bold;
+  display: block;
+}
+.sidePanel {
+  float: right;
+  background-color: white;
+  width: 368px;
+  height: 350px;
+  margin: 28px 0px 64px 64px;
+  border: 2px solid #e6e6dd;
 }
