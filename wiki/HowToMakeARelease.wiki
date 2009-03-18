@@ -42,7 +42,12 @@ Maven will ask again for the versions (you can avoid asking again by not using r
 
 If something goes wrong, you can rollback using `mvn release:rollback`.
 
+= Create the bundle =
+
+`mvn release:perform`
+
+This command will checkout the project from the tag and will execute the following goals: install source:jar javadoc:jar repository:bundle-create. Instead of the default (deploy site-deploy). See maven-release-plugin configuration in the pom.xml.
 
 = Not automated yet =
 
-We still need to create the bundle and upload it to the [http://code.google.com/p/concordion/downloads/list Download area] of this site in order to request the deployment in the Maven Central Repository as explained in [http://maven.apache.org/guides/mini/guide-central-repository-upload.html Maven documentation].
+We still need to upload manually the bundle to the [http://code.google.com/p/concordion/downloads/list Download area] of this site in order to request in JIRA the deployment in the Maven Central Repository as explained in [http://maven.apache.org/guides/mini/guide-central-repository-upload.html Maven documentation].
