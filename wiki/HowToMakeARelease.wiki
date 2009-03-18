@@ -51,3 +51,17 @@ This command will checkout the project from the tag and will execute the followi
 = Not automated yet =
 
 We still need to upload manually the bundle to the [http://code.google.com/p/concordion/downloads/list Download area] of this site in order to request in JIRA the deployment in the Maven Central Repository as explained in [http://maven.apache.org/guides/mini/guide-central-repository-upload.html Maven documentation].
+
+= Request in JIRA =
+
+http://jira.codehaus.org/secure/CreateIssue.jspa?pid=10367&issuetype=5
+
+and fill the fields with:
+
+*Summary:* Concordion 1.3.1-RC5 bundle to upload in Maven Central Repo
+
+*Bundle URL:* http://concordion.googlecode.com/files/concordion-1.3.1-RC5-bundle.jar
+
+*Project URL:* http://www.concordion.org
+
+*Contributor URL:* _It depends, in my case http://jmbeas.blogspot.com _
