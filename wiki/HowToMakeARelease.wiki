@@ -8,3 +8,7 @@ By executing `mvn release:prepare ` we get:
   # a revision in the trunk without -SNAPSHOT
   # a tag named concordion-"version"
   # a revision in the trunk with the new version plus -SNAPSHOT
+
+== Pre-conditions == 
+
+All the changes have to be committed to SVN.
