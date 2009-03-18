@@ -1,0 +1,10 @@
+#summary How to make a release of Concordion
+
+= Introduction =
+
+Using [http://maven.apache.org Maven] and [http://maven.apache.org/plugins/maven-release-plugin maven-release-plugin] we can automate part of the process of a release.
+
+By executing `mvn release:prepare ` we get:
+  # a revision in the trunk without -SNAPSHOT
+  # a tag named concordion-"version"
+  # a revision in the trunk with the new version plus -SNAPSHOT
