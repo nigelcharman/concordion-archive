@@ -19,8 +19,8 @@ h2 {
   font-size: 18pt;
 }
 .content {
-  background: url("image/girl-quote.png") no-repeat;
-  background-position: 410px 50px;
+  xbackground: url("image/girl-quote.png") no-repeat;
+  xbackground-position: 410px 50px;
   background-color: #fcfcfa !important;
 }
 
@@ -56,9 +56,31 @@ h2 {
 
 
 <p class="subtext" style="margin: 20px 0px 40px 0px; font-size: 20pt">
-    Concordion is an open source tool for writing automated
-    <br />acceptance tests in Java.
+    Concordion is an open source tool for writing
+    <br />automated acceptance tests in Java.
 </p>
+
+
+
+<style>
+.miniQuote {
+  float: right;
+  width: 250px;
+  background-color: white;
+  font-size: 19pt;
+  padding: 20px 0px 20px 29px;
+  border: 2px solid #e6e6dd;
+  border-bottom: 4px solid #4a4;
+  font-family: Georgia, Times, Serif;
+}
+.miniQuote * {
+  line-height: 19pt;
+}
+</style>
+
+<div class="miniQuote">
+<span style="font-size: 24pt">&#8220;</span>It's similar to the Fit&#160;Framework but a&#160;lot more intuitive.<span style="font-size: 24pt">&#8221;</span>
+</div>
 
 
 <h1 style="margin-bottom: 0px; font-size: 17pt; border-bottom : 1px dotted black; padding-bottom: 6px; width: 320px">Key Features</h1>
@@ -77,7 +99,7 @@ Concordion integrates <i>directly</i> with JUnit.
 <span class="keyPoint">Highly readable tests</span>
 Concordion acceptance tests are so readable they can double up
 as system documentation. And, since the tests are linked
-to the system, you know the documentation is always up-to-date.
+to the system, you&#160;know the documentation is always up-to-date.
 </p>
 </li>
 
