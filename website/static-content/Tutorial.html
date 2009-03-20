@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -6,6 +6,7 @@
 <title>Concordion - Tutorial</title>
 <link media="all" rel="stylesheet" type="text/css" href="css/default.css"/>
 <link media="print"  rel="stylesheet" type="text/css" href="css/print.css"/>
+<link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico" />
 <style>
 code a {
   font-family: Courier New, Courier, Monospace;
@@ -37,16 +38,31 @@ h3 {
 </head>
 <body>
 
-<div class="outerPage">
 <div class="page">
 
-    <div class="logo">
-        <a href="/"><img border="0" src="image/shared/LogoSmall.png" alt="Concordion Logo"/></a>
-    </div>
+<div class="header">
 
-    <div class="breadcrumbs">
-        <a href="/">Home</a> &gt;
-    </div>
+    <img class="open-source-logo" src="image/opensource-110x95.png"
+        alt="Open source (Apache 2.0 license)" />
+    <img src="image/front-page-banner.png"
+        alt="Concordion is a simple, but powerful, agile acceptance testing tool for Java." />
+
+</div><!-- header -->
+
+<div class="menuBar">
+
+<ul class="menu">
+  <li><a href="/">Home</a></li>
+  <li><a href="Example.html">Screenshots</a></li>
+  <li class="selectedTab"><a href="Tutorial.html">Getting Started</a></li>
+  <li><a href="Technique.html">Hints and Tips</a></li>
+  <li><a href="Download.html">Download</a></li>
+  <li><a href="Questions.html">FAQ</a></li>
+</ul>
+
+</div><!-- menuBar  -->
+
+<div class="content">
 
     <div class="languageSelector">
         <center>
@@ -1027,20 +1043,14 @@ public class PartialMatchesTest extends ConcordionTestCase {
 </p>
 
 
-</div> <!--  page -->
-</div> <!--  outerPage -->
+</div> <!-- content -->
+
+</div> <!-- page -->
 
 <div class="copyright">
-    <p><a href="PrivacyPolicy.html">Privacy Policy</a> &nbsp; |
-     &nbsp; Copyright &copy; 2007-2008 David Peterson. All rights reserved.</p>
-</div>
+ &nbsp; Copyright &copy; 2007-2009
+ <a href="http://www.davidpeterson.co.uk">David Peterson</a>. All rights reserved.
+</div> <!-- copyright -->
 
-
-<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
-</script>
-<script type="text/javascript">
-_uacct = "UA-2892312-1";
-urchinTracker();
-</script>
 </body>
 </html>

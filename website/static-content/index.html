@@ -6,51 +6,98 @@
 <title>Concordion</title>
 <link media="all" rel="stylesheet" type="text/css" href="css/default.css"/>
 <link media="print"  rel="stylesheet" type="text/css" href="css/print.css"/>
+<link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico" />
 <style>
-pre {
-  width: 650px;
+.subtext {
+  font-size: 13pt;
 }
-.meaning {
-  margin-bottom: 10px;
+.keyBenefits p {
+  font-size: 11pt;
+  width: 480px;
 }
-.page {
- padding-top: 40px;
+h2 {
+  font-size: 18pt;
 }
+.content {
+  background: url("image/girl-quote.png") no-repeat;
+  background-position: 410px 50px;
+  background-color: #fcfcfa !important;
+}
+
 </style>
 </head>
 <body>
 
-
-<div class="outerPage">
-<div class="banner">
-    <div style="float: right; width: 208px">
-<div><a href="Tutorial.html"><img id="banner" alt="Tutorial" border="0" src="image/frontpage/Tutorial.png"/></a></div>
-<div><a href="Download.html"><img id="banner" alt="Download" border="0" src="image/frontpage/Download.png"/></a></div>
-<div><a href="Technique.html"><img id="banner" alt="Technique" border="0" src="image/frontpage/Technique.png"/></a></div>
-<div><a href="Questions.html"><img id="banner" alt="FAQ" border="0" src="image/frontpage/FAQ.png"/></a></div>
-    </div>
-    <img id="banner" border="0" src="image/frontpage/LogoBanner.png"/>
-</div>
 <div class="page">
+
+<div class="header">
+
+    <img class="open-source-logo" src="image/opensource-110x95.png"
+        alt="Open source (Apache 2.0 license)" />
+    <img src="image/front-page-banner.png"
+        alt="Concordion is a simple, but powerful, agile acceptance testing tool for Java." />
+
+</div><!-- header -->
+
+<div class="menuBar">
+
+<ul class="menu">
+  <li class="selectedTab"><a href="/">Home</a></li>
+  <li><a href="Example.html">Screenshots</a></li>
+  <li><a href="Tutorial.html">Getting Started</a></li>
+  <li><a href="Technique.html">Hints and Tips</a></li>
+  <li><a href="Download.html">Download</a></li>
+  <li><a href="Questions.html">FAQ</a></li>
+</ul>
+
+</div><!-- menuBar  -->
+
+<div class="content">
+
+
+<p class="subtext" style="margin: 20px 0px 40px 0px; font-size: 20pt">
+    Concordion is an open source tool for writing automated
+    <br />acceptance tests in Java.
+</p>
+
+
+<h1 style="margin-bottom: 0px; font-size: 17pt; border-bottom : 1px dotted black; padding-bottom: 6px; width: 320px">Key Features</h1>
+
+
+<ul class="keyBenefits">
+<li>
+<p>
+<span class="keyPoint">Powerful, yet simple to use</span>
+Concordion integrates <i>directly</i> with JUnit.
+</p>
+</li>
+
+<li>
+<p>
+<span class="keyPoint">Highly readable tests</span>
+Concordion acceptance tests are so readable they can double up
+as system documentation. And, since the tests are linked
+to the system, you know the documentation is always up-to-date.
+</p>
+</li>
+
+<li>
+<p>
+<span class="keyPoint">Separates tests from implementation</span>
+Tests that include a lot of implementation detail lock you into
+that implementation. Concordion helps you to document the logic
+and behaviour of your system in a way that does not lock you in.
+</p>
+</li>
+
+</ul>
+
+<br />
 
 
 <div class="memo">
 
-<p class="subtext" style="margin-top: 0px">
-    Concordion is an open source framework for Java that lets you turn a plain English description of a requirement
-    into an automated test <br/>&#8212;&nbsp;an&nbsp;active&nbsp;specification.
-    [<a href="Example.html">See  A Realistic Example</a>]
-</p>
-<p> &nbsp; </p>
-
-
-<h1>Testing a system meets its specifications</h1>
-<div class="callout"><b>con-cord</b> (k&#335;n'k&#0244;rd, k&#335;ng&#150;)
-<div>n.</div>
-<br/>
-<div class="meaning">1. Harmony or agreement of interests or feelings; accord.</div>
-<div class="meaning">2. A treaty establishing peaceful relations.</div>
-</div>
+<h1 style="width: 660px">What's special about it?</h1>
 
 <h2>Plain English specifications</h2>
 <p>
@@ -71,12 +118,11 @@ pre {
 </p>
 
 
-
 <p>
     <img src="image/concept/AnatomyOfAnActiveSpec.png"/>
 </p>
 
-<h2>Complex behaviours are decomposed</h2>
+<h2>Complex behaviours can be decomposed</h2>
 <p>
         Each question at the bottom of the specification links to another
         active specification and so on until you have either run out of questions
@@ -217,12 +263,6 @@ impossible to cut corners.
 
 <h1>Further information</h1>
 
-<ul>
-    <li><a href="Tutorial.html">Tutorial</a></li>
-    <li><a href="Technique.html">Technique</a></li>
-    <li><a href="Questions.html">FAQ</a></li>
-</ul>
-
 <p>
     You may also find it useful to subscribe to my blog:
     <a href="http://blog.davidpeterson.co.uk">http://blog.davidpeterson.co.uk</a>
@@ -245,22 +285,15 @@ impossible to cut corners.
 </div> <!-- memo -->
 
 
-</div> <!-- page -->
-</div> <!-- outerPage -->
 
+</div> <!-- content -->
+
+</div> <!-- page -->
 
 <div class="copyright">
-    <p><a href="PrivacyPolicy.html">Privacy Policy</a> &nbsp; |
-     &nbsp; Copyright &copy; 2007-2008 David Peterson. All rights reserved.</p>
-</div>
+ &nbsp; Copyright &copy; 2007-2009
+ <a href="http://www.davidpeterson.co.uk">David Peterson</a>. All rights reserved.
+</div> <!-- copyright -->
 
-
-
-<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
-</script>
-<script type="text/javascript">
-_uacct = "UA-2892312-1";
-urchinTracker();
-</script>
 </body>
 </html>
