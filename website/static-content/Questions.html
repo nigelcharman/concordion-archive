@@ -73,34 +73,58 @@ h3 {
 
 <h1>FAQ</h1>
 
+<ul>
+<li><a href="#whoDevelopedIt">Who developed Concordion?</a></li>
+<li><a href="#licensing">How is Concordion licensed?</a></li>
+<li><a href="#mailingList">Is there a mailing list?</a></li>
+<li><a href="#sourceCode">Where is the source code repository?</a></li>
+<li><a href="#comparisonWithFit">How does Concordion differ from the Fit Framework and FitNesse?</a></li>
+<li><a href="#comparisonWithSelenium">How does Concordion differ from Selenium?</a></li>
+<li><a href="#scriptVsSpecify">What is the difference between scripting and specifying?</a></li>
+<li><a href="#groovyJRuby">Why not use Groovy, JRuby or some other scripting language in</a></li>
+<li><a href="#htmlClumsy">Isn't HTML a bit clumsy?</a></li>
+<li><a href="#whyNotWiki">Why not use a wiki or Word documents instead?</a></li>
+<li><a href="#extension">Can I extend Concordion with my own commands?</a></li>
+<li><a href="#storyDrivenProcess">Can you outline a story-driven process with Concordion?</a></li>
+<li><a href="#untestable">What can't Concordion test?</a></li>
+<li><a href="#miniWaterfall">Is your recommended process like a series of mini waterfalls?</a></li>
+<li><a href="#ownDogFood">Does Concordion itself have active specifications?</a></li>
+</ul>
+
+
 
 <div class="memo" style="padding-top: 0px">
+
+<a name="whoDevelopedIt"> </a>
 <h3>Who developed Concordion?</h3>
 <p>
-Concordion was developed by <a href="http://www.davidpeterson.co.uk">David&nbsp;Peterson</a>
-<a href="http://feeds.feedburner.com/david_peterson"><img border="0" src="image/shared/Atom.png"/></a>,
-an agile consultant based in London, UK.  He can be contacted by e-mail at:
-david@crowdsoft.com
+Concordion was developed by <a class="externalLink" href="http://www.davidpeterson.co.uk">David&nbsp;Peterson</a>,
+an agile consultant based in London, UK. The idea was sparked by conversations with testers and developers, in particular
+<a class="externalLink" href="http://nat.truemesh.com/">Nat&nbsp;Pryce</a> and
+<a class="externalLink" href="http://www.m3p.co.uk">Steve&nbsp;Freeman</a>,
+while working at Easynet (BSkyB) in 2006.
 </p>
 
 <p>
-The idea was sparked by conversations with testers and developers &#8211; in particular
-<a class="externalLink" href="http://nat.truemesh.com/">Nat&nbsp;Pryce</a> and
-<a class="externalLink" href="http://www.m3p.co.uk">Steve&nbsp;Freeman</a> &#8211;
-while David was working at <a class="externalLink" href="http://www.easynet.com/gb/en/">Easynet</a> in 2006/7.
+You can contact David by e-mail at: <b>david@crowdsoft.com</b>, but please use the
+<a class="externalLink" href="http://tech.groups.yahoo.com/group/concordion/join">mailing&#160;list</a> for questions about Concordion itself.
 </p>
 
+
+<a name="licensing"> </a>
 <h3>How is Concordion licensed?</h3>
 <p>
     Concordion is licensed under the Apache License, v2.0.
     See <a href="Licence.html">here</a> for the license text.
 </p>
 
+<a name="mailingList"> </a>
 <h3>Is there a mailing list?</h3>
 <p>
     Yes, on Yahoo Groups. <a class="externalLink" href="http://tech.groups.yahoo.com/group/concordion/join">Join here</a>
 </p>
 
+<a name="sourceCode"> </a>
 <h3>Where is the source code repository?</h3>
 <p>
     It is hosted on Google Code: <a class="externalLink" href="http://code.google.com/p/concordion/">Project Page</a>,
@@ -239,6 +263,7 @@ scripting API that the fixtures call into.
 <div class="memo">
 
 
+<a name="comparisonWithSelenium"> </a>
 <h3>How does Concordion differ from Selenium?</h3>
 <p>
 <a class="externalLink" href="http://www.openqa.org/selenium-core/usage.html">Selenium</a>
@@ -251,12 +276,14 @@ it may be possible to use Selenium in "driven mode" as an alternative.
 </p>
 
 
+<a name="scriptVsSpecify"> </a>
 <h3>What is the difference between scripting and specifying?</h3>
 <p>
 See <a href="Technique.html">here</a> for an explanation.
 </p>
 
 
+<a name="groovyJRuby"> </a>
 <h3>Why not use Groovy, JRuby or some other scripting language in
 the instrumentation?</h3>
 <p>
@@ -288,6 +315,7 @@ your tests from testing through the UI to testing the domain layer
 directly as it emerges.
 </p>
 
+<a name="htmlClumsy"> </a>
 <h3>Isn't HTML a bit clumsy?</h3>
 <p>
 Yes, it is a bit, but not nearly as much as you might think. Once you have
@@ -304,6 +332,7 @@ there'll usually be someone who's comfortable writing HTML. If not, it's not
 particularly difficult to learn.
 </p>
 
+<a name="whyNotWiki"> </a>
 <h3>Why not use a wiki or Word documents instead?</h3>
 <p>
 I shied away from a Wiki because it involves much more set-up and maintenance.
@@ -314,6 +343,7 @@ The advantage of HTML over Word docs is that it's easier to link between
 pages and it's a more open format.
 </p>
 
+<a name="extension"> </a>
 <h3>Can I extend Concordion with my own commands?</h3>
 <p>
 Currently the facility for adding your own commands is not
@@ -321,6 +351,7 @@ enabled, though the software is designed to support this in
 the near future. In the mean-time, let me know your suggestions.
 </p>
 
+<a name="storyDrivenProcess"> </a>
 <h3>Can you outline a story-driven process with Concordion?</h3>
 <p>
 <img style="padding: 10px 0px 28px 0px;" src="image/faq/StoryDeliveryLifecycle.png"
@@ -347,6 +378,7 @@ can't just be "slipped in" casually.
 </p>
 
 
+<a name="untestable"> </a>
 <h3>What can't Concordion test?</h3>
 <p>
 Lots of things (e.g. how pretty a user interface is). However, as
@@ -354,6 +386,7 @@ a rule of thumb, if you can test it with JUnit then you can test it
 with Concordion.
 </p>
 
+<a name="miniWaterfall"> </a>
 <h3>Is your recommended process like a series of mini waterfalls?</h3>
 <p>
 No. It's acceptance test-driven development (ATDD).
@@ -370,6 +403,7 @@ without succumbing to their downsides.
 </p>
 
 
+<a name="ownDogFood"> </a>
 <h3>Does Concordion itself have active specifications?</h3>
 <p>
 Yes, it has <a target="specs" href="dist/1.2.0/test-output/concordion/spec/concordion/command/assertEquals/AssertEquals.html">quite a few</a>.
