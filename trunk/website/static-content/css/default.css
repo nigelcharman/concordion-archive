@@ -45,6 +45,9 @@ li {
   padding: 0px 64px 0px 64px;
   background-color: white;
 }
+a img {
+  border: 0px;
+}
 .menuBar {
   background-color: white;
   clear: both;
