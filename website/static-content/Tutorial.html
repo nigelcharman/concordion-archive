@@ -736,10 +736,9 @@ class Result {
 <p>
     How does this work? It works because the <code>execute</code> command is designed to process
     commands on its child elements in a special order. First of all it processes any child
-    <code>set</code> commands then it runs its own command and finally it processes
-    any child <code>assertEquals</code> commands.
+    <code>set</code> commands then it runs its own command, then any child <code>execute</code> commands
+    and finally any child <code>assertEquals</code> commands.
 </p>
-
 
 
 
