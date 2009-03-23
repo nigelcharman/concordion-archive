@@ -110,15 +110,14 @@ h3 {
 </p>
 
 <ul>
-    <li>concordion-1.2.0.jar</li>
-    <li>junit-3.8.2.jar &nbsp;&nbsp; (<a class="externalLink" href="http://www.junit.org">http://www.junit.org</a>)</li>
-    <li>ognl-2.6.9.jar &nbsp;&nbsp; (<a class="externalLink" href="http://www.ognl.org">http://www.ognl.org</a>)</li>
-    <li>xom-1.1.jar &nbsp;&nbsp; (<a class="externalLink" href="http://www.xom.nu">http://www.xom.nu</a>)</li>
+    <li><b>concordion-1.3.1.jar</b></li>
+    <li><b>junit-3.8.2.jar</b> or <b>junit-4.5.x.jar</b> &nbsp;&nbsp; (<a class="externalLink" href="http://www.junit.org">http://www.junit.org</a>)</li>
+    <li><b>ognl-2.6.9.jar</b> &nbsp;&nbsp; (<a class="externalLink" href="http://www.ognl.org">http://www.ognl.org</a>)</li>
+    <li><b>xom-1.1.jar</b> &nbsp;&nbsp; (<a class="externalLink" href="http://www.xom.nu">http://www.xom.nu</a>)</li>
 </ul>
 
-<p class="helpfulNote">
-    Note: All the JARs are included in the
-    <a href="Download.html">distribution</a>.
+<p>
+    All the JARs are included in the <a href="Download.html">distribution</a>.
 </p>
 
 
@@ -197,14 +196,14 @@ h3 {
         <code>"HelloWorldTest.java"</code> containing:
 
 <pre class="java">
-package example;
+<span class="keyword">package</span> example;
 
-import org.concordion.integration.junit3.ConcordionTestCase;
+<span class="keyword">import</span> org.concordion.integration.junit3.ConcordionTestCase;
 
-public class HelloWorldTest extends ConcordionTestCase {
+<span class="keyword">public class</span> HelloWorldTest <span class="keyword">extends</span> ConcordionTestCase {
 
-    public String getGreeting() {
-        return "Hello World!";
+    <span class="keyword">public</span> String getGreeting() {
+        <span class="keyword">return</span> <span class="string">"Hello World!"</span>;
     }
 }
 </pre>
@@ -329,14 +328,14 @@ Successes: 1  Failures: 0
 </p>
 
 <pre class="java">
-package example;
+<span class="keyword">package</span> example;
 
-import org.concordion.integration.junit3.ConcordionTestCase;
+<span class="keyword">import</span> org.concordion.integration.junit3.ConcordionTestCase;
 
-public class HelloWorldTest extends ConcordionTestCase {
+<span class="keyword">public class</span> HelloWorldTest <span class="keyword">extends</span> ConcordionTestCase {
 
-    public String greetingFor(String firstName) {
-        return "TODO";
+    <span class="keyword">public</span> String greetingFor(String firstName) {
+        <span class="keyword">return</span> <span class="string">"TODO"</span>;
     }
 }
 </pre>
@@ -355,14 +354,14 @@ public class HelloWorldTest extends ConcordionTestCase {
 </p>
 
 <pre class="java">
-package example;
+<span class="keyword">package</span> example;
 
-import org.concordion.integration.junit3.ConcordionTestCase;
+<span class="keyword">import</span> org.concordion.integration.junit3.ConcordionTestCase;
 
-public class HelloWorldTest extends ConcordionTestCase {
+<span class="keyword">public class</span> HelloWorldTest <span class="keyword">extends</span> ConcordionTestCase {
 
-    public String greetingFor(String firstName) {
-        return "Hello " + firstName + "!";
+    <span class="keyword">public</span> String greetingFor(String firstName) {
+        <span class="keyword">return</span> <span class="string">"Hello "</span> + firstName + <span class="string">"!"</span>;
     }
 }
 </pre>
@@ -435,18 +434,18 @@ public class HelloWorldTest extends ConcordionTestCase {
 </p>
 
 <pre class="java">
-package example;
+<span class="keyword">package</span> example;
 
-import org.concordion.integration.junit3.ConcordionTestCase;
+<span class="keyword">import</span> org.concordion.integration.junit3.ConcordionTestCase;
 
-public class HelloWorldTest extends ConcordionTestCase {
+<span class="keyword">public class</span> HelloWorldTest <span class="keyword">extends</span> ConcordionTestCase {
 
-    public void setCurrentTime(String time) {
-        // TODO
+    <span class="keyword">public void</span> setCurrentTime(String time) {
+        <span class="comment">// TODO</span>
     }
 
-    public String getGreeting() {
-        return "TODO";
+    <span class="keyword">public</span> String getGreeting() {
+        <span class="keyword">return</span> <span class="string">"TODO"</span>;
     }
 }
 </pre>
@@ -549,11 +548,11 @@ public class HelloWorldTest extends ConcordionTestCase {
 
 
 <pre class="java">
-package example;
+<span class="keyword">package</span> example;
 
-import org.concordion.integration.junit3.ConcordionTestCase;
+<span class="keyword">import</span> org.concordion.integration.junit3.ConcordionTestCase;
 
-public class SplittingNamesTest extends ConcordionTestCase {
+<span class="keyword">public class</span> SplittingNamesTest <span class="keyword">extends</span> ConcordionTestCase {
 
 }
 </pre>
@@ -573,19 +572,19 @@ public class SplittingNamesTest extends ConcordionTestCase {
 </p>
 
 <pre class="java">
-package example;
+<span class="keyword">package</span> example;
 
-import org.concordion.integration.junit3.ConcordionTestCase;
+<span class="keyword">import</span> org.concordion.integration.junit3.ConcordionTestCase;
 
-public class SplittingNamesTest extends ConcordionTestCase {
+<span class="keyword">public class</span> SplittingNamesTest <span class="keyword">extends</span> ConcordionTestCase {
 
-    public Result split(String fullName) {
-        return new Result();
+    <span class="keyword">public</span> Result split(String fullName) {
+        <span class="keyword">return</span> new Result();
     }
 
-    class Result {
-        public String firstName = "TODO";
-        public String lastName = "TODO";
+    <span class="keyword">class</span> Result {
+        <span class="keyword">public</span> String firstName = <span class="string">"TODO"</span>;
+        <span class="keyword">public</span> String lastName = <span class="string">"TODO"</span>;
     }
 }
 </pre>
@@ -607,23 +606,23 @@ public class SplittingNamesTest extends ConcordionTestCase {
 </p>
 
 <pre class="java">
-package example;
+<span class="keyword">package</span> example;
 
-import org.concordion.integration.junit3.ConcordionTestCase;
+<span class="keyword">import</span> org.concordion.integration.junit3.ConcordionTestCase;
 
-public class SplittingNamesTest extends ConcordionTestCase {
+<span class="keyword">public class</span> SplittingNamesTest <span class="keyword">extends</span> ConcordionTestCase {
 
-    public Result split(String fullName) {
-        Result result = new Result();
-        String[] words = fullName.split(" ");
+    <span class="keyword">public</span> Result split(String fullName) {
+        Result result = <span class="keyword">new</span> Result();
+        String[] words = fullName.split(<span class="string">" "</span>);
         result.firstName = words[0];
         result.lastName = words[1];
-        return result;
+        <span class="keyword">return</span> result;
     }
 
-    class Result {
-        public String firstName;
-        public String lastName;
+    <span class="keyword">class</span> Result {
+        <span class="keyword">public</span> String firstName;
+        <span class="keyword">public</span> String lastName;
     }
 }
 </pre>
@@ -645,22 +644,22 @@ public class SplittingNamesTest extends ConcordionTestCase {
 
 
 <pre class="java">
-class Result {
+<span class="keyword">class</span> Result {
 
-    private final String firstName;
-    private final String lastName;
+    <span class="keyword">private final</span> String firstName;
+    <span class="keyword">private final</span> String lastName;
 
-    public Result(String firstName, String lastName) {
+    <span class="keyword">public</span> Result(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public String getFirstName() {
-        return firstName;
+    <span class="keyword">public</span> String getFirstName() {
+        <span class="keyword">return</span> firstName;
     }
 
-    public String getLastName() {
-        return lastName;
+    <span class="keyword">public</span> String getLastName() {
+        <span class="keyword">return</span> lastName;
     }
 }
 </pre>
@@ -979,15 +978,15 @@ class Result {
 </p>
 
 <pre class="java">
-public class PartialMatchesTest extends ConcordionTestCase {
+<span class="keyword">public class</span> PartialMatchesTest <span class="keyword">extends</span> ConcordionTestCase {
 
-    public void setUpUser(String username) {
-        // TODO: Set up user in the system
+    <span class="keyword">public void</span> setUpUser(String username) {
+        <span class="comment">// TODO: Set up user in the system</span>
     }
 
-    public Iterable&lt;String&gt; getSearchResultsFor(String searchString) {
-        // TODO: Perform the search and return the real search results
-        return new ArrayList&lt;String&gt;();
+    <span class="keyword">public</span> Iterable&lt;String&gt; getSearchResultsFor(String searchString) {
+        <span class="comment">// TODO: Perform the search and return the real search results</span>
+        <span class="keyword">return new</span> ArrayList&lt;String&gt;();
     }
 }
 </pre>
@@ -1011,22 +1010,22 @@ public class PartialMatchesTest extends ConcordionTestCase {
 </p>
 
 <pre class="java">
-public class PartialMatchesTest extends ConcordionTestCase {
+<span class="keyword">public class</span> PartialMatchesTest <span class="keyword">extends</span> ConcordionTestCase {
 
-    private Set&lt;String&gt; usernamesInSystem = new HashSet&lt;String&gt;();
+    <span class="keyword">private</span> Set&lt;String&gt; usernamesInSystem = <span class="keyword">new</span> HashSet&lt;String&gt;();
 
-    public void setUpUser(String username) {
+    <span class="keyword">public void</span> setUpUser(String username) {
         usernamesInSystem.add(username);
     }
 
-    public Iterable&lt;String&gt; getSearchResultsFor(String searchString) {
-        SortedSet&lt;String&gt; matches = new TreeSet&lt;String&gt;();
-        for (String username : usernamesInSystem) {
-            if (username.contains(searchString)) {
+    <span class="keyword">public</span> Iterable&lt;String&gt; getSearchResultsFor(String searchString) {
+        SortedSet&lt;String&gt; matches = <span class="keyword">new</span> TreeSet&lt;String&gt;();
+        <span class="keyword">for</span> (String username : usernamesInSystem) {
+            <span class="keyword">if</span> (username.contains(searchString)) {
                 matches.add(username);
             }
         }
-        return matches;
+        <span class="keyword">return</span> matches;
     }
 }
 </pre>
