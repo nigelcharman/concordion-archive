@@ -183,6 +183,9 @@ h4 {
 .java .annotation {
   color: #646464;
 }
+.java .comment {
+  color: #3f7f5f;
+}
 .java .string {
   color: #2a00ff;
 }
@@ -201,4 +204,15 @@ h4 {
 .quote * {
   font-size: 18pt;
   line-height: 24pt;
+}
+
+pre.java {
+    background-color: #e4eefc;
+}
+pre.html {
+    background-color: #ffffd9;
+    border: 1px solid #ededdf;
+}
+pre.console {
+    background-color: #f0f0f0;
 }
