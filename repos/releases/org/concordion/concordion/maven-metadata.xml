@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><metadata>
+  <groupId>org.concordion</groupId>
+  <artifactId>concordion</artifactId>
+  <version>1.3.1-TEST</version>
+  <versioning>
+    <versions>
+      <version>1.3.1-TEST</version>
+    </versions>
+    <lastUpdated>20090324142537</lastUpdated>
+  </versioning>
+</metadata>
