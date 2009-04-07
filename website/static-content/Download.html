@@ -15,6 +15,11 @@
     background-color: #fffff0;
     width: 600px;
 }
+.feature {
+  padding-bottom: 20px;
+  padding-top: 10px;
+  clear: both;
+}
 </style>
 </head>
 <body>
@@ -54,34 +59,110 @@
 <h1>Download</h1>
 
 
-<h2>Latest Release Candidate: 1.3.1-RC5 &nbsp; (24-Mar-2009)</h2>
+<h3>Latest Release Candidate: 1.3.2-SNAPSHOT</h3>
+
+<p>Download and build from subversion repository: <a href="http://concordion.googlecode.com/svn/trunk/concordion">
+http://concordion.googlecode.com/svn/trunk/concordion</a>
+</p>
+
+<h3>Latest Stable Version: 1.3.1</h3>
 
 <ul>
-    <li><a href="dist/1.3.1-RC5/concordion-1.3.1-RC5.zip">concordion-1.3.1-RC5.zip</a>
+    <li><a href="dist/1.3.1/concordion-1.3.1.zip">concordion-1.3.1.zip</a>
     (full distribution including source code and all dependencies)</li>
     <li>Requires: Java 1.5 or above</li>
 
-    <li>New command: <b>concordion:run</b>
-    (contributed by Stein Kåre Skytteren) lets you link to another specification and run it,
-    displaying the link's background in green / red / gray as appropriate.
+</ul>
 
+<br />
+
+
+<h2>Concordion 1.3.1: New and Noteworthy</h2>
+
+
+
+
+<div class="feature">
+
+<div style="float: right; margin-left: 8px">
+<img src="image/example/online-shop/ConcordionRunExample.png" alt="Example of concordion:run"/>
+</div>
+
+
+<h3>concordion:run</h3>
+
+<p>
+    This new command, contributed by <a href="http://skytteren.blogspot.com/" class="externalLink">Stein Kåre Skytteren</a>, lets you link to another specification and run it,
+    displaying the link's background in green / red / gray as appropriate.
+</p>
+
+<p>
     You might use this to create a page containing a list of all the acceptance tests
     for a feature, in a similar way you would use a JUnit test suite.
-    [<a target="specs" href="dist/1.3.1-RC5/test-output/concordion/spec/concordion/command/run/Run.html">More details</a>]
-    </li>
+</p>
 
-    <li>Upgraded to support <a class="externalLink" href="http://www.junit.org/">JUnit 4.5</a>
-    (Note: Earlier versions of JUnit 4 are no longer supported due to changes
-    in JUnit's API between 4.4 and 4.5. JUnit 3.8.x is still supported, however).</li>
+<p>
+    [<a target="specs" href="dist/1.3.1/test-output/concordion/spec/concordion/command/run/Run.html">More details</a>]
+</p>
 
-    <li>Special variable <code>"#HREF"</code> provides access to href attribute for a link. This
-        can be used when you want to reference test data from a specification.
-        [<a target="specs" href="dist/1.3.1-RC5/test-output/concordion/spec/concordion/command/execute/AccessToLinkHref.html">More details</a>]
-    </li>
+</div>
 
-    <li>Annotations (@ExpectedToPass, @ExpectedToFail, and @Unimplemented) to allow
-    partially-completed specifications to be executed as part of the build without
-    breaking it. [<a target="specs" href="dist/1.3.1-RC5/test-output/concordion/spec/concordion/annotation/Annotation.html">More details</a>]
+
+
+
+
+<div class="feature">
+<h3>Support for JUnit 4.5</h3>
+
+<p>Example syntax:</p>
+
+<pre class="java">
+<span class="keyword">package</span> spec.examples;
+
+<span class="keyword">import</span> org.concordion.integration.junit4.ConcordionRunner;
+<span class="keyword">import</span> org.junit.runner.RunWith;
+
+<span class="annotation">@RunWith</span>(ConcordionRunner.<span class="keyword">class</span>)
+<span class="keyword">public class</span> Demo {
+
+    <span class="keyword">public</span> String greetingFor(String firstName) {
+        <span class="keyword">return</span> String.format(<span class="string">"Hello %s!"</span>, firstName);
+    }
+}
+</pre>
+
+<center>
+<p style="width: 500px; border: 1px solid #900; padding: 4px; background-color: white">
+    <span style="color: #900">Please note that <b>JUnit 4.4 is no longer supported</b> due to changes
+    in JUnit's API between 4.4 and 4.5. JUnit 3.8.x is still supported, however.</span>
+</p>
+</center>
+
+</div>
+
+
+
+
+
+
+<div class="feature">
+<h3>Annotations</h3>
+
+<p>
+You can include partially-implemented specifications in your normal build
+without breaking the build, by annotating your fixture classes with one of the
+following annotations:
+</p>
+
+<ul>
+<li><b>@ExpectedToPass</b></li>
+<li><b>@ExpectedToFail</b></li>
+<li><b>@Unimplemented</b></li>
+</ul>
+
+<p>
+For example:
+</p>
 
 <pre class="java">
 import org.concordion.api.ExpectedToFail;
@@ -91,28 +172,39 @@ import org.concordion.integration.junit3.ConcordionTestCase;
 public class GreetingTest extends ConcordionTestCase {
 
    public String greetingFor(String firstName) {
-        ...
+        return "TODO";
    }
 </pre>
 
-    </li>
+
+<p>See
+<a target="specs" href="dist/1.3.1/test-output/concordion/spec/concordion/annotation/Annotation.html">here</a>
+for an explanation of the semantics of each annotation.
+</p>
 
 
-    <li><b>Please feedback any questions / issues to the <a class="externalLink" href="http://tech.groups.yahoo.com/group/concordion/join">mailing list</a>.</b></p>
+</div>
 
 
-</ul>
+<div class="feature">
+<h3>Linked Test Data</h3>
+
+<p>
+A special variable <code>"#HREF"</code> lets you access the href attribute for a link. This
+        can be used when you want to reference test data from a specification.
+
+        [<a target="specs" href="dist/1.3.1/test-output/concordion/spec/concordion/command/execute/AccessToLinkHref.html">More details</a>]
+</p>
+
+</div>
 
 
+<div class="feature">
+<h3>concordion:assertTrue</h3>
 
-<h2>Latest Stable Version: 1.2.0</h2>
+<p>For example:</p>
 
-<ul>
-    <li><a href="dist/1.2.0/concordion-1.2.0.zip">concordion-1.2.0.zip</a>
-    (full distribution including source code and all dependencies)</li>
-    <li>Requires: Java 1.5 or above</li>
-
-    <li>New command: <b>concordion:assertTrue</b> <pre class="html">
+<pre class="html">
 &lt;p&gt;
     When user &lt;b concordion:set="#firstName"&gt;Bob&lt;/b&gt;
     logs in, the greeting will be:
@@ -134,44 +226,9 @@ public class GreetingTest extends ConcordionTestCase {
 
     <p><img style="padding-left: 25px"
         src="image/tutorial/assertTrue/AssertTrueOutput.png" /></p>
-
-    </li>
-
-    <li>JUnit 4.4 example: <pre class="java">
-<span class="keyword">package</span> spec.examples;
-
-<span class="keyword">import</span> org.concordion.integration.junit4.ConcordionRunner;
-<span class="keyword">import</span> org.junit.runner.RunWith;
-
-<span class="annotation">@RunWith</span>(ConcordionRunner.<span class="keyword">class</span>)
-<span class="keyword">public class</span> Demo {
-
-    <span class="keyword">public</span> String greetingFor(String firstName) {
-        <span class="keyword">return</span> String.format(<span class="string">"Hello %s!"</span>, firstName);
-    }
-}
-</pre></li>
-
-    <li>Support for JUnit 4.4 <i>@BeforeClass, @Before, @After,
-    @AfterClass</i> annotations.</li>
-</ul>
+</div>
 
 
-
-<h2>Earlier Versions</h2>
-
-<ul>
-    <li><a href="dist/1.1.0/concordion-1.1.0.zip">concordion-1.1.0.zip</a>
-
-        <ul>
-            <li>Basic support for JUnit 4.4</li>
-            <li>FIXED: Class loader problems when integrated with the Maven
-            Surefire plugin.</li>
-        </ul>
-    </li>
-    <li><a href="dist/1.1.0-RC1/concordion-1.1.0-RC1.zip">concordion-1.1.0-RC1.zip</a></li>
-    <li><a href="dist/1.0.0/concordion-1.0.0.zip">concordion-1.0.0.zip</a></li>
-</ul>
 
 
 
