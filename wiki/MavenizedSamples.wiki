@@ -3,14 +3,14 @@
 
 = Introduction =
 
-Recently we have released Concordion 1.3.0, that is actually the same code as in Concordion 1.2.0 but now the project can be built using [http://maven.apache.org Maven]. This page illustrates how to build a maven-based project and run the acceptance tests using Concordion.
+Concordion can be built using [http://maven.apache.org Maven]. This page illustrates how to build a maven-based project and run the acceptance tests using Concordion.
 
 
 = Details =
 
 == Source code ==
 
-You can find the source code in https://concordion.googlecode.com/svn/concordion-samples/trunk and the files are:
+You can find the source code in http://concordion.googlecode.com/svn/concordion-samples/trunk and the files are:
 {{{
 - pom.xml
 - src/test/java/org/concordion/samples/DemoTest.java
@@ -90,7 +90,7 @@ The results of the execution are in:
     <dependency>
       <groupId>org.concordion</groupId>
       <artifactId>concordion</artifactId>
-      <version>1.3.0</version>
+      <version>1.3.1</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
