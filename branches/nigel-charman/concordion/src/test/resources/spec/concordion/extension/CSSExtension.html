@@ -1,0 +1,22 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<link href="../../../concordion.css" rel="stylesheet" type="text/css" />
+<body>
+
+    <h1>CSS Extension</h1>
+
+    <p>
+       CSS resources can be added to the Concordion output using an <a href="Extension.html">extension</a>.  The CSS file will be copied to the Concordion output, and 
+       a CSS declaration added to the output HTML. 
+    </p>
+
+    <div class="example">
+
+        <h3>Example</h3>
+        
+        <p>A <span concordion:execute="addCSSExtension()"> CSS extension is installed</span> for the CSS file <code>my.css</code> with the target location <code>/css/my.css</code>.</p> 
+        <p>When <span concordion:execute="#result = processAnything()">Concordion is run</span>, 
+        the resource <code concordion:set="#resourcePath">/css/my.css</code> <span concordion:assertTrue="isAvailable(#resourcePath)">is available</span> in the Concordion output directory,
+        and a link to the external stylesheet <code concordion:set="#cssFilename">css/my.css</code> <span concordion:assertTrue="hasCSSDeclaration(#cssFilename)">is declared in the output HTML</span>.</p>
+    </div>
+</body>
+</html>

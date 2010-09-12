@@ -45,9 +45,10 @@ public class VerifyRowsCommand extends AbstractCommand {
         Iterable<Object> iterable = (Iterable<Object>) obj;
         
         TableSupport tableSupport = new TableSupport(commandCall);
-        
         Row[] detailRows = tableSupport.getDetailRows();
 
+        announceExpressionEvaluated(commandCall.getElement());
+        
         int index = 0;
         for (Object loopVar : iterable) {
             evaluator.setVariable(loopVariableName, loopVar);
@@ -70,6 +71,10 @@ public class VerifyRowsCommand extends AbstractCommand {
         }
     }
     
+    private void announceExpressionEvaluated(Element element) {
+        listeners.announce().expressionEvaluated(new ExpressionEvaluatedEvent(element));
+    }
+
     private void announceMissingRow(Element element) {
         listeners.announce().missingRow(new MissingRowEvent(element));
     }

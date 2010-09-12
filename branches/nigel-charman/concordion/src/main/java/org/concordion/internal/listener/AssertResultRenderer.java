@@ -1,13 +1,15 @@
 package org.concordion.internal.listener;
 
 import org.concordion.api.Element;
-import org.concordion.internal.command.AssertEqualsFailureEvent;
 import org.concordion.internal.command.AssertEqualsListener;
-import org.concordion.internal.command.AssertEqualsSuccessEvent;
+import org.concordion.internal.command.AssertFailureEvent;
+import org.concordion.internal.command.AssertFalseListener;
+import org.concordion.internal.command.AssertSuccessEvent;
+import org.concordion.internal.command.AssertTrueListener;
 
-public class AssertEqualsResultRenderer implements AssertEqualsListener {
+public class AssertResultRenderer implements AssertEqualsListener, AssertTrueListener, AssertFalseListener {
 
-    public void failureReported(AssertEqualsFailureEvent event) {
+    public void failureReported(AssertFailureEvent event) {
         Element element = event.getElement();
         element.addStyleClass("failure");
         
@@ -26,7 +28,7 @@ public class AssertEqualsResultRenderer implements AssertEqualsListener {
         element.appendChild(spanActual);        
     }
 
-    public void successReported(AssertEqualsSuccessEvent event) {
+    public void successReported(AssertSuccessEvent event) {
         event.getElement()
             .addStyleClass("success")
             .appendNonBreakingSpaceIfBlank();

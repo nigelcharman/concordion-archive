@@ -6,15 +6,16 @@ import org.concordion.internal.CommandCall;
 
 public class AssertTrueCommand extends BooleanCommand {
 
-	@Override
-	protected void processFalseResult(CommandCall commandCall, ResultRecorder resultRecorder) {
-		resultRecorder.record(Result.FAILURE);
-		announceFailure(commandCall.getElement(), commandCall.getExpression(), "== false");
-	}
+    @Override
+    protected void processFalseResult(CommandCall commandCall, ResultRecorder resultRecorder) {
+        resultRecorder.record(Result.FAILURE);
+        String expected = commandCall.getElement().getText();
+        announceFailure(commandCall.getElement(), expected, "== false");
+    }
 
-	@Override
-	protected void processTrueResult(CommandCall commandCall, ResultRecorder resultRecorder) {
-		resultRecorder.record(Result.SUCCESS);
-		announceSuccess(commandCall.getElement());
-	}
+    @Override
+    protected void processTrueResult(CommandCall commandCall, ResultRecorder resultRecorder) {
+        resultRecorder.record(Result.SUCCESS);
+        announceSuccess(commandCall.getElement());
+    }
 }

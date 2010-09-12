@@ -101,6 +101,10 @@ public final class Element {
         return xomElement.getAttributeValue(name);
     }
     
+    public String getAttributeValue(String localName, String namespaceURI) {
+        return xomElement.getAttributeValue(localName, namespaceURI);
+    }
+    
     private boolean isBlank() {
         return getText().trim().equals("");
     }

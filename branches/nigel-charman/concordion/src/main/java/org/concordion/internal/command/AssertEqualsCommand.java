@@ -51,10 +51,10 @@ public class AssertEqualsCommand extends AbstractCommand {
     }
     
     private void announceSuccess(Element element) {
-        listeners.announce().successReported(new AssertEqualsSuccessEvent(element));
+        listeners.announce().successReported(new AssertSuccessEvent(element));
     }
 
     private void announceFailure(Element element, String expected, Object actual) {
-        listeners.announce().failureReported(new AssertEqualsFailureEvent(element, expected, actual));
+        listeners.announce().failureReported(new AssertFailureEvent(element, expected, actual));
     }
 }

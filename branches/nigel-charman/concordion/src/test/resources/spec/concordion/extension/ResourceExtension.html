@@ -1,0 +1,21 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<link href="../../../../concordion.css" rel="stylesheet" type="text/css" />
+<body>
+
+    <h1>Resource Extension</h1>
+
+    <p>
+       Resources can be copied to the Concordion output folder using an <a href="Extension.html">extension</a>. 
+    </p>
+
+    <div class="example">
+
+        <h3>Example</h3>
+        
+        <p>An <span concordion:execute="addResourceExtension()">extension is installed</span> that copies <code>test/concordion/o.png</code> from the classpath to <code>/images/o.png</code>.</p> 
+        <p>When <span concordion:execute="#result = processAnything()">Concordion is run</span>, 
+        the resource <code concordion:set="#resourcePath">/images/o.png</code> <span concordion:assertTrue="isAvailable(#resourcePath)">is available</span> in the Concordion output directory.</p>
+    </div>
+
+</body>
+</html>

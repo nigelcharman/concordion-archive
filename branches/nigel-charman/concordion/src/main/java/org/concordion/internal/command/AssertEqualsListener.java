@@ -1,10 +1,6 @@
 package org.concordion.internal.command;
 
-import java.util.EventListener;
 
-public interface AssertEqualsListener extends EventListener {
+public interface AssertEqualsListener extends AssertListener {
 
-    void successReported(AssertEqualsSuccessEvent event);
-    
-    void failureReported(AssertEqualsFailureEvent event);
 }

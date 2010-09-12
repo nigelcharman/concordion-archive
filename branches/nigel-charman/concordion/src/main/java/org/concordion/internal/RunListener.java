@@ -7,9 +7,9 @@ import org.concordion.internal.command.ThrowableCaughtListener;
 
 public interface RunListener extends ThrowableCaughtListener{
 
-	void successReported(RunSuccessEvent runSuccessEvent);
+    void successReported(RunSuccessEvent runSuccessEvent);
 
-	void failureReported(RunFailureEvent runFailureEvent);
+    void failureReported(RunFailureEvent runFailureEvent);
 
     void ignoredReported(RunIgnoreEvent runIgnoreEvent);
 

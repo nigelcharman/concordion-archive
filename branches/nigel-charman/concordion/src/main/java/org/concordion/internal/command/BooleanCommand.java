@@ -10,13 +10,13 @@ import org.concordion.internal.util.Announcer;
 
 public abstract class BooleanCommand extends AbstractCommand {
 
-    private Announcer<AssertEqualsListener> listeners = Announcer.to(AssertEqualsListener.class);
+    private Announcer<AssertListener> listeners = Announcer.to(AssertListener.class);
     
-    public void addAssertEqualsListener(AssertEqualsListener listener) {
+    public void addAssertListener(AssertListener listener) {
         listeners.addListener(listener);
     }
 
-    public void removeAssertEqualsListener(AssertEqualsListener listener) {
+    public void removeAssertListener(AssertListener listener) {
         listeners.removeListener(listener);
     }
     
@@ -32,9 +32,9 @@ public abstract class BooleanCommand extends AbstractCommand {
         Object result = evaluator.evaluate(expression);
         if (result != null && result instanceof Boolean) {
             if ((Boolean) result) {
-            	processTrueResult(commandCall, resultRecorder);
+                processTrueResult(commandCall, resultRecorder);
             } else {
-            	processFalseResult(commandCall, resultRecorder);
+                processFalseResult(commandCall, resultRecorder);
             }
         } else {
             throw new InvalidExpressionException("Expression '" + expression + "' did not produce a boolean result (needed for assertTrue).");
@@ -42,11 +42,11 @@ public abstract class BooleanCommand extends AbstractCommand {
     }
     
     protected void announceSuccess(Element element) {
-        listeners.announce().successReported(new AssertEqualsSuccessEvent(element));
+        listeners.announce().successReported(new AssertSuccessEvent(element));
     }
 
     protected void announceFailure(Element element, String expected, Object actual) {
-        listeners.announce().failureReported(new AssertEqualsFailureEvent(element, expected, actual));
+        listeners.announce().failureReported(new AssertFailureEvent(element, expected, actual));
     }
     
     protected abstract void processTrueResult(CommandCall commandCall,ResultRecorder resultRecorder);
