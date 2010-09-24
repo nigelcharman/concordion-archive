@@ -72,6 +72,10 @@ public final class Element {
         xomElement.appendChild(element.xomElement);
     }
 
+    public void removeChild(Element element) {
+        xomElement.removeChild(element.xomElement);
+    }
+    
     private Node[] getChildNodes() {
         Node[] childNodes = new Node[xomElement.getChildCount()];
         for (int i = 0; i < xomElement.getChildCount(); i++) {

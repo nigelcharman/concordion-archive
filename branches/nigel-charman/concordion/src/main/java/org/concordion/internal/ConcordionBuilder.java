@@ -195,12 +195,13 @@ public class ConcordionBuilder implements ConcordionExtender {
         
         specificationCommand.addSpecificationListener(new BreadcrumbRenderer(source, xmlParser));
         specificationCommand.addSpecificationListener(new PageFooterRenderer(target));
-        specificationCommand.addSpecificationListener(new SpecificationExporter(target));
 
         specificationReader = new XMLSpecificationReader(source, xmlParser, documentParser);        
 
         addExtensions();
         copyResources();
+
+        specificationCommand.addSpecificationListener(new SpecificationExporter(target));
         
         return new Concordion(specificationLocator, specificationReader, evaluatorFactory);
     }
