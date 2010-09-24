@@ -4,8 +4,8 @@ import nu.xom.Document;
 
 import org.concordion.api.Element;
 import org.concordion.api.ResultSummary;
+import org.concordion.api.command.AssertFailureEvent;
 import org.concordion.internal.XMLParser;
-import org.concordion.internal.command.AssertFailureEvent;
 
 public class ProcessingResult {
 

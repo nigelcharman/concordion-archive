@@ -1,15 +1,17 @@
-package org.concordion.internal.command;
+package org.concordion.api.command;
 
 import org.concordion.api.Element;
 
-public class ExecuteEvent {
+public class RunFailureEvent {
+
     private final Element element;
 
-    public ExecuteEvent(Element element) {
+    public RunFailureEvent(Element element) {
         this.element = element;
     }
 
     public Element getElement() {
         return element;
     }
+
 }

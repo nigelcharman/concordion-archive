@@ -1,11 +1,11 @@
 package test.concordion.extension;
 
 import org.concordion.api.Command;
+import org.concordion.api.CommandCall;
 import org.concordion.api.Evaluator;
 import org.concordion.api.ResultRecorder;
-import org.concordion.internal.CommandCall;
-import org.concordion.internal.ConcordionExtender;
-import org.concordion.internal.ConcordionExtension;
+import org.concordion.api.extension.ConcordionExtender;
+import org.concordion.api.extension.ConcordionExtension;
 
 public class CommandExtension implements ConcordionExtension {
 

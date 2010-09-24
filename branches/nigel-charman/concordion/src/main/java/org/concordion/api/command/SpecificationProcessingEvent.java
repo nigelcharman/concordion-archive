@@ -1,4 +1,4 @@
-package org.concordion.internal.command;
+package org.concordion.api.command;
 
 import org.concordion.api.Element;
 import org.concordion.api.Resource;

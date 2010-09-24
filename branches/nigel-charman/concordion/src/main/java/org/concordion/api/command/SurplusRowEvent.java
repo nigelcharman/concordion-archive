@@ -1,12 +1,12 @@
-package org.concordion.internal.command;
+package org.concordion.api.command;
 
 import org.concordion.api.Element;
 
-public class MissingRowEvent {
+public class SurplusRowEvent {
     
     private final Element rowElement;
 
-    public MissingRowEvent(Element rowElement) {
+    public SurplusRowEvent(Element rowElement) {
         this.rowElement = rowElement;
     }
 

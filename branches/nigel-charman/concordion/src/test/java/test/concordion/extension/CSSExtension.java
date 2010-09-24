@@ -1,8 +1,8 @@
 package test.concordion.extension;
 
 import org.concordion.api.Resource;
-import org.concordion.internal.ConcordionExtender;
-import org.concordion.internal.ConcordionExtension;
+import org.concordion.api.extension.ConcordionExtender;
+import org.concordion.api.extension.ConcordionExtension;
 
 public class CSSExtension implements ConcordionExtension {
 

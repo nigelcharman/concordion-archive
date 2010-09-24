@@ -3,11 +3,11 @@ package test.concordion;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.concordion.internal.command.AssertEqualsListener;
-import org.concordion.internal.command.AssertFailureEvent;
-import org.concordion.internal.command.AssertSuccessEvent;
-import org.concordion.internal.command.ThrowableCaughtEvent;
-import org.concordion.internal.command.ThrowableCaughtListener;
+import org.concordion.api.command.AssertEqualsListener;
+import org.concordion.api.command.AssertFailureEvent;
+import org.concordion.api.command.AssertSuccessEvent;
+import org.concordion.api.command.ThrowableCaughtEvent;
+import org.concordion.api.command.ThrowableCaughtListener;
 
 public class EventRecorder implements AssertEqualsListener, ThrowableCaughtListener {
 

@@ -1,10 +1,13 @@
 package org.concordion.internal.command;
 
+import org.concordion.api.CommandCall;
+import org.concordion.api.CommandCallList;
 import org.concordion.api.Element;
 import org.concordion.api.Evaluator;
 import org.concordion.api.ResultRecorder;
-import org.concordion.internal.CommandCall;
-import org.concordion.internal.CommandCallList;
+import org.concordion.api.command.AbstractCommand;
+import org.concordion.api.command.ExecuteEvent;
+import org.concordion.api.command.ExecuteListener;
 import org.concordion.internal.Row;
 import org.concordion.internal.TableSupport;
 import org.concordion.internal.util.Announcer;

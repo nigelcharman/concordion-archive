@@ -1,8 +1,8 @@
 package org.concordion.internal.command;
 
+import org.concordion.api.CommandCall;
 import org.concordion.api.Result;
 import org.concordion.api.ResultRecorder;
-import org.concordion.internal.CommandCall;
 
 public class AssertFalseCommand extends BooleanCommand {
 

@@ -1,11 +1,11 @@
 package org.concordion.internal.listener;
 
 import org.concordion.api.Element;
-import org.concordion.internal.command.AssertEqualsListener;
-import org.concordion.internal.command.AssertFailureEvent;
-import org.concordion.internal.command.AssertFalseListener;
-import org.concordion.internal.command.AssertSuccessEvent;
-import org.concordion.internal.command.AssertTrueListener;
+import org.concordion.api.command.AssertEqualsListener;
+import org.concordion.api.command.AssertFailureEvent;
+import org.concordion.api.command.AssertFalseListener;
+import org.concordion.api.command.AssertSuccessEvent;
+import org.concordion.api.command.AssertTrueListener;
 
 public class AssertResultRenderer implements AssertEqualsListener, AssertTrueListener, AssertFalseListener {
 

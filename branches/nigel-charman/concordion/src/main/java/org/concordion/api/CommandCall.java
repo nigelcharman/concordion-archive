@@ -1,10 +1,5 @@
-package org.concordion.internal;
+package org.concordion.api;
 
-import org.concordion.api.Command;
-import org.concordion.api.Element;
-import org.concordion.api.Evaluator;
-import org.concordion.api.Resource;
-import org.concordion.api.ResultRecorder;
 import org.concordion.internal.util.Check;
 
 /**

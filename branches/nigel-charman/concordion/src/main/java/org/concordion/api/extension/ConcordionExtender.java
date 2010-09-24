@@ -1,14 +1,16 @@
-package org.concordion.internal;
+package org.concordion.api.extension;
 
 import org.concordion.api.Command;
 import org.concordion.api.Resource;
-import org.concordion.internal.command.AssertEqualsListener;
-import org.concordion.internal.command.AssertFalseListener;
-import org.concordion.internal.command.AssertTrueListener;
-import org.concordion.internal.command.ExecuteListener;
-import org.concordion.internal.command.SpecificationProcessingListener;
-import org.concordion.internal.command.ThrowableCaughtListener;
-import org.concordion.internal.command.VerifyRowsListener;
+import org.concordion.api.command.AssertEqualsListener;
+import org.concordion.api.command.AssertFalseListener;
+import org.concordion.api.command.AssertTrueListener;
+import org.concordion.api.command.ExecuteListener;
+import org.concordion.api.command.RunListener;
+import org.concordion.api.command.SpecificationProcessingListener;
+import org.concordion.api.command.ThrowableCaughtListener;
+import org.concordion.api.command.VerifyRowsListener;
+import org.concordion.internal.DocumentParsingListener;
 
 public interface ConcordionExtender {
     ConcordionExtender withCommand(String namespaceURI, String commandName, Command command);

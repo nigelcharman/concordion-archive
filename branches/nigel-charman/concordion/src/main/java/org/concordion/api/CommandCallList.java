@@ -1,10 +1,8 @@
-package org.concordion.internal;
+package org.concordion.api;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.concordion.api.Evaluator;
-import org.concordion.api.ResultRecorder;
 
 public class CommandCallList {
 

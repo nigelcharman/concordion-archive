@@ -2,12 +2,16 @@ package org.concordion.internal.command;
 
 import java.util.Comparator;
 
+import org.concordion.api.CommandCall;
 import org.concordion.api.Element;
 import org.concordion.api.Evaluator;
 import org.concordion.api.Result;
 import org.concordion.api.ResultRecorder;
+import org.concordion.api.command.AbstractCommand;
+import org.concordion.api.command.AssertEqualsListener;
+import org.concordion.api.command.AssertFailureEvent;
+import org.concordion.api.command.AssertSuccessEvent;
 import org.concordion.internal.BrowserStyleWhitespaceComparator;
-import org.concordion.internal.CommandCall;
 import org.concordion.internal.util.Announcer;
 import org.concordion.internal.util.Check;
 

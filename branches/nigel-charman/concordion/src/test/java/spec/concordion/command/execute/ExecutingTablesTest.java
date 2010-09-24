@@ -1,7 +1,7 @@
 package spec.concordion.command.execute;
 
+import org.concordion.api.command.AssertFailureEvent;
 import org.concordion.integration.junit3.ConcordionTestCase;
-import org.concordion.internal.command.AssertFailureEvent;
 
 import test.concordion.ProcessingResult;
 import test.concordion.TestRig;
