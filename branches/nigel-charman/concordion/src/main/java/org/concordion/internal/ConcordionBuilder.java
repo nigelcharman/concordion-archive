@@ -8,6 +8,8 @@ import java.util.Map.Entry;
 
 import org.concordion.Concordion;
 import org.concordion.api.Command;
+import org.concordion.api.ConcordionBuildEvent;
+import org.concordion.api.ConcordionBuildListener;
 import org.concordion.api.EvaluatorFactory;
 import org.concordion.api.Resource;
 import org.concordion.api.Source;
@@ -39,6 +41,8 @@ import org.concordion.internal.command.VerifyRowsCommand;
 import org.concordion.internal.listener.AssertResultRenderer;
 import org.concordion.internal.listener.BreadcrumbRenderer;
 import org.concordion.internal.listener.DocumentStructureImprover;
+import org.concordion.internal.listener.JavaScriptEmbedder;
+import org.concordion.internal.listener.JavaScriptLinker;
 import org.concordion.internal.listener.PageFooterRenderer;
 import org.concordion.internal.listener.RunResultRenderer;
 import org.concordion.internal.listener.SpecificationExporter;
@@ -46,10 +50,13 @@ import org.concordion.internal.listener.StylesheetEmbedder;
 import org.concordion.internal.listener.StylesheetLinker;
 import org.concordion.internal.listener.ThrowableRenderer;
 import org.concordion.internal.listener.VerifyRowsResultRenderer;
+import org.concordion.internal.util.Announcer;
 import org.concordion.internal.util.Check;
 import org.concordion.internal.util.IOUtil;
 
 public class ConcordionBuilder implements ConcordionExtender {
+
+    private Announcer<ConcordionBuildListener> listeners = Announcer.to(ConcordionBuildListener.class);
 
     public static final String NAMESPACE_CONCORDION_2007 = "http://www.concordion.org/2007/concordion";
     private static final String PROPERTY_OUTPUT_DIR = "concordion.output.dir";
@@ -96,7 +103,7 @@ public class ConcordionBuilder implements ConcordionExtender {
         withRunListener(new RunResultRenderer());
         withDocumentParsingListener(new DocumentStructureImprover());
         String stylesheetContent = IOUtil.readResourceAsString(EMBEDDED_STYLESHEET_RESOURCE);
-        withDocumentParsingListener(new StylesheetEmbedder(stylesheetContent));
+        withEmbeddedCSS(stylesheetContent);
     }
 
     public ConcordionBuilder withSource(Source source) {
@@ -159,6 +166,11 @@ public class ConcordionBuilder implements ConcordionExtender {
         return this;
     }
 
+    public ConcordionBuilder withBuildListener(ConcordionBuildListener listener) {
+        listeners.addListener(listener);
+        return this;
+    }
+    
     private ConcordionBuilder withApprovedCommand(String namespaceURI, String commandName, Command command) {
         ThrowableCatchingDecorator throwableCatchingDecorator = new ThrowableCatchingDecorator(new LocalTextDecorator(command));
         throwableCatchingDecorator.addThrowableListener(throwableListenerPublisher);
@@ -182,11 +194,31 @@ public class ConcordionBuilder implements ConcordionExtender {
         return this;
     }
 
-    public ConcordionBuilder withCSS(String sourcePath, Resource targetResource) {
-        withResource(sourcePath, targetResource);
+    public ConcordionBuilder withEmbeddedCSS(String css) {
+        StylesheetEmbedder embedder = new StylesheetEmbedder(css);
+        withDocumentParsingListener(embedder);
+        return this;
+    }
+    
+    public ConcordionBuilder withLinkedCSS(String cssPath, Resource targetResource) {
+        withResource(cssPath, targetResource);
         StylesheetLinker cssLinker = new StylesheetLinker(targetResource);
         withDocumentParsingListener(cssLinker);
         withSpecificationProcessingListener(cssLinker);
+        return this;
+    }
+
+    public ConcordionBuilder withEmbeddedJavaScript(String javaScript) {
+        JavaScriptEmbedder embedder = new JavaScriptEmbedder(javaScript);
+        withDocumentParsingListener(embedder);
+        return this;
+    }
+
+    public ConcordionBuilder withLinkedJavaScript(String jsPath, Resource targetResource) {
+        withResource(jsPath, targetResource);
+        JavaScriptLinker javaScriptLinker = new JavaScriptLinker(targetResource);
+        withDocumentParsingListener(javaScriptLinker);
+        withSpecificationProcessingListener(javaScriptLinker);
         return this;
     }
     
@@ -206,6 +238,8 @@ public class ConcordionBuilder implements ConcordionExtender {
 
         specificationCommand.addSpecificationListener(new SpecificationExporter(target));
         
+        listeners.announce().concordionBuilt(new ConcordionBuildEvent(target));
+        
         return new Concordion(specificationLocator, specificationReader, evaluatorFactory);
     }
 
@@ -213,11 +247,8 @@ public class ConcordionBuilder implements ConcordionExtender {
         for (Entry<String, Resource> resourceToCopy : resourceToCopyMap.entrySet()) {
             String sourcePath = resourceToCopy.getKey();
             Resource targetResource = resourceToCopy.getValue();
-            InputStream inputStream = getClass().getResourceAsStream(sourcePath);
-            if (inputStream == null) {
-                throw new RuntimeException("Unable to find resource "+ sourcePath + " to copy");
-            }
             try {
+                InputStream inputStream = source.createInputStream(new Resource(sourcePath));
                 target.copyTo(targetResource, inputStream);
             } catch (IOException e) {
                 throw new RuntimeException("Failed to copy " + sourcePath + " to target " + targetResource, e);

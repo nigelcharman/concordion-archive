@@ -108,7 +108,23 @@ public final class Element {
     public String getAttributeValue(String localName, String namespaceURI) {
         return xomElement.getAttributeValue(localName, namespaceURI);
     }
+
+    public void removeAttribute(String name) {
+        xomElement.removeAttribute(xomElement.getAttribute(name));
+    }
     
+    public void removeAttribute(String localName, String namespaceURI) {
+        xomElement.removeAttribute(xomElement.getAttribute(localName, namespaceURI));
+    }
+    
+    public void moveAttributesTo(Element element) {
+        for (int i=0; i<xomElement.getAttributeCount(); i++) {
+            Attribute attribute = xomElement.getAttribute(i);
+            xomElement.removeAttribute(attribute);
+            element.xomElement.addAttribute(attribute);
+        }
+    }
+
     private boolean isBlank() {
         return getText().trim().equals("");
     }

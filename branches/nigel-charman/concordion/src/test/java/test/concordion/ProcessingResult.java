@@ -82,7 +82,39 @@ public class ProcessingResult {
                     && "stylesheet".equals(rel)) {
                 return true;
             }
-            return false;
+        }
+        return false;
+    }
+
+    public boolean hasEmbeddedCSS(String css) {
+        Element head = getRootElement().getFirstChildElement("head");
+        for (Element style : head.getChildElements("style")) {
+            if (style.getText().contains(css) ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasJavaScriptDeclaration(String cssFilename) {
+        Element head = getRootElement().getFirstChildElement("head");
+        for (Element script : head.getChildElements("script")) {
+            String type = script.getAttributeValue("type");
+            String src = script.getAttributeValue("src");
+            if ("text/javascript".equals(type) && cssFilename.equals(src)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasEmbeddedJavaScript(String javaScript) {
+        Element head = getRootElement().getFirstChildElement("head");
+        for (Element script : head.getChildElements("script")) {
+            String type = script.getAttributeValue("type");
+            if ("text/javascript".equals(type) && script.getText().contains(javaScript)) {
+                return true;
+            }
         }
         return false;
     }

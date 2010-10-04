@@ -35,6 +35,7 @@ public abstract class AbstractExtensionTestCase extends ConcordionTestCase {
             System.setOut(logStream);
             
             testRig = new TestRig();
+            configureTestRig(testRig);
             processingResult = testRig.withFixture(this)
               .processFragment(fragment);
             
@@ -45,6 +46,9 @@ public abstract class AbstractExtensionTestCase extends ConcordionTestCase {
         } finally {
             System.setOut(savedStream);
         }
+    }
+
+    protected void configureTestRig(TestRig testRig) {
     }
 
     public List<String> getEventLog() {
@@ -62,7 +66,7 @@ public abstract class AbstractExtensionTestCase extends ConcordionTestCase {
     protected void setExtensions(String extension) {
         System.setProperty("concordion.extensions", extension);
     }
-    
+
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();

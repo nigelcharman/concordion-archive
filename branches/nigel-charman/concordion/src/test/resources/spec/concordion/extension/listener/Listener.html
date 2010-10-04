@@ -60,11 +60,12 @@ is &lt;span concordion:assertFalse="isPositive(#num)"&gt;is not positive&lt;/spa
         <li><a href="ExecuteTableListener.html">Execute table listeners</a> are notified on each row when <a href="../../command/execute/ExecutingTables.html">executing tables</a></li>
         <li><a href="VerifyRowsListener.html">Verify row listeners</a> observe <a href="../../command/verifyRows/VerifyRows.html">verifyRows</a> commands</li>
         <li><code>Run listeners</code> are notified of the outcome of <a href="../../command/run/Run.html">run</a> commands (success, failure or ignored)</li>
-        <li><code>Throwable caught listeners</code> are notified of any <code>throwables</code> that occur while processing a command</li>
+        <li><code>Throwable caught listeners</code> are notified of any <code>throwables</code> that occur while processing a command, including <a href="../CustomCommand.html">custom commands</a>.</li> 
     </ul>
 
     <h3>Processing Listeners</h3>
     <ul>
+        <li><code>Concordion build listeners</code> provide access to the <code>target</code> to allow resources to be written</li>
         <li><code>Document parsing listeners</code> provide access to the <code>document</code> prior to parsing</li>
         <li><code>Specification processing listeners</code> provide access to the <code>specification</code> before and after processing</li>
     </ul>

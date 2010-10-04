@@ -1,7 +1,9 @@
 package test.concordion;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -25,13 +27,21 @@ public class StubTarget implements Target {
     public void write(Resource resource, String s) throws IOException {
         writtenStrings.put(resource, s);
     }
-
+    
     public String getWrittenString(Resource resource) {
         Check.isTrue(writtenStrings.containsKey(resource), "Expected resource '" + resource.getPath() + "' was not written to target");
         return writtenStrings.get(resource);
     }
     
+    public boolean exists(Resource resource) {
+        return hasCopiedResource(resource) || writtenStrings.containsKey(resource);
+    }
+
     public boolean hasCopiedResource(Resource resource) {
         return copiedResources.contains(resource);
+    }
+
+    public OutputStream getOutputStream(Resource resource) {
+        throw new UnsupportedOperationException("not implemented on StubTarget");
     }
 }

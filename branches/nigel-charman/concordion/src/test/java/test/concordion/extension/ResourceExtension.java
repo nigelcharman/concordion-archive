@@ -6,8 +6,10 @@ import org.concordion.api.extension.ConcordionExtension;
 
 public class ResourceExtension implements ConcordionExtension {
 
+    public static final String SOURCE_PATH = "/test/concordion/o.png";
+
     public void addTo(ConcordionExtender concordionExtender) {
-        concordionExtender.withResource("/test/concordion/o.png", at("/images/o.png"));
+        concordionExtender.withResource(SOURCE_PATH, at("/images/o.png"));
     }
 
     private Resource at(String path) {
