@@ -95,8 +95,16 @@ http://concordion.googlecode.com/svn/trunk/concordion</a>
 
 <p>
 Thanks to the work of <a class="externalLink" href="http://tutansblog.blogspot.com/">Nigel Charman</a>,
-Concordion's internal API has now been opened up to support <a href="dist/1.4.0/test-output/concordion/spec/concordion/extension/Extension.html">extensions</a>.
+Concordion's internal API has now been opened up to support <a href="dist/1.4.0/test-output/concordion/spec/concordion/extension/Extension.html">extensions</a>
+(e.g. new commands and new listeners for Concordion events).
+For details, see the classes in <a class="externalLink" href="http://code.google.com/p/concordion/source/browse/#svn/trunk/concordion/src/main/java/org/concordion/api/extension">org.concordion.api.extension</a>
+and the <a class="externalLink" href="http://code.google.com/p/concordion/source/browse/#svn/trunk/concordion/src/test/resources/spec/concordion/extension">fixtures that demonstrate it</a>.
 </p>
+
+<p>
+Nigel also has some sample extensions at <a class="externalLink" href="http://github.com/nigelcharman/concordion-extensions">http://github.com/nigelcharman/concordion-extensions</a>
+</p>
+
 
 <p>
 If you've previously extended Concordion, by referencing internal classes, you'll need
