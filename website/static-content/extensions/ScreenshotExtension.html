@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Concordion - Technique</title>
+<link media="all" rel="stylesheet" type="text/css" href="../css/default.css"/>
+<link media="print"  rel="stylesheet" type="text/css" href="../css/print.css"/>
+<link rel="icon" type="image/vnd.microsoft.icon" href="../favicon.ico" />
+<style>
+#specFixtureSystem {
+  padding: 20px 20px 20px 64px;
+}
+.exampleTable table {
+  border-collapse: collapse;
+  empty-cells: show;
+  margin: 8px 0px 8px 0px;
+}
+.exampleTable th, .exampleTable td {
+  border: 1px solid #966;
+  padding: 3px;
+  background-color: #ffe4e4;
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+<div class="header">
+
+    <a href="http://www.opensource.org/">
+    <img class="open-source-logo" src="../image/opensource-110x95.png"
+        alt="Open source (Apache 2.0 license)" />
+    </a>
+
+    <a href="/">
+    <img src="../image/front-page-banner.png"
+        alt="Concordion is a simple, but powerful, agile acceptance testing tool for Java." />
+    </a>
+
+</div><!-- header -->
+
+<div class="menuBar">
+
+<ul class="menu">
+  <li><a href="/">Home</a></li>
+  <li><a href="../Example.html">Screenshots</a></li>
+  <li><a href="../Tutorial.html">Getting Started</a></li>
+  <li><a href="../Technique.html">Hints and Tips</a></li>
+  <li><a href="../Extensions.html">Extensions</a></li>
+  <li><a href="../Download.html">Download</a></li>
+  <li><a href="../Questions.html">FAQ</a></li>
+</ul>
+
+</div><!-- menuBar  -->
+
+<div class="content">
+
+<h1>Screenshot Extension</h1>
+
+<div class="memo">
+
+<h1><a name="Introduction"/>Introduction</h1>
+<p>This extension has two main uses - taking screenshots to help diagnose
+test failures, and/or explicitly adding screenshots to the output for
+documentation purposes.</p>
+<p>By default, the whole screen is captured using <tt>java.awt.Robot</tt>. As
+an alternative, custom screenshots can be captured using the <tt>ScreenshotTaker</tt>
+interface. For example, when using frameworks such as Selenium, a custom
+screenshot taker can capture an image of the entire web page, even if
+the test is running in the background.</p>
+<h1><a name="Diagnosing_failures"/>Diagnosing test failures</h1>
+<p>When running GUI tests it can be difficult to determine what was
+being shown on the GUI at the time of failure <tt>[1]</tt>, especially
+if the tests are running in the background or on a Continuous
+Integration server.</p>
+<p>This extension adds screenshots to the Concordion output when
+failures or exceptions occur. It can also be configured to add
+screenshots on successful assertions.</p>
+<p>The screenshot is displayed when you hover over the relevant
+element. Clicking on the element will open the image in the current
+browser window. For example, hovering over the failure in this web test:
+</p>
+<img style="padding-left: 50px;" src="../image/extensions/Screenshot.png" />
+<p>shows a screenshot of the browser page at the time the failure
+occurred:</p>
+<img style="padding-left: 60px;" src="../image/extensions/ScreenshotHover.png" />
+<p>Clicking on the failure opens the image for further inspection:</p>
+<img style="padding-left: 50px;" src="../image/extensions/ScreenshotClicked.png" />
+
+<p>(Note: this image has been truncated to save space)</p>
+<p><tt>[1]</tt> The screenshot is invoked by an assertion listener,
+so will occur a very short period after the failure actually occurred.
+In most cases, this small delay is of no consequence.</p>
+
+<h1><a name="Explicit_screenshots"/>Explicitly adding screenshots to the output</h1>
+<p>This extension also provides a Concordion <tt>screenshot</tt>
+command that explicitly add screenshots to the output HTML for documentation purposes.</p>
+<p>To use the command, add an attribute named <tt>screenshot</tt>
+using the namespace <tt>&quot;urn:concordion-extensions:2010&quot;</tt>
+to an element in your Concordion HTML. For example:</p>
+<pre class="html">&lt;html xmlns:concordion=&quot;http://www.concordion.org/2007/concordion&quot; 
+      xmlns:ext=&quot;urn:concordion-extensions:2010&quot;&gt;
+
+....
+&lt;div ext:screenshot=&quot;&quot;/&gt;
+...
+</pre>
+
+<p>By default, the screenshot is embedded in the output HTML. If
+you'd rather have it linked, set the attribute value to
+'linked', for example:</p>
+<pre class="html">&lt;p&gt;See &lt;span ext:screenshot=&quot;linked&quot; style=&quot;text-decoration: underline;&quot;&gt;this screen&lt;/span&gt;&lt;/p&gt;</pre>
+<p><strong>NOTE:</strong> If you want to use the extension only as a
+command, and not to capture screenshots of test failures, you will need
+to use a custom configuration that sets <tt>setScreenshotOnAssertionFailure</tt>
+and <tt>setScreenshotOnThrowable</tt> to <tt>false</tt>. See below for
+custom configuration details.</p>
+
+<h1><a name="Configuration"/>Configuration</h1>
+
+<h2><a name="Default_Configuration"/>Default Configuration</h2>
+<p>By default, this extension will add screenshots to the output
+whenever an assertion fails, or an uncaught Throwable occurs in the
+test.</p>
+<p>To install the extension:</p>
+<pre class="java">System.setProperty(&quot;concordion.extensions&quot;, &quot;org.concordion.ext.ScreenshotExtension&quot;);</pre>
+<h2><a name="Custom_Configuration"></a>Custom Configuration</h2>
+<p>The extension can be customised using a <tt>ConcordionExtensionFactory</tt>
+to create and modify the extension.</p>
+<p>For example, the following code configures a custom <tt>ScreenshotTaker</tt>,
+takes screenshots on assertion success as well as failure, and limits
+the maximum width of the screenshot images on mouse hover to 400 pixels.
+</p>
+<pre class="java">
+package nz.co.twoten.concordion.selenium;
+
+import org.concordion.api.extension.ConcordionExtension;
+import org.concordion.api.extension.ConcordionExtensionFactory;
+import org.concordion.ext.ScreenshotExtension;
+
+import org.openqa.selenium.WebDriver;
+
+public class ScreenshotExtensionFactory implements ConcordionExtensionFactory {
+
+    private static WebDriver driver;
+
+    public static void setDriver(WebDriver driver) {
+        ScreenshotExtensionFactory.driver = driver;
+    }
+
+    @Override
+    public ConcordionExtension createExtension() {
+        SeleniumScreenshotTaker screenshotTaker = new SeleniumScreenshotTaker(driver);
+        ScreenshotExtension extension = new ScreenshotExtension();
+        extension.setScreenshotTaker(screenshotTaker);
+        extension.setScreenshotOnAssertionSuccess(true);
+        extension.setMaxWidth(400);
+        return extension;
+    }
+}
+</pre>
+
+<p>To install this example extension factory:</p>
+<pre class="java">
+System.setProperty(&quot;concordion.extensions&quot;, 
+    &quot;nz.co.twoten.concordion.selenium.ScreenshotExtensionFactory&quot;);
+</pre>
+
+<h1><a name="Screenshot_Taker"/>Screenshot Taker</h1>
+<p>By default, the screenshot will be of the full visible screen.
+This can be overridden using a custom <tt>ScreenshotTaker</tt>. For
+example, the <tt>SeleniumScreenshotTaker</tt> in the above examples
+ensures that only the browser window is captured, that the full browser
+page is captured and that it is captured regardless of whether the
+browser window is currently displayed.</p>
+
+<h4><a name="Acknowledgements"/>Acknowledgements</h4>
+<p>This extension was partly inspired by Mark Derricutt&#x27;s <a class="externalLink" 
+  href="http://github.com/talios/concordion-examples/blob/master/src/test/java/com/talios/ScreenshotCommand.java"
+  rel="nofollow">ScreenshotCommand</a>, and by Adam Setch&#x27;s <a class="externalLink" 
+  href="http://tech.groups.yahoo.com/group/concordion/message/618"
+  rel="nofollow">post</a> to the Concordion list.</p>
+
+
+
+</div> <!-- memo -->
+
+</div> <!-- content -->
+
+</div> <!-- page -->
+
+<div class="copyright">
+ &nbsp; Copyright &copy; 2010
+ <a href="http://tutansblog.blogspot.com">Nigel Charman</a>. All rights reserved.
+</div> <!-- copyright -->
+
+</body>
+</html>
