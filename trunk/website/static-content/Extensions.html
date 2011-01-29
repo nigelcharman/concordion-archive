@@ -82,6 +82,7 @@ public class MyCssExtension implements ConcordionExtension {
     }
 } 
 </pre>
+<p>If you have already declared a link to the CSS file in your HTML, you should use <code>concordionExtender.withResource()</code> rather than <code>concordionExtender.withLinkedCSS()</code> to avoid a duplicate declaration.</code></p>
 <p>To install the extension, you will need to set the system property <code>&quot;concordion.extensions&quot;</code> to the fully qualified name of the extension class:</p>
 <pre class="java">
 @BeforeClass
