@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?><html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cx="urn:concordion-extensions:2010">
+<link href="../../../../concordion.css" rel="stylesheet" type="text/css" />
+<head><style>* {
+  font-family: Arial;
+}
+body {
+  padding: 32px;  
+}
+pre {
+  padding: 6px 28px 6px 28px;
+  background-color: #E8EEF7;
+}
+pre, pre *, code, code *, kbd {
+  font-family: Courier New, Courier;
+  font-size: 10pt;
+}
+h1, h1 * {
+  font-size: 24pt;	
+}
+p, td, th, li, .breadcrumbs {
+  font-size: 10pt;
+}
+p, li {
+  line-height: 140%;
+}
+table {
+  border-collapse: collapse;
+  empty-cells: show;
+  margin: 8px 0px 8px 0px;
+}
+th, td {
+  border: 1px solid black;
+  padding: 3px;
+}
+td {
+  background-color: white;
+  vertical-align: top;
+}
+th {
+  background-color: #C3D9FF;
+}
+li {
+  margin-top: 6px;
+  margin-bottom: 6px; 
+}
+
+
+.example {
+  padding: 2px 12px 6px 12px;
+  border: 1px solid #C3D9FF;
+  margin: 6px 0px 28px 0px;
+  background-color: #F5F9FD;
+}
+.example h3 {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  font-size: 12pt;
+}
+
+p.success {
+  padding: 2px;
+}
+.success, .success * {
+  background-color: #afa !important;
+}
+.success pre {
+  background-color: #bbffbb;
+}
+.failure, .failure * {
+  background-color: #ffb0b0;
+  padding: 1px;
+}
+.failure .expected {
+  text-decoration: line-through;
+  color: #bb5050;
+}
+.ignored, .ignored * {
+  background-color: #f0f0f0 !important;	
+}
+
+ins {
+  text-decoration: none;	
+}
+
+.exceptionMessage {
+  background-color: #fdd;
+  font-family: Courier New, Courier, Monospace;
+  font-size: 10pt;
+  display: block;
+  font-weight: normal;
+  padding: 4px;
+  text-decoration: none !important;
+}
+.stackTrace, .stackTrace * {
+  font-weight: normal;
+}
+.stackTrace {
+  display: none;
+  padding: 1px 4px 4px 4px;
+  background-color: #fdd;
+  border-top: 1px dotted black;
+}
+.stackTraceExceptionMessage {
+  display: block;
+  font-family: Courier New, Courier, Monospace;
+  font-size: 8pt;
+  white-space: wrap;
+  padding: 1px 0px 1px 0px;
+}
+.stackTraceEntry {
+  white-space: nowrap;
+  font-family: Courier New, Courier, Monospace;
+  display: block;
+  font-size: 8pt;
+  padding: 1px 0px 1px 32px;
+}
+.stackTraceButton {
+  font-size: 8pt;
+  margin: 2px 8px 2px 0px;
+  font-weight: normal;
+  font-family: Arial;
+}
+
+.special {
+  font-style: italic;
+}
+.missing, .missing * {
+  background-color: #ff9999;
+}
+.surplus, .surplus * {
+  background-color: #ff9999;
+}
+.footer {
+  text-align: right;
+  margin-top: 40px;
+  font-size: 8pt;
+  width: 100%;
+  color: #999;
+}
+.footer .testTime {
+  padding: 2px 10px 0px 0px;
+}
+
+.idea {
+  font-size: 9pt;
+  color: #888;
+  font-style: italic;	
+}
+.tight li {
+  margin-top: 1px;
+  margin-bottom: 1px; 
+}
+.commentary {
+  float: right;
+  width: 200px;
+  background-color: #ffffd0;
+  padding:8px;
+  border: 3px solid #eeeeb0;	 
+  margin: 10px 0px 10px 10px;	 
+}
+.commentary, .commentary * {
+  font-size: 8pt;
+}
+</style>
+<style type="text/css">
+tt, tt *, pre, code, pre *, code * {
+  font-family: Courier New, Courier, Fixed;
+  font-size: 10pt;
+}
+pre {
+  padding: 8px;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+pre.java {
+    background-color: #e4eefc;
+}
+pre.html {
+    background-color: #ffffd9;
+    border: 1px solid #ededdf;
+}
+</style>
+
+<script>
+/* Stack Trace Toggling - Explicitly add this to make the View stack trace button work since the exception example embeds the HTML from an example that is called externally from this spec. */
+
+function getElementById(id) {
+  var element;
+
+  if (document.getElementById) { // standard
+    return document.getElementById(id);
+  } else if (document.all) { // old IE versions
+    return document.all[id];
+  } else if (document.layers) { // nn4
+    return document.layers[id];
+  }
+  alert("Sorry, but your web browser is not supported by Concordion.");
+}
+
+function isVisible(element) {
+  return element.style.display;
+}
+
+function makeVisible(element) {
+  element.style.display = "block";
+}
+
+function makeInvisible(element) {
+  element.style.display = "";
+}
+
+function toggleStackTrace(stackTraceNumber) {
+  var stackTrace = getElementById("stackTrace" + stackTraceNumber);
+  var stackTraceButton = getElementById("stackTraceButton" + stackTraceNumber);
+  if (isVisible(stackTrace)) {
+    makeInvisible(stackTrace);
+    stackTraceButton.value = "View Stack";
+  } else {
+    makeVisible(stackTrace);
+    stackTraceButton.value = "Hide Stack";
+  }
+}
+</script>
+</head>
+<body><span class="breadcrumbs"><a href="../Ext.html">Concordion Extensions Library</a> &gt;</span>
+
+  <h1>Exception Translator</h1>
+
+  <p>The Exception Translator extension modifies the exception message.</p>
+
+  <div class="example">
+        <h3>Example</h3>
+        
+        <p concordion:execute="setSystemProperty(#name, #value)">Given the system property <code concordion:set="#name">concordion.extensions</code> is set to <code concordion:set="#value">spec.concordion.ext.translator.FrenchTranslatorExtensionFactory</code>.</p>
+
+        <p>When running a fixture that throws an exception with the message <b concordion:execute="setExceptionMessage(#TEXT)">Unable to connect to http://localhost:9080</b>, when the following command is executed </p>
+        
+        <pre concordion:set="#snippet">&lt;p concordion:execute="makeConnection()"&gt;Connectez moi&lt;/p&gt;</pre>
+
+        <p concordion:execute="#fragment=render(#snippet)">, the output displays the exception message:</p>
+
+        <pre concordion:assertEquals="getExceptionMessage(#snippet)" class="html success">Impossible de se connecter à http://localhost:9080</pre>
+
+        <p>, and the stack trace retains the original exception message:</p>
+         
+        <pre concordion:assertEquals="getStackTraceMessage(#snippet)" class="html success">RuntimeException: Unable to connect to http://localhost:9080</pre>
+        
+    <p>The output looks like: <span cx:embed="#fragment"><p concordion:execute="makeConnection()"><span class="failure"><del class="expected">Connectez moi</del></span><span class="exceptionMessage">Impossible de se connecter à http://localhost:9080</span><input class="stackTraceButton" id="stackTraceButton1" type="button" onclick="javascript:toggleStackTrace('1')" value="View Stack" /><span class="stackTrace" id="stackTrace1"><p>While evaluating expression: <code>makeConnection()</code></p><span class="stackTraceExceptionMessage">org.concordion.internal.InvalidExpressionException: RuntimeException: Unable to connect to http://localhost:9080</span><span class="stackTraceEntry">at spec.concordion.ext.translator.Translator.makeConnection (Translator.java:43)</span><span class="stackTraceEntry">at sun.reflect.NativeMethodAccessorImpl.invoke0 (NativeMethodAccessorImpl.java:-2)</span><span class="stackTraceEntry">at sun.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:39)</span><span class="stackTraceEntry">at sun.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:25)</span><span class="stackTraceEntry">at java.lang.reflect.Method.invoke (Method.java:597)</span><span class="stackTraceEntry">at ognl.OgnlRuntime.invokeMethod (OgnlRuntime.java:532)</span><span class="stackTraceEntry">at ognl.OgnlRuntime.callAppropriateMethod (OgnlRuntime.java:826)</span><span class="stackTraceEntry">at ognl.ObjectMethodAccessor.callMethod (ObjectMethodAccessor.java:61)</span><span class="stackTraceEntry">at ognl.OgnlRuntime.callMethod (OgnlRuntime.java:860)</span><span class="stackTraceEntry">at ognl.ASTMethod.getValueBody (ASTMethod.java:73)</span><span class="stackTraceEntry">at ognl.SimpleNode.evaluateGetValueBody (SimpleNode.java:170)</span><span class="stackTraceEntry">at ognl.SimpleNode.getValue (SimpleNode.java:210)</span><span class="stackTraceEntry">at ognl.Ognl.getValue (Ognl.java:333)</span><span class="stackTraceEntry">at ognl.Ognl.getValue (Ognl.java:378)</span><span class="stackTraceEntry">at ognl.Ognl.getValue (Ognl.java:357)</span><span class="stackTraceEntry">at org.concordion.internal.OgnlEvaluator.evaluate (OgnlEvaluator.java:32)</span><span class="stackTraceEntry">at org.concordion.internal.SimpleEvaluator.evaluate (SimpleEvaluator.java:15)</span><span class="stackTraceEntry">at org.concordion.internal.command.ExecuteCommand$DefaultStrategy.execute (ExecuteCommand.java:48)</span><span class="stackTraceEntry">at org.concordion.internal.command.ExecuteCommand.execute (ExecuteCommand.java:35)</span><span class="stackTraceEntry">at org.concordion.api.AbstractCommandDecorator$2.run (AbstractCommandDecorator.java:23)</span><span class="stackTraceEntry">at org.concordion.internal.command.LocalTextDecorator.process (LocalTextDecorator.java:26)</span><span class="stackTraceEntry">at org.concordion.api.AbstractCommandDecorator.execute (AbstractCommandDecorator.java:21)</span><span class="stackTraceEntry">at org.concordion.api.AbstractCommandDecorator$2.run (AbstractCommandDecorator.java:23)</span><span class="stackTraceEntry">at org.concordion.internal.command.ThrowableCatchingDecorator.process (ThrowableCatchingDecorator.java:37)</span><span class="stackTraceEntry">at org.concordion.api.AbstractCommandDecorator.execute (AbstractCommandDecorator.java:21)</span><span class="stackTraceEntry">at org.concordion.api.CommandCall.execute (CommandCall.java:29)</span><span class="stackTraceEntry">at org.concordion.api.CommandCallList.processSequentially (CommandCallList.java:30)</span><span class="stackTraceEntry">at org.concordion.internal.command.SpecificationCommand.execute (SpecificationCommand.java:23)</span><span class="stackTraceEntry">at org.concordion.api.CommandCall.execute (CommandCall.java:29)</span><span class="stackTraceEntry">at org.concordion.internal.XMLSpecification.process (XMLSpecification.java:17)</span><span class="stackTraceEntry">at org.concordion.Concordion.process (Concordion.java:32)</span><span class="stackTraceEntry">at test.concordion.TestRig.process (TestRig.java:52)</span><span class="stackTraceEntry">at test.concordion.TestRig.process (TestRig.java:63)</span><span class="stackTraceEntry">at test.concordion.TestRig.processFragment (TestRig.java:34)</span><span class="stackTraceEntry">at spec.concordion.ext.translator.Translator.render (Translator.java:47)</span><span class="stackTraceEntry">at sun.reflect.NativeMethodAccessorImpl.invoke0 (NativeMethodAccessorImpl.java:-2)</span><span class="stackTraceEntry">at sun.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:39)</span><span class="stackTraceEntry">at sun.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:25)</span><span class="stackTraceEntry">at java.lang.reflect.Method.invoke (Method.java:597)</span><span class="stackTraceEntry">at ognl.OgnlRuntime.invokeMethod (OgnlRuntime.java:532)</span><span class="stackTraceEntry">at ognl.OgnlRuntime.callAppropriateMethod (OgnlRuntime.java:826)</span><span class="stackTraceEntry">at ognl.ObjectMethodAccessor.callMethod (ObjectMethodAccessor.java:61)</span><span class="stackTraceEntry">at ognl.OgnlRuntime.callMethod (OgnlRuntime.java:860)</span><span class="stackTraceEntry">at ognl.ASTMethod.getValueBody (ASTMethod.java:73)</span><span class="stackTraceEntry">at ognl.SimpleNode.evaluateGetValueBody (SimpleNode.java:170)</span><span class="stackTraceEntry">at ognl.SimpleNode.getValue (SimpleNode.java:210)</span><span class="stackTraceEntry">at ognl.ASTAssign.getValueBody (ASTAssign.java:49)</span><span class="stackTraceEntry">at ognl.SimpleNode.evaluateGetValueBody (SimpleNode.java:170)</span><span class="stackTraceEntry">at ognl.SimpleNode.getValue (SimpleNode.java:210)</span><span class="stackTraceEntry">at ognl.Ognl.getValue (Ognl.java:333)</span><span class="stackTraceEntry">at ognl.Ognl.getValue (Ognl.java:378)</span><span class="stackTraceEntry">at ognl.Ognl.getValue (Ognl.java:357)</span><span class="stackTraceEntry">at org.concordion.internal.OgnlEvaluator.evaluate (OgnlEvaluator.java:32)</span><span class="stackTraceEntry">at org.concordion.internal.SimpleEvaluator.evaluate (SimpleEvaluator.java:15)</span><span class="stackTraceEntry">at org.concordion.internal.command.ExecuteCommand$DefaultStrategy.execute (ExecuteCommand.java:48)</span><span class="stackTraceEntry">at org.concordion.internal.command.ExecuteCommand.execute (ExecuteCommand.java:35)</span><span class="stackTraceEntry">at org.concordion.api.AbstractCommandDecorator$2.run (AbstractCommandDecorator.java:23)</span><span class="stackTraceEntry">at org.concordion.internal.command.LocalTextDecorator.process (LocalTextDecorator.java:26)</span><span class="stackTraceEntry">at org.concordion.api.AbstractCommandDecorator.execute (AbstractCommandDecorator.java:21)</span><span class="stackTraceEntry">at org.concordion.api.AbstractCommandDecorator$2.run (AbstractCommandDecorator.java:23)</span><span class="stackTraceEntry">at org.concordion.internal.command.ThrowableCatchingDecorator.process (ThrowableCatchingDecorator.java:37)</span><span class="stackTraceEntry">at org.concordion.api.AbstractCommandDecorator.execute (AbstractCommandDecorator.java:21)</span><span class="stackTraceEntry">at org.concordion.api.CommandCall.execute (CommandCall.java:29)</span><span class="stackTraceEntry">at org.concordion.api.CommandCallList.processSequentially (CommandCallList.java:30)</span><span class="stackTraceEntry">at org.concordion.internal.command.SpecificationCommand.execute (SpecificationCommand.java:23)</span><span class="stackTraceEntry">at org.concordion.api.CommandCall.execute (CommandCall.java:29)</span><span class="stackTraceEntry">at org.concordion.internal.XMLSpecification.process (XMLSpecification.java:17)</span><span class="stackTraceEntry">at org.concordion.Concordion.process (Concordion.java:32)</span><span class="stackTraceEntry">at org.concordion.Concordion.process (Concordion.java:26)</span><span class="stackTraceEntry">at org.concordion.internal.FixtureRunner.run (FixtureRunner.java:15)</span><span class="stackTraceEntry">at org.concordion.integration.junit4.ConcordionRunner$1.evaluate (ConcordionRunner.java:113)</span><span class="stackTraceEntry">at org.junit.internal.runners.statements.RunBefores.evaluate (RunBefores.java:28)</span><span class="stackTraceEntry">at org.junit.runners.BlockJUnit4ClassRunner.runNotIgnored (BlockJUnit4ClassRunner.java:79)</span><span class="stackTraceEntry">at org.junit.runners.BlockJUnit4ClassRunner.runChild (BlockJUnit4ClassRunner.java:71)</span><span class="stackTraceEntry">at org.concordion.integration.junit4.ConcordionRunner.runChild (ConcordionRunner.java:104)</span><span class="stackTraceEntry">at org.concordion.integration.junit4.ConcordionRunner.runChild (ConcordionRunner.java:18)</span><span class="stackTraceEntry">at org.junit.runners.ParentRunner$3.run (ParentRunner.java:193)</span><span class="stackTraceEntry">at org.junit.runners.ParentRunner$1.schedule (ParentRunner.java:52)</span><span class="stackTraceEntry">at org.junit.runners.ParentRunner.runChildren (ParentRunner.java:191)</span><span class="stackTraceEntry">at org.junit.runners.ParentRunner.access$000 (ParentRunner.java:42)</span><span class="stackTraceEntry">at org.junit.runners.ParentRunner$2.evaluate (ParentRunner.java:184)</span><span class="stackTraceEntry">at org.junit.runners.ParentRunner.run (ParentRunner.java:236)</span><span class="stackTraceEntry">at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecuter.execute (JUnitTestClassExecuter.java:51)</span><span class="stackTraceEntry">at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassProcessor.processTestClass (JUnitTestClassProcessor.java:63)</span><span class="stackTraceEntry">at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass (SuiteTestClassProcessor.java:49)</span><span class="stackTraceEntry">at sun.reflect.NativeMethodAccessorImpl.invoke0 (NativeMethodAccessorImpl.java:-2)</span><span class="stackTraceEntry">at sun.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:39)</span><span class="stackTraceEntry">at sun.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:25)</span><span class="stackTraceEntry">at java.lang.reflect.Method.invoke (Method.java:597)</span><span class="stackTraceEntry">at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch (ReflectionDispatch.java:35)</span><span class="stackTraceEntry">at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch (ReflectionDispatch.java:24)</span><span class="stackTraceEntry">at org.gradle.messaging.dispatch.ContextClassLoaderDispatch.dispatch (ContextClassLoaderDispatch.java:32)</span><span class="stackTraceEntry">at org.gradle.messaging.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke (ProxyDispatchAdapter.java:75)</span><span class="stackTraceEntry">at $Proxy3.processTestClass (Unknown Source)</span><span class="stackTraceEntry">at org.gradle.api.internal.tasks.testing.worker.TestWorker.processTestClass (TestWorker.java:86)</span><span class="stackTraceEntry">at sun.reflect.NativeMethodAccessorImpl.invoke0 (NativeMethodAccessorImpl.java:-2)</span><span class="stackTraceEntry">at sun.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:39)</span><span class="stackTraceEntry">at sun.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:25)</span><span class="stackTraceEntry">at java.lang.reflect.Method.invoke (Method.java:597)</span><span class="stackTraceEntry">at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch (ReflectionDispatch.java:35)</span><span class="stackTraceEntry">at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch (ReflectionDispatch.java:24)</span><span class="stackTraceEntry">at org.gradle.messaging.remote.internal.MethodInvocationUnmarshallingDispatch.dispatch (MethodInvocationUnmarshallingDispatch.java:48)</span><span class="stackTraceEntry">at org.gradle.messaging.dispatch.DiscardOnFailureDispatch.dispatch (DiscardOnFailureDispatch.java:31)</span><span class="stackTraceEntry">at org.gradle.messaging.dispatch.AsyncDispatch.dispatchMessages (AsyncDispatch.java:129)</span><span class="stackTraceEntry">at org.gradle.messaging.dispatch.AsyncDispatch.access$000 (AsyncDispatch.java:33)</span><span class="stackTraceEntry">at org.gradle.messaging.dispatch.AsyncDispatch$1.run (AsyncDispatch.java:69)</span><span class="stackTraceEntry">at org.gradle.messaging.concurrent.DefaultExecutorFactory$StoppableExecutorImpl$1.run (DefaultExecutorFactory.java:63)</span><span class="stackTraceEntry">at java.util.concurrent.ThreadPoolExecutor$Worker.runTask (ThreadPoolExecutor.java:886)</span><span class="stackTraceEntry">at java.util.concurrent.ThreadPoolExecutor$Worker.run (ThreadPoolExecutor.java:908)</span><span class="stackTraceEntry">at java.lang.Thread.run (Thread.java:662)</span><span class="stackTraceExceptionMessage">java.lang.RuntimeException: Unable to connect to http://localhost:9080</span><span class="stackTraceEntry">at spec.concordion.ext.translator.Translator.makeConnection (Translator.java:43)</span><span class="stackTraceEntry">at sun.reflect.NativeMethodAccessorImpl.invoke0 (NativeMethodAccessorImpl.java:-2)</span><span class="stackTraceEntry">at sun.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:39)</span><span class="stackTraceEntry">at sun.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:25)</span><span class="stackTraceEntry">at java.lang.reflect.Method.invoke (Method.java:597)</span><span class="stackTraceEntry">at ognl.OgnlRuntime.invokeMethod (OgnlRuntime.java:532)</span><span class="stackTraceEntry">at ognl.OgnlRuntime.callAppropriateMethod (OgnlRuntime.java:826)</span><span class="stackTraceEntry">at ognl.ObjectMethodAccessor.callMethod (ObjectMethodAccessor.java:61)</span><span class="stackTraceEntry">at ognl.OgnlRuntime.callMethod (OgnlRuntime.java:860)</span><span class="stackTraceEntry">at ognl.ASTMethod.getValueBody (ASTMethod.java:73)</span><span class="stackTraceEntry">at ognl.SimpleNode.evaluateGetValueBody (SimpleNode.java:170)</span><span class="stackTraceEntry">at ognl.SimpleNode.getValue (SimpleNode.java:210)</span><span class="stackTraceEntry">at ognl.Ognl.getValue (Ognl.java:333)</span><span class="stackTraceEntry">at ognl.Ognl.getValue (Ognl.java:378)</span><span class="stackTraceEntry">at ognl.Ognl.getValue (Ognl.java:357)</span><span class="stackTraceEntry">at org.concordion.internal.OgnlEvaluator.evaluate (OgnlEvaluator.java:32)</span><span class="stackTraceEntry">at org.concordion.internal.SimpleEvaluator.evaluate (SimpleEvaluator.java:15)</span><span class="stackTraceEntry">at org.concordion.internal.command.ExecuteCommand$DefaultStrategy.execute (ExecuteCommand.java:48)</span><span class="stackTraceEntry">at org.concordion.internal.command.ExecuteCommand.execute (ExecuteCommand.java:35)</span><span class="stackTraceEntry">at org.concordion.api.AbstractCommandDecorator$2.run (AbstractCommandDecorator.java:23)</span><span class="stackTraceEntry">at org.concordion.internal.command.LocalTextDecorator.process (LocalTextDecorator.java:26)</span><span class="stackTraceEntry">at org.concordion.api.AbstractCommandDecorator.execute (AbstractCommandDecorator.java:21)</span><span class="stackTraceEntry">at org.concordion.api.AbstractCommandDecorator$2.run (AbstractCommandDecorator.java:23)</span><span class="stackTraceEntry">at org.concordion.internal.command.ThrowableCatchingDecorator.process (ThrowableCatchingDecorator.java:37)</span><span class="stackTraceEntry">at org.concordion.api.AbstractCommandDecorator.execute (AbstractCommandDecorator.java:21)</span><span class="stackTraceEntry">at org.concordion.api.CommandCall.execute (CommandCall.java:29)</span><span class="stackTraceEntry">at org.concordion.api.CommandCallList.processSequentially (CommandCallList.java:30)</span><span class="stackTraceEntry">at org.concordion.internal.command.SpecificationCommand.execute (SpecificationCommand.java:23)</span><span class="stackTraceEntry">at org.concordion.api.CommandCall.execute (CommandCall.java:29)</span><span class="stackTraceEntry">at org.concordion.internal.XMLSpecification.process (XMLSpecification.java:17)</span><span class="stackTraceEntry">at org.concordion.Concordion.process (Concordion.java:32)</span><span class="stackTraceEntry">at test.concordion.TestRig.process (TestRig.java:52)</span><span class="stackTraceEntry">at test.concordion.TestRig.process (TestRig.java:63)</span><span class="stackTraceEntry">at test.concordion.TestRig.processFragment (TestRig.java:34)</span><span class="stackTraceEntry">at spec.concordion.ext.translator.Translator.render (Translator.java:47)</span><span class="stackTraceEntry">at sun.reflect.NativeMethodAccessorImpl.invoke0 (NativeMethodAccessorImpl.java:-2)</span><span class="stackTraceEntry">at sun.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:39)</span><span class="stackTraceEntry">at sun.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:25)</span><span class="stackTraceEntry">at java.lang.reflect.Method.invoke (Method.java:597)</span><span class="stackTraceEntry">at ognl.OgnlRuntime.invokeMethod (OgnlRuntime.java:532)</span><span class="stackTraceEntry">at ognl.OgnlRuntime.callAppropriateMethod (OgnlRuntime.java:826)</span><span class="stackTraceEntry">at ognl.ObjectMethodAccessor.callMethod (ObjectMethodAccessor.java:61)</span><span class="stackTraceEntry">at ognl.OgnlRuntime.callMethod (OgnlRuntime.java:860)</span><span class="stackTraceEntry">at ognl.ASTMethod.getValueBody (ASTMethod.java:73)</span><span class="stackTraceEntry">at ognl.SimpleNode.evaluateGetValueBody (SimpleNode.java:170)</span><span class="stackTraceEntry">at ognl.SimpleNode.getValue (SimpleNode.java:210)</span><span class="stackTraceEntry">at ognl.ASTAssign.getValueBody (ASTAssign.java:49)</span><span class="stackTraceEntry">at ognl.SimpleNode.evaluateGetValueBody (SimpleNode.java:170)</span><span class="stackTraceEntry">at ognl.SimpleNode.getValue (SimpleNode.java:210)</span><span class="stackTraceEntry">at ognl.Ognl.getValue (Ognl.java:333)</span><span class="stackTraceEntry">at ognl.Ognl.getValue (Ognl.java:378)</span><span class="stackTraceEntry">at ognl.Ognl.getValue (Ognl.java:357)</span><span class="stackTraceEntry">at org.concordion.internal.OgnlEvaluator.evaluate (OgnlEvaluator.java:32)</span><span class="stackTraceEntry">at org.concordion.internal.SimpleEvaluator.evaluate (SimpleEvaluator.java:15)</span><span class="stackTraceEntry">at org.concordion.internal.command.ExecuteCommand$DefaultStrategy.execute (ExecuteCommand.java:48)</span><span class="stackTraceEntry">at org.concordion.internal.command.ExecuteCommand.execute (ExecuteCommand.java:35)</span><span class="stackTraceEntry">at org.concordion.api.AbstractCommandDecorator$2.run (AbstractCommandDecorator.java:23)</span><span class="stackTraceEntry">at org.concordion.internal.command.LocalTextDecorator.process (LocalTextDecorator.java:26)</span><span class="stackTraceEntry">at org.concordion.api.AbstractCommandDecorator.execute (AbstractCommandDecorator.java:21)</span><span class="stackTraceEntry">at org.concordion.api.AbstractCommandDecorator$2.run (AbstractCommandDecorator.java:23)</span><span class="stackTraceEntry">at org.concordion.internal.command.ThrowableCatchingDecorator.process (ThrowableCatchingDecorator.java:37)</span><span class="stackTraceEntry">at org.concordion.api.AbstractCommandDecorator.execute (AbstractCommandDecorator.java:21)</span><span class="stackTraceEntry">at org.concordion.api.CommandCall.execute (CommandCall.java:29)</span><span class="stackTraceEntry">at org.concordion.api.CommandCallList.processSequentially (CommandCallList.java:30)</span><span class="stackTraceEntry">at org.concordion.internal.command.SpecificationCommand.execute (SpecificationCommand.java:23)</span><span class="stackTraceEntry">at org.concordion.api.CommandCall.execute (CommandCall.java:29)</span><span class="stackTraceEntry">at org.concordion.internal.XMLSpecification.process (XMLSpecification.java:17)</span><span class="stackTraceEntry">at org.concordion.Concordion.process (Concordion.java:32)</span><span class="stackTraceEntry">at org.concordion.Concordion.process (Concordion.java:26)</span><span class="stackTraceEntry">at org.concordion.internal.FixtureRunner.run (FixtureRunner.java:15)</span><span class="stackTraceEntry">at org.concordion.integration.junit4.ConcordionRunner$1.evaluate (ConcordionRunner.java:113)</span><span class="stackTraceEntry">at org.junit.internal.runners.statements.RunBefores.evaluate (RunBefores.java:28)</span><span class="stackTraceEntry">at org.junit.runners.BlockJUnit4ClassRunner.runNotIgnored (BlockJUnit4ClassRunner.java:79)</span><span class="stackTraceEntry">at org.junit.runners.BlockJUnit4ClassRunner.runChild (BlockJUnit4ClassRunner.java:71)</span><span class="stackTraceEntry">at org.concordion.integration.junit4.ConcordionRunner.runChild (ConcordionRunner.java:104)</span><span class="stackTraceEntry">at org.concordion.integration.junit4.ConcordionRunner.runChild (ConcordionRunner.java:18)</span><span class="stackTraceEntry">at org.junit.runners.ParentRunner$3.run (ParentRunner.java:193)</span><span class="stackTraceEntry">at org.junit.runners.ParentRunner$1.schedule (ParentRunner.java:52)</span><span class="stackTraceEntry">at org.junit.runners.ParentRunner.runChildren (ParentRunner.java:191)</span><span class="stackTraceEntry">at org.junit.runners.ParentRunner.access$000 (ParentRunner.java:42)</span><span class="stackTraceEntry">at org.junit.runners.ParentRunner$2.evaluate (ParentRunner.java:184)</span><span class="stackTraceEntry">at org.junit.runners.ParentRunner.run (ParentRunner.java:236)</span><span class="stackTraceEntry">at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecuter.execute (JUnitTestClassExecuter.java:51)</span><span class="stackTraceEntry">at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassProcessor.processTestClass (JUnitTestClassProcessor.java:63)</span><span class="stackTraceEntry">at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass (SuiteTestClassProcessor.java:49)</span><span class="stackTraceEntry">at sun.reflect.NativeMethodAccessorImpl.invoke0 (NativeMethodAccessorImpl.java:-2)</span><span class="stackTraceEntry">at sun.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:39)</span><span class="stackTraceEntry">at sun.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:25)</span><span class="stackTraceEntry">at java.lang.reflect.Method.invoke (Method.java:597)</span><span class="stackTraceEntry">at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch (ReflectionDispatch.java:35)</span><span class="stackTraceEntry">at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch (ReflectionDispatch.java:24)</span><span class="stackTraceEntry">at org.gradle.messaging.dispatch.ContextClassLoaderDispatch.dispatch (ContextClassLoaderDispatch.java:32)</span><span class="stackTraceEntry">at org.gradle.messaging.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke (ProxyDispatchAdapter.java:75)</span><span class="stackTraceEntry">at $Proxy3.processTestClass (Unknown Source)</span><span class="stackTraceEntry">at org.gradle.api.internal.tasks.testing.worker.TestWorker.processTestClass (TestWorker.java:86)</span><span class="stackTraceEntry">at sun.reflect.NativeMethodAccessorImpl.invoke0 (NativeMethodAccessorImpl.java:-2)</span><span class="stackTraceEntry">at sun.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:39)</span><span class="stackTraceEntry">at sun.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:25)</span><span class="stackTraceEntry">at java.lang.reflect.Method.invoke (Method.java:597)</span><span class="stackTraceEntry">at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch (ReflectionDispatch.java:35)</span><span class="stackTraceEntry">at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch (ReflectionDispatch.java:24)</span><span class="stackTraceEntry">at org.gradle.messaging.remote.internal.MethodInvocationUnmarshallingDispatch.dispatch (MethodInvocationUnmarshallingDispatch.java:48)</span><span class="stackTraceEntry">at org.gradle.messaging.dispatch.DiscardOnFailureDispatch.dispatch (DiscardOnFailureDispatch.java:31)</span><span class="stackTraceEntry">at org.gradle.messaging.dispatch.AsyncDispatch.dispatchMessages (AsyncDispatch.java:129)</span><span class="stackTraceEntry">at org.gradle.messaging.dispatch.AsyncDispatch.access$000 (AsyncDispatch.java:33)</span><span class="stackTraceEntry">at org.gradle.messaging.dispatch.AsyncDispatch$1.run (AsyncDispatch.java:69)</span><span class="stackTraceEntry">at org.gradle.messaging.concurrent.DefaultExecutorFactory$StoppableExecutorImpl$1.run (DefaultExecutorFactory.java:63)</span><span class="stackTraceEntry">at java.util.concurrent.ThreadPoolExecutor$Worker.runTask (ThreadPoolExecutor.java:886)</span><span class="stackTraceEntry">at java.util.concurrent.ThreadPoolExecutor$Worker.run (ThreadPoolExecutor.java:908)</span><span class="stackTraceEntry">at java.lang.Thread.run (Thread.java:662)</span></span></p></span></p>
+  </div>
+<div class="footer">Results generated by <a href="http://www.concordion.org"><img src="../../../../image/concordion-logo.png" alt="Concordion" border="0" /></a><div class="testTime">in 367 ms on 17-May-2011 at 23:11:47 NZST</div></div></body>
+</html>

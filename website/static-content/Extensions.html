@@ -98,7 +98,7 @@ For examples that listen to events and add new commands, see the concordion-exte
 
 <br />
 
-<h1><a name="library"/>Extensions Library</h1>
+<h1><a name="library"/>concordion-extensions Library</h1>
 
 <p class="subtext">
 The <a class="externalLink" href="http://code.google.com/p/concordion-extensions/">concordion-extensions</a>  project provides:
@@ -112,8 +112,14 @@ The <a class="externalLink" href="http://code.google.com/p/concordion-extensions
   to add logging information as tooltips to the Concordion output,<br/>
   <img id="loggingTooltip" src="image/extensions/LoggingTooltipSmall.png"/>
   </li>
-  <li>and a <a href="extensions/TimestampFormatterExtension.html">TimestampFormatterExtension</a>
-  to change the footer of the Concordion output to show hours, minutes and seconds.
+  <li>a <a href="extensions/TimestampFormatterExtension.html">TimestampFormatterExtension</a>
+  to change the footer of the Concordion output to show hours, minutes and seconds,
+  </li>
+  <li>a <a href="extensions/TranslatorExtension.html">TranslatorExtension</a>
+  to modify the text of exception messages,
+  </li>
+  <li>and an <a href="extensions/EmbedExtension.html">EmbedExtension</a>
+  to embed HTML in the Concordion output.
   </li>
 </ul>
 
@@ -134,7 +140,7 @@ of a base test case, for example</p>
 <pre class="java">
 @BeforeClass
 public static void addExtensions() {
-    System.setProperty(&quot;concordion.extensions&quot;, &quot;org.concordion.ext.Extensions&quot;);
+    System.setProperty(&quot;concordion.extensions&quot;, TimestampFormatterExtension.class.getName());
 }
 </pre>
 <h2><a name="Installing_from_Maven_Central"/>Installing from Maven Central</h2>
@@ -142,7 +148,7 @@ public static void addExtensions() {
 and an artifact id of <tt>concordion-extensions</tt>.</p>
 
 <h2><a name="Sample_Project"/>Sample Project</h2>
-<p>The extensions example project demonstrates the Screenshot and Logging Tooltip extensions using Concordion and Selenium 2 (WebDriver) for end-to-end browser testing.</p>
+<p>The extensions example project demonstrates the Screenshot, Logging Tooltip and Translator extensions using Concordion and Selenium 2 (WebDriver) for end-to-end browser testing.</p>
 <p>This project can be downloaded from the <a class="externalLink" href="http://code.google.com/p/concordion-extensions/downloads/list">concordion-extension downloads</a> page (the <tt>concordion-extensions-demo</tt>
 zip file), or can be obtained from the <a class="externalLink" href="http://code.google.com/p/concordion-extensions/source/browse/#hg%2Fexamples%2Fselenium2">source</a> repository. It includes
 Gradle and Maven builds to download dependencies and build the project.
