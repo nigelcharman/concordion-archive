@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Concordion - Timestamp Formatter Extension</title>
+<title>Concordion - Translator Extension</title>
 <link media="all" rel="stylesheet" type="text/css" href="../css/default.css"/>
 <link media="print"  rel="stylesheet" type="text/css" href="../css/print.css"/>
 <link rel="icon" type="image/vnd.microsoft.icon" href="../favicon.ico" />
@@ -57,25 +57,45 @@
 
 <div class="content">
 
-<h1>Timestamp Formatter Extension</h1>
+<h1>Translator Extension</h1>
 
 <div class="memo">
 
 <h1><a name="Introduction"/>Introduction</h1>
-<p>A simple extension that reformats the footer of the Concordion
-output to show hours, minutes and seconds rather than milliseconds.</p>
-
-<p>This extension is installed by setting the <tt>concordion.extensions</tt>
-system property to <tt>org.concordion.ext.TimestampFormatterExtension</tt>.
-</p>
+<p>This extension provides the ability to modify exception message text.  While initially created to remove superfluous debug information from WebDriver exception messages, 
+it could be used for translating exception messages to other languages.</p>
 
 <h1><a name="Configuration"/>Configuration</h1>
-<p>This extension currently has no configuration options. Feel free
-to suggest enhancement ideas on our <a class="externalLink" href="http://code.google.com/p/concordion-extensions/issues/list">issue list</a>.</p>
+<p>The extension must be customised using a <tt>ConcordionExtensionFactory</tt>.</p>
+<p>For example, the following code configures the extension to remove text 
+from the exception message starting from the string "System info:".
+</p>
+<pre class="java">
+public class ExceptionTranslatorExtensionFactory implements ConcordionExtensionFactory {
+
+    @Override
+    public ConcordionExtension createExtension() {
+        return new TranslatorExtension(new MessageTranslator() {
+            
+            @Override
+            public String translate(String originalMessage) {
+                int webDriverDebugInfoStart = originalMessage.indexOf("System info:");
+                if (webDriverDebugInfoStart > 0) {
+                    return originalMessage.substring(0, webDriverDebugInfoStart);
+                }
+                return originalMessage;
+            }
+        });
+    }
+}</pre>
+
+<p>To install this example extension factory:</p>
+<pre class="java">
+System.setProperty(&quot;concordion.extensions&quot;, ExceptionTranslatorExtensionFactory.class.getName());
+</pre>
 
 <h1><a name="Specification"/>Specification</h1>
-<p>See also the <a href="spec/spec/concordion/ext/timestampFormatter/TimestampFormatter.html">timestamp formatter specification</a>.</p>
-
+<p>See also the <a href="spec/spec/concordion/ext/translator/Translator.html">translator specification</a>.</p>
 </div> <!-- memo -->
 
 </div> <!-- content -->
@@ -83,7 +103,7 @@ to suggest enhancement ideas on our <a class="externalLink" href="http://code.go
 </div> <!-- page -->
 
 <div class="copyright">
- &nbsp; Copyright &copy; 2010
+ &nbsp; Copyright &copy; 2011
  <a href="http://tutansblog.blogspot.com">Nigel Charman</a>. All rights reserved.
 </div> <!-- copyright -->
 
