@@ -70,6 +70,25 @@ command, except that it inserts (unescaped) HTML, rather than text.</p>
 system property to <tt>org.concordion.ext.EmbedExtension</tt>.
 </p>
 
+<h2>Declaring additional namespaces</h2>
+<p>If the HTML fragment includes elements or attributes with a namespace prefix, the additional namespaces must be declared, both in the HTML specification, and to the extension.</p> 
+<p>For example, the following code declares that the <code>myns</code> prefix maps to the <code>http://com.myco/myns</code> namespace. 
+</p>
+<pre class="java">
+public class EmbedExtensionWithNamespaceFactory implements ConcordionExtensionFactory {
+    @Override
+    public ConcordionExtension createExtension() {
+        EmbedExtension extension = new EmbedExtension();
+        extension.withNamespace("myns", "http://com.myco/myns");
+        return extension;
+    }
+}</pre>
+
+<p>To install this example extension factory:</p>
+<pre class="java">
+System.setProperty(&quot;concordion.extensions&quot;, EmbedExtensionWithNamespaceFactory.class.getName());
+</pre>
+
 <h1><a name="Embedding"/>Embedding HTML</h1>
 <p>To use the <code>embed</code> command, add an attribute named <tt>embed</tt>
 using the namespace <tt>&quot;urn:concordion-extensions:2010&quot;</tt>
