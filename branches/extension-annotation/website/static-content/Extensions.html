@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Concordion - Extensions</title>
+<link media="all" rel="stylesheet" type="text/css" href="css/default.css"/>
+<link media="print"  rel="stylesheet" type="text/css" href="css/print.css"/>
+<link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico" />
+<style>
+#specFixtureSystem {
+  padding: 20px 20px 20px 64px;
+}
+.exampleTable table {
+  border-collapse: collapse;
+  empty-cells: show;
+  margin: 8px 0px 8px 0px;
+}
+.exampleTable th, .exampleTable td {
+  border: 1px solid #966;
+  padding: 3px;
+  background-color: #ffe4e4;
+}
+</style>
+</head>
+<body id="extensions">
+
+<div class="page">
+
+<div class="header">
+
+    <a href="http://www.opensource.org/">
+    <img class="open-source-logo" src="image/opensource-110x95.png"
+        alt="Open source (Apache 2.0 license)" />
+    </a>
+
+    <a href="/">
+    <img src="image/front-page-banner.png"
+        alt="Concordion is a simple, but powerful, agile acceptance testing tool for Java." />
+    </a>
+
+</div><!-- header -->
+
+<div class="menuBar">
+
+<ul class="menu">
+  <li><a href="/">Home</a></li>
+  <li><a href="Example.html">Screenshots</a></li>
+  <li><a href="Tutorial.html">Getting Started</a></li>
+  <li><a href="Technique.html">Hints and Tips</a></li>
+  <li class="selectedTab"><a href="Extensions.html">Extensions</a></li>
+  <li><a href="Download.html">Download</a></li>
+  <li><a href="Questions.html">FAQ</a></li>
+</ul>
+
+</div><!-- menuBar  -->
+
+<div class="content">
+
+<h1>Extensions</h1>
+
+<div class="memo">
+
+<h1><a name="build"/>Build Your Own</h1>
+
+<p class="subtext">
+Extensions allow you to add functionality to Concordion, for example implementing new commands, listening to events, or modifying the Concordion output.</p>
+<p>For details, see the <a href="dist/1.4.1/test-output/concordion/spec/concordion/extension/Extension.html">extension specifications</a>. See also the
+classes in <a class="externalLink" href="http://code.google.com/p/concordion/source/browse/#svn/trunk/concordion/src/main/java/org/concordion/api/extension">org.concordion.api.extension</a>
+and the <a class="externalLink" href="http://code.google.com/p/concordion/source/browse/#svn/trunk/concordion/src/test/resources/spec/concordion/extension">fixtures that demonstrate it</a>.
+</p>
+<h2><a name="cssExample"/>Example - adding custom CSS</h2>
+<p>Extensions provide a means for adding CSS, JavaScript or arbitrary resources to the Concordion output folder.</p>
+<p>The following example copies <code>/my_concordion.css</code> from the classpath to the root folder of the Concordion output, and links to it from the Concordion output HTML.</p>
+<pre class="java">
+package com.acme;
+
+public class MyCssExtension implements ConcordionExtension {
+    @Override
+    public void addTo(ConcordionExtender concordionExtender) {
+        concordionExtender.withLinkedCSS("/my_concordion.css", new Resource("/my_concordion.css"));
+    }
+} 
+</pre>
+<p>If you have already declared a link to the CSS file in your HTML, you should use <code>concordionExtender.withResource()</code> rather than <code>concordionExtender.withLinkedCSS()</code> to avoid a duplicate declaration.</code></p>
+<p>To install the extension, you will need to set the system property <code>&quot;concordion.extensions&quot;</code> to the fully qualified name of the extension class:</p>
+<pre class="java">
+@BeforeClass
+public static void addExtensions() {
+    System.setProperty(&quot;concordion.extensions&quot;, &quot;com.acme.MyCssExtension&quot;);
+}
+</pre>
+<p>If you'd prefer to embed the CSS in the HTML, use <code>concordionExtender.withEmbeddedCSS()</code>. Similar methods exist for including JavaScript in the output, or you can use <code>withResource()</code> to copy images or other resources to the output.</p>
+<h2>Other examples</h2>
+<p>
+For examples that listen to events and add new commands, see the concordion-extensions <a class="externalLink" href="http://code.google.com/p/concordion-extensions/source/browse/#hg%2Fcore%2Fsrc%2Fmain%2Fjava%2Forg%2Fconcordion%2Fext/">source code</a>.
+</p>
+
+<br />
+
+<h1><a name="library"/>concordion-extensions Library</h1>
+
+<p class="subtext">
+The <a class="externalLink" href="http://code.google.com/p/concordion-extensions/">concordion-extensions</a>  project provides:
+</p>
+<ul>
+  <li>a <a href="extensions/ScreenshotExtension.html">ScreenshotExtension</a>
+  to add screenshots to Concordion output,<br/>
+  <img id="screenshot" src="image/extensions/ScreenshotSmall.png"/>
+  </li>
+  <li>a <a href="extensions/LoggingTooltipExtension.html">LoggingTooltipExtension</a>
+  to add logging information as tooltips to the Concordion output,<br/>
+  <img id="loggingTooltip" src="image/extensions/LoggingTooltipSmall.png"/>
+  </li>
+  <li>a <a href="extensions/TimestampFormatterExtension.html">TimestampFormatterExtension</a>
+  to change the footer of the Concordion output to show hours, minutes and seconds,
+  </li>
+  <li>a <a href="extensions/TranslatorExtension.html">TranslatorExtension</a>
+  to modify the text of exception messages,
+  </li>
+  <li>and an <a href="extensions/EmbedExtension.html">EmbedExtension</a>
+  to embed HTML in the Concordion output.
+  </li>
+</ul>
+
+<h2><a name="Installation"/>Installation</h2>
+<p>The extensions are packaged in the <tt>concordion-extensions</tt>
+jar, which can be downloaded from the <a href="Download.html">Download</a> page. You will need to
+ensure that both the <tt>concordion-extensions</tt> and <tt>concordion</tt>
+jars are on your classpath. The Concordion jar must be v1.4.1 or later.
+</p>
+<p>To install the default configuration of all supplied extensions,
+set the <tt>concordion.extensions</tt> system property to <tt>org.concordion.ext.Extensions</tt>.
+</p>
+<p>To install individual or customised extensions, supply a
+comma-separated list of extensions or extension factories in the <tt>concordion.extensions</tt>
+system property.</p>
+<p>The system property is typically set in the <tt>@BeforeClass</tt>
+of a base test case, for example</p>
+<pre class="java">
+@BeforeClass
+public static void addExtensions() {
+    System.setProperty(&quot;concordion.extensions&quot;, TimestampFormatterExtension.class.getName());
+}
+</pre>
+<h2><a name="Installing_from_Maven_Central"/>Installing from Maven Central</h2>
+<p>This project is available in Maven Central, with a group id of <tt>org.concordion</tt>
+and an artifact id of <tt>concordion-extensions</tt>.</p>
+
+<h2><a name="Sample_Project"/>Sample Project</h2>
+<p>The extensions example project demonstrates the Screenshot, Logging Tooltip and Translator extensions using Concordion and Selenium 2 (WebDriver) for end-to-end browser testing.</p>
+<p>This project can be downloaded from the <a class="externalLink" href="http://code.google.com/p/concordion-extensions/downloads/list">concordion-extension downloads</a> page (the <tt>concordion-extensions-demo</tt>
+zip file), or can be obtained from the <a class="externalLink" href="http://code.google.com/p/concordion-extensions/source/browse/#hg%2Fexamples%2Fselenium2">source</a> repository. It includes
+Gradle and Maven builds to download dependencies and build the project.
+See the README.html file in the download for instructions.</p>
+
+<h2><a name="Issues"/>Issues and Discussion</h2>
+<p>Feel free to discuss concordion-extensions on the main Concordion <a class="externalLink" href="http://tech.groups.yahoo.com/group/concordion/join">mailing list</a>.</p>
+<p>Issues should be reported to the <a class="externalLink" href="http://code.google.com/p/concordion-extensions/issues/list">concordion-extensions issue list</a>.</p>
+
+</div> <!-- memo -->
+
+</div> <!-- content -->
+
+</div> <!-- page -->
+
+<div class="copyright">
+ &nbsp; Copyright &copy; 2010-2011
+ <a href="http://tutansblog.blogspot.com">Nigel Charman</a>. All rights reserved.
+</div> <!-- copyright -->
+
+</body>
+</html>
