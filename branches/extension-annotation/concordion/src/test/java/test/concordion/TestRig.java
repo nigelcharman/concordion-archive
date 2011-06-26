@@ -8,6 +8,8 @@ import org.concordion.api.Resource;
 import org.concordion.api.ResultSummary;
 import org.concordion.internal.ConcordionBuilder;
 import org.concordion.internal.SimpleEvaluatorFactory;
+import org.concordion.internal.extension.ExtensionLoader;
+import org.concordion.internal.extension.FixtureExtensionLoader;
 
 
 public class TestRig {
@@ -16,6 +18,7 @@ public class TestRig {
     private EvaluatorFactory evaluatorFactory = new SimpleEvaluatorFactory();
     private StubSource stubSource = new StubSource();
     private StubTarget stubTarget;
+    private ExtensionLoader fixtureExtensionLoader = new FixtureExtensionLoader(); 
 
     public TestRig withFixture(Object fixture) {
         this.fixture = fixture;
@@ -29,14 +32,17 @@ public class TestRig {
     public ProcessingResult process(Resource resource) {
         EventRecorder eventRecorder = new EventRecorder();
         stubTarget = new StubTarget();
-        Concordion concordion = new ConcordionBuilder()
+        ConcordionBuilder concordionBuilder = new ConcordionBuilder()
             .withAssertEqualsListener(eventRecorder)
             .withThrowableListener(eventRecorder)
             .withSource(stubSource)
             .withEvaluatorFactory(evaluatorFactory)
-            .withTarget(stubTarget)
-            .build();
-        
+            .withTarget(stubTarget);
+        if (fixture != null) {
+            fixtureExtensionLoader.addExtensions(fixture, concordionBuilder);
+        }
+        Concordion concordion = concordionBuilder.build();
+
         try {
             ResultSummary resultSummary = concordion.process(resource, fixture);
             String xml = stubTarget.getWrittenString(resource);

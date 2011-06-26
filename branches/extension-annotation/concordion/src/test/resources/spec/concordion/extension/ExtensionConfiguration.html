@@ -1,0 +1,101 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<link href="../../../concordion.css" rel="stylesheet" type="text/css" />
+<body>
+
+    <h1>Extension Configuration</h1>
+
+    <p>
+       Extensions can be added to Concordion using an annotation in the fixture class and/or using a system property.
+    </p>
+       
+    <h2>Annotations</h2>
+
+    <h3>@Extension</h3>
+    <p>Within a fixture class, fields and methods that are annotated with <code>@org.concordion.api.extension.Extension</code> will be
+    added to Concordion as extensions.</p>
+    
+    <h4>@Extension Fields</h4>
+    <p>Fields with this annotation must be public and must implement <code>org.concordion.api.extension.ConcordionExtension</code>.</p>
+    <div class="example">
+    <h4>Example - Extensions as Fields</h4>
+    <p>Executing the following fixture:</p>
+    <pre class="java" concordion:set="#javaFragment">
+import org.concordion.api.extension.Extension;
+import org.concordion.api.extension.ConcordionExtension;
+import test.concordion.extension.*;
+ 
+public class ExampleFixture {
+    
+    @Extension
+    public ConcordionExtension extension = new DummyExtension1();
+ 
+    @Extension
+    public DummyExtension2 extension2 = new DummyExtension2();
+}    
+    </pre>
+    <p concordion:execute="#result = process(#javaFragment)">will install both extensions <span concordion:assertEquals="#result">DummyExtension1, DummyExtension2</span>.</p>
+    </div> 
+
+    <p>Extensions will be loaded from the fixture class and any of its superclasses.  A common pattern is to have the extensions defined in a "base fixture".</p>
+    
+    <div class="example">
+    <h4>Example - Extensions as superclass fields</h4>
+    <p>Executing the following fixture:</p>
+    <pre class="java" concordion:set="#javaFragment2">
+import org.concordion.api.extension.Extension;
+import org.concordion.api.extension.ConcordionExtension;
+import test.concordion.extension.*;
+ 
+public class ExampleFixture extends BaseFixture {
+    @Extension
+    public ConcordionExtension extension = new DummyExtension1("ExampleExtension");
+ 
+}    
+    </pre>
+    <p> which has superclass </p>
+    <pre class="java" concordion:set="#javaFragment1">
+import org.concordion.api.extension.Extension;
+import org.concordion.api.extension.ConcordionExtension;
+import test.concordion.extension.*;
+ 
+public class BaseFixture {
+    
+    @Extension
+    public DummyExtension2 extension2 = new DummyExtension2("SuperExtension");
+}    
+    </pre>
+    <p concordion:execute="#result = process(#javaFragment1, #javaFragment2)">will install both the extensions initialised with parameters <span concordion:assertEquals="#result">SuperExtension, ExampleExtension</span>.</p>
+    </div> 
+       
+    <h4>@Extension Methods</h4>
+    <p>Methods marked with this annotation must take no parameters, be public and return an object that implements <code>org.concordion.api.ConcordionExtension</code>.</p>
+
+<h4>TODO - Examples</h4>
+    
+
+    <h3>@Extensions</h3>
+    <p>Where the extensions do not require any state from the fixture, they can be defined statically on the fixture class with the <code>@org.concordion.api.extension.Extensions</code>
+    annotation.  This annotation is parameterised with a list of the extension, or extension factory, classes to be installed.</p>
+
+<h4>TODO - Examples</h4>
+       
+    <h2>System Property</h2>
+    <p>Alternatively, extensions can be specified by setting a system property.  This can be useful if the extensions need to be configured independently from the fixtures.</p> 
+    <p>Set the system property <code>concordion.extensions</code> to a comma-separated list containing:</p>
+    <ul>
+        <li>the fully-qualified class name of extensions to be installed, and/or</li>
+        <li>the fully-qualified class name of extension factories that will create an extension.</li>
+    </ul>
+    <p>
+        If an extension is specified, it will be instantiated by Concordion. 
+    </p>
+    <p>
+        All extensions and/or extension factories must be present on the classpath. 
+        Extensions must implement <code>org.concordion.api.extension.ConcordionExtension</code>.
+        Extension factories must implement <code>org.concordion.api.extension.ConcordionExtensionFactory</code>.
+    </p>
+
+<h4>TODO - Examples</h4>
+
+</body>
+</html>
