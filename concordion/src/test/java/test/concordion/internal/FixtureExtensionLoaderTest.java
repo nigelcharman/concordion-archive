@@ -65,7 +65,7 @@ public class FixtureExtensionLoaderTest {
             loader.getExtensionsForFixture(compiledWithDeclaration(fields));
             fail("Expected ExtensionInitialisationException");
         } catch (ExtensionInitialisationException e) {
-            assertThat(e.getMessage(), containsString("should be public"));
+            assertThat(e.getMessage(), containsString("must be public"));
         }
     }
     
@@ -79,7 +79,7 @@ public class FixtureExtensionLoaderTest {
             loader.getExtensionsForFixture(compiledWithDeclaration(fields));
             fail("Expected ExtensionInitialisationException");
         } catch (ExtensionInitialisationException e) {
-            assertThat(e.getMessage(), containsString("should be public"));
+            assertThat(e.getMessage(), containsString("must be public"));
         }
     }
     
@@ -93,7 +93,7 @@ public class FixtureExtensionLoaderTest {
             loader.getExtensionsForFixture(compiledWithDeclaration(fields));
             fail("Expected ExtensionInitialisationException");
         } catch (ExtensionInitialisationException e) {
-            assertThat(e.getMessage(), containsString("should be public"));
+            assertThat(e.getMessage(), containsString("must be public"));
         }
     }
     
@@ -107,7 +107,7 @@ public class FixtureExtensionLoaderTest {
             loader.getExtensionsForFixture(compiledWithDeclaration(fields));
             fail("Expected ExtensionInitialisationException");
         } catch (ExtensionInitialisationException e) {
-            assertThat(e.getMessage(), containsString("should be non-null"));
+            assertThat(e.getMessage(), containsString("must be non-null"));
         }
     }
     
