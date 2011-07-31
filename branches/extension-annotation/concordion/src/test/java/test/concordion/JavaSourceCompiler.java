@@ -14,9 +14,7 @@ import javax.tools.ToolProvider;
 public class JavaSourceCompiler {
 
     private static final String TARGET_DIR = "target/genClasses";
-
-    public JavaSourceCompiler() {
-    }
+    private static final String CLASS_PATH = System.getProperty("java.class.path") + ":" + TARGET_DIR;
 
     public Class<?> compile(String className, String sourceCode) throws Exception {
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
@@ -27,7 +25,7 @@ public class JavaSourceCompiler {
             JavaSourceFileObject source = new JavaSourceFileObject(className, sourceCode);
             Iterable<? extends JavaFileObject> compilationUnits = Arrays.asList(new JavaSourceFileObject[] { source });
     
-            Iterable<String> options = Arrays.asList(new String[] { "-classpath", "target/classes:target/test-classes" + ":" + TARGET_DIR, "-d", TARGET_DIR});
+            Iterable<String> options = Arrays.asList(new String[] { "-classpath", CLASS_PATH, "-d", TARGET_DIR});
             Boolean compiledOK = compiler.getTask(null, fileManager, null, options, null, compilationUnits).call();
             if (!compiledOK) {
                 throw new RuntimeException("Compilation failure");
