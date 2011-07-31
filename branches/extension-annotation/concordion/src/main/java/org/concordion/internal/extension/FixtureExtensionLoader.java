@@ -65,21 +65,21 @@ public class FixtureExtensionLoader implements ExtensionLoader {
         } catch (ClassCastException e) {
             throw new ExtensionInitialisationException("Extension field '" + field.getName() + "' must implement org.concordion.api.extension.ConcordionExtension");
         } catch (IllegalArgumentException e) {
-            throw new ExtensionInitialisationException("Defect - this exception should not occur. Please report to Concordion mailing list.", e);
+            throw new ExtensionInitialisationException("Defect - this exception should not occur. Please report to Concordion issues list.", e);
         } catch (IllegalAccessException e) {
-            throw new ExtensionInitialisationException("Defect - this exception should not occur. Please report to Concordion mailing list.", e);
+            throw new ExtensionInitialisationException("Defect - this exception should not occur. Please report to Concordion issues list.", e);
         }
     }
 
     private void validatePublic(Field field) {
         if (!(Modifier.isPublic(field.getModifiers()))) {
-            throw new ExtensionInitialisationException("Extension field '" + field.getName() + "' should be public");
+            throw new ExtensionInitialisationException("Extension field '" + field.getName() + "' must be public");
         }
     }
     
     private void validateNonNull(Field field, ConcordionExtension extension) {
         if (extension == null) {
-            throw new ExtensionInitialisationException("Extension field '" + field.getName() + "' should be non-null");
+            throw new ExtensionInitialisationException("Extension field '" + field.getName() + "' must be non-null");
         }
     }
 }
