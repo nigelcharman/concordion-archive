@@ -20,17 +20,20 @@
     <h4>Example - Extensions fields</h4>
     <p>Executing the following fixture:</p>
     <pre class="java" concordion:set="#javaFragment">
+import org.concordion.integration.junit4.ConcordionRunner;
+import org.junit.runner.RunWith;
 import org.concordion.api.extension.Extension;
 import org.concordion.api.extension.ConcordionExtension;
 import test.concordion.extension.fake.*;
  
+@RunWith(ConcordionRunner.class)
 public class ExampleFixture {
     
-    @Extension
+    <b>@Extension
     public ConcordionExtension extension = new FakeExtension1();
  
     @Extension
-    public FakeExtension2 extension2 = new FakeExtension2();
+    public FakeExtension2 extension2 = new FakeExtension2();</b>
 }    
     </pre>
     <p concordion:execute="#result1 = process(#javaFragment)">will install both extensions <span concordion:assertEquals="#result1">FakeExtension1, FakeExtension2</span>.</p>
@@ -42,26 +45,32 @@ public class ExampleFixture {
     <h4>Example - Extension fields in superclass</h4>
     <p>Executing the following fixture:</p>
     <pre class="java" concordion:set="#javaFragment2">
+import org.concordion.integration.junit4.ConcordionRunner;
+import org.junit.runner.RunWith;
 import org.concordion.api.extension.Extension;
 import org.concordion.api.extension.ConcordionExtension;
 import test.concordion.extension.fake.*;
  
+@RunWith(ConcordionRunner.class)
 public class ExampleFixture extends BaseFixture {
-    @Extension
-    public ConcordionExtension extension = new FakeExtension1("ExampleExtension");
+    <b>@Extension
+    public ConcordionExtension extension = new FakeExtension1("ExampleExtension");</b>
  
 }    
     </pre>
     <p> which has superclass </p>
     <pre class="java" concordion:set="#javaFragment1">
+import org.concordion.integration.junit4.ConcordionRunner;
+import org.junit.runner.RunWith;
 import org.concordion.api.extension.Extension;
 import org.concordion.api.extension.ConcordionExtension;
 import test.concordion.extension.fake.*;
  
+@RunWith(ConcordionRunner.class)
 public class BaseFixture {
     
-    @Extension
-    public FakeExtension2 extension2 = new FakeExtension2("SuperExtension");
+    <b>@Extension
+    public FakeExtension2 extension2 = new FakeExtension2("SuperExtension");</b>
 }    
     </pre>
     <p concordion:execute="#result2 = process(#javaFragment1, #javaFragment2)">will install both the extensions initialised with parameters <span concordion:assertEquals="#result2">SuperExtension, ExampleExtension</span>.</p>
@@ -80,11 +89,14 @@ public class BaseFixture {
     <h4>Example - Extensions</h4>
     <p>Executing the following fixture:</p>
     <pre class="java" concordion:set="#javaFragment">
+import org.concordion.integration.junit4.ConcordionRunner;
+import org.junit.runner.RunWith;
 import org.concordion.api.extension.Extensions;
 import org.concordion.api.extension.ConcordionExtension;
 import test.concordion.extension.fake.*;
  
-@Extensions({FakeExtension1.class, FakeExtension2Factory.class})
+@RunWith(ConcordionRunner.class)
+<b>@Extensions({FakeExtension1.class, FakeExtension2Factory.class})</b>
 public class ExampleFixture {
     
 }
@@ -105,7 +117,7 @@ import org.concordion.api.extension.ConcordionExtension;
 import test.concordion.extension.fake.*;
  
 @RunWith(ConcordionRunner.class)
-@Extensions({FakeExtension1.class})
+<b>@Extensions({FakeExtension1.class})</b>
 public class ExampleFixture extends BaseFixture {
 
 }    
@@ -120,7 +132,7 @@ import org.concordion.api.extension.ConcordionExtension;
 import test.concordion.extension.fake.*;
  
 @RunWith(ConcordionRunner.class) 
-@Extensions({FakeExtension2.class})
+<b>@Extensions({FakeExtension2.class})</b>
 public class BaseFixture {
     
 }    
