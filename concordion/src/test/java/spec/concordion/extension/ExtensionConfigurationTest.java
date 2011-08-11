@@ -16,6 +16,10 @@ public class ExtensionConfigurationTest {
     private JavaSourceCompiler compiler = new JavaSourceCompiler();
     private static final Pattern CLASS_NAME_PATTERN = Pattern.compile("class\\s*(.*?)\\s*(\\{|extends)");
 
+    public String process() throws Exception {
+        return process("public class ExampleFixture { }");
+    }
+    
     public String process(String javaFragment) throws Exception {
         String htmlFragment = "";
         Object fixture = compileFixture(javaFragment);
@@ -50,5 +54,9 @@ public class ExtensionConfigurationTest {
         Matcher matcher = CLASS_NAME_PATTERN.matcher(javaFragment);
         matcher.find();
         return matcher.group(1);
+    }
+    
+    public void setSystemProperty(String key, String value) {
+        System.setProperty(key, value);
     }
 }
