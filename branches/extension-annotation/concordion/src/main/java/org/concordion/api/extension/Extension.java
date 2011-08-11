@@ -7,12 +7,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- *  Marks fields and methods to be added to Concordion as extensions.
+ *  Marks fields to be added to Concordion as extensions.
  *  Fields with this annotation must be public and must implement <code>org.concordion.api.extension.ConcordionExtension</code>.
- *  Methods marked with this annotation must take no parameters, be public and return an object that implements <code>org.concordion.api.ConcordionExtension</code>.
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.METHOD})
+@Target({ElementType.FIELD})
 @Inherited
 public @interface Extension {
 }
