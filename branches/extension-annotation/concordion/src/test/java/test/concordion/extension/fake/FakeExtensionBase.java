@@ -1,17 +1,17 @@
-package test.concordion.extension;
+package test.concordion.extension.fake;
 
 import nu.xom.Document;
 import nu.xom.Element;
 
-public abstract class DummyExtensionBase {
+public abstract class FakeExtensionBase {
 
     private final String text;
 
-    public DummyExtensionBase() {
+    public FakeExtensionBase() {
         text = this.getClass().getSimpleName();
     }
     
-    public DummyExtensionBase(String text) {
+    public FakeExtensionBase(String text) {
         this.text = text;
     }
 

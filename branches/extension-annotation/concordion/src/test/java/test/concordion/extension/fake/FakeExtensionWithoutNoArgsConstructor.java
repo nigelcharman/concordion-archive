@@ -1,17 +1,13 @@
-package test.concordion.extension;
-
+package test.concordion.extension.fake;
 
 import org.concordion.api.extension.ConcordionExtender;
 import org.concordion.api.extension.ConcordionExtension;
 import org.concordion.api.listener.DocumentParsingListener;
 
-public class DummyExtension2 extends DummyExtensionBase implements ConcordionExtension, DocumentParsingListener {
 
-    public DummyExtension2() {
-        super();
-    }
-    
-    public DummyExtension2(String text) {
+public class FakeExtensionWithoutNoArgsConstructor extends FakeExtensionBase implements ConcordionExtension, DocumentParsingListener {
+
+    private FakeExtensionWithoutNoArgsConstructor(String text) {
         super(text);
     }
     
