@@ -3,11 +3,14 @@ package org.concordion.internal.extension;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import org.concordion.api.extension.ConcordionExtension;
+import org.concordion.api.extension.ConcordionExtensionFactory;
 import org.concordion.api.extension.Extension;
+import org.concordion.api.extension.Extensions;
 import org.concordion.internal.ConcordionBuilder;
 
 public class FixtureExtensionLoader implements ExtensionLoader {
@@ -24,19 +27,59 @@ public class FixtureExtensionLoader implements ExtensionLoader {
         List<Class<?>> classes = getClassHeirarchyParentFirst(fixture.getClass());
         
         for (Class<?> class1 : classes) {
-            extensions.addAll(getExtensionsForFixtureFromClass(fixture, class1));
+            extensions.addAll(getExtensionsFromClassAnnotation(class1));
+            extensions.addAll(getExtensionFromClassFields(fixture, class1));
         }
         
         return extensions;
     }
 
-    private List<ConcordionExtension> getExtensionsForFixtureFromClass(Object fixture, Class<?> class1) {
+    private Collection<? extends ConcordionExtension> getExtensionsFromClassAnnotation(Class<?> class1) {
+        if (class1.isAnnotationPresent(Extensions.class)) {
+            ArrayList<ConcordionExtension> extensions = new ArrayList<ConcordionExtension>();
+            Extensions extensionsAnnotation = class1.getAnnotation(Extensions.class);
+            Class<?>[] value = extensionsAnnotation.value();
+            for (Class<?> class2 : value) {
+                if (ConcordionExtension.class.isAssignableFrom(class2)) {
+                    ConcordionExtension extension = (ConcordionExtension) newInstance(class2, "extension");
+                    extensions.add(extension);
+                } else if (ConcordionExtensionFactory.class.isAssignableFrom(class2)) {
+                    ConcordionExtensionFactory factory = (ConcordionExtensionFactory) newInstance(class2, "extension factory");
+                    extensions.add(factory.createExtension());
+                } else {
+                    throw new ExtensionInitialisationException(
+                            String.format("Class %s specified in @Extensions annotation in class %s must implement %s or %s",
+                            class2.getCanonicalName(), class1.getCanonicalName(),
+                            ConcordionExtension.class.getCanonicalName(), ConcordionExtensionFactory.class.getCanonicalName()));
+                }
+                
+            }
+            return extensions;
+        }
+        return Collections.emptyList();
+    }
+
+    private Object newInstance(Class<?> type, String description) {
+        Object object;
+        try {
+            object = type.newInstance();
+        } catch (InstantiationException e) {
+            throw new ExtensionInitialisationException(String.format("Unable to instantiate %s of class %s",
+                    description, type.getCanonicalName()) , e);
+        } catch (IllegalAccessException e) {
+            throw new ExtensionInitialisationException(String.format("Unable to access no-args constructor of %s class %s",
+                    description, type.getCanonicalName()) , e);
+        }
+        return object;
+    }
+
+    private List<ConcordionExtension> getExtensionFromClassFields(Object fixture, Class<?> class1) {
         List<ConcordionExtension> extensions = new ArrayList<ConcordionExtension>();
         Field[] declaredFields = class1.getDeclaredFields();      
         for (Field field : declaredFields) {
             if (field.isAnnotationPresent(Extension.class)) {
                 validatePublic(field);
-                ConcordionExtension extension = getExtension(fixture, field);
+                ConcordionExtension extension = getExtensionField(fixture, field);
                 validateNonNull(field, extension);
                 extensions.add(extension);
             }
@@ -59,7 +102,7 @@ public class FixtureExtensionLoader implements ExtensionLoader {
         return classes;
     }
     
-    private ConcordionExtension getExtension(Object fixture, Field field) {
+    private ConcordionExtension getExtensionField(Object fixture, Field field) {
         try {
             return (ConcordionExtension) field.get(fixture);
         } catch (ClassCastException e) {

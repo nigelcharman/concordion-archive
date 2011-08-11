@@ -14,8 +14,8 @@ import org.concordion.internal.extension.FixtureExtensionLoader;
 import org.junit.Test;
 
 import test.concordion.JavaSourceCompiler;
-import test.concordion.extension.DummyExtension1;
-import test.concordion.extension.DummyExtension2;
+import test.concordion.extension.fake.FakeExtension1;
+import test.concordion.extension.fake.FakeExtension2;
 
 @SuppressWarnings({"rawtypes","unchecked"})
 public class FixtureExtensionLoaderTest {
@@ -26,31 +26,31 @@ public class FixtureExtensionLoaderTest {
     public void loadsPublicFieldWithExtensionAnnotation() throws Exception {
         String fields = 
             "@Extension " +
-            "public DummyExtension1 extension = new DummyExtension1();";
+            "public FakeExtension1 extension = new FakeExtension1();";
         
-        List extensions = loader.getExtensionsForFixture(compiledWithDeclaration(fields));
+        List extensions = loader.getExtensionsForFixture(withFieldDeclaration(fields));
         
-        assertThat((List<Object>)extensions, hasItem(instanceOf(DummyExtension1.class)));
+        assertThat((List<Object>)extensions, hasItem(instanceOf(FakeExtension1.class)));
     }
     
     @Test
     public void loadsPublicFieldFromSuperClassWithExtensionAnnotation() throws Exception {
         String superClassFields = 
             "@Extension " +
-            "public ConcordionExtension extension = new DummyExtension2();";
+            "public ConcordionExtension extension = new FakeExtension2();";
         
-        createAndCompile(superClassFields, "BaseFixture", null);
-        List extensions = loader.getExtensionsForFixture(compiledWithDeclaration("", "BaseFixture"));
+        classWithFieldDeclaration(superClassFields, "BaseFixture", null);
+        List extensions = loader.getExtensionsForFixture(withFieldDeclaration("", "BaseFixture"));
         
-        assertThat((List<Object>)extensions, hasItem(instanceOf(DummyExtension2.class)));
+        assertThat((List<Object>)extensions, hasItem(instanceOf(FakeExtension2.class)));
     }
     
     @Test
     public void ignoresFieldsWithoutExtensionAnnotation() throws Exception {
         String fields = 
-            "public ConcordionExtension extension = new DummyExtension1();";
+            "public ConcordionExtension extension = new FakeExtension1();";
         
-        List extensions = loader.getExtensionsForFixture(compiledWithDeclaration(fields));
+        List extensions = loader.getExtensionsForFixture(withFieldDeclaration(fields));
         
         assertThat(extensions.size(), equalTo(0));
     }
@@ -59,10 +59,10 @@ public class FixtureExtensionLoaderTest {
     public void errorsIfPrivateFieldHasExtensionAnnotation() throws Exception {
         String fields = 
             "@Extension " +
-            "private ConcordionExtension extension = new DummyExtension1();";
+            "private ConcordionExtension extension = new FakeExtension1();";
         
         try {
-            loader.getExtensionsForFixture(compiledWithDeclaration(fields));
+            loader.getExtensionsForFixture(withFieldDeclaration(fields));
             fail("Expected ExtensionInitialisationException");
         } catch (ExtensionInitialisationException e) {
             assertThat(e.getMessage(), containsString("must be public"));
@@ -73,10 +73,10 @@ public class FixtureExtensionLoaderTest {
     public void errorsIfProtectedFieldHasExtensionAnnotation() throws Exception {
         String fields = 
             "@Extension " +
-            "protected ConcordionExtension extension = new DummyExtension1();";
+            "protected ConcordionExtension extension = new FakeExtension1();";
         
         try {
-            loader.getExtensionsForFixture(compiledWithDeclaration(fields));
+            loader.getExtensionsForFixture(withFieldDeclaration(fields));
             fail("Expected ExtensionInitialisationException");
         } catch (ExtensionInitialisationException e) {
             assertThat(e.getMessage(), containsString("must be public"));
@@ -87,10 +87,10 @@ public class FixtureExtensionLoaderTest {
     public void errorsIfPackageAccessibleFieldHasExtensionAnnotation() throws Exception {
         String fields = 
             "@Extension " +
-            "ConcordionExtension extension = new DummyExtension1();";
+            "ConcordionExtension extension = new FakeExtension1();";
         
         try {
-            loader.getExtensionsForFixture(compiledWithDeclaration(fields));
+            loader.getExtensionsForFixture(withFieldDeclaration(fields));
             fail("Expected ExtensionInitialisationException");
         } catch (ExtensionInitialisationException e) {
             assertThat(e.getMessage(), containsString("must be public"));
@@ -104,7 +104,7 @@ public class FixtureExtensionLoaderTest {
             "public ConcordionExtension badExtension = null;";
         
         try {
-            loader.getExtensionsForFixture(compiledWithDeclaration(fields));
+            loader.getExtensionsForFixture(withFieldDeclaration(fields));
             fail("Expected ExtensionInitialisationException");
         } catch (ExtensionInitialisationException e) {
             assertThat(e.getMessage(), containsString("must be non-null"));
@@ -118,32 +118,32 @@ public class FixtureExtensionLoaderTest {
             "public String notAnExtension = \"foo\";";
         
         try {
-            loader.getExtensionsForFixture(compiledWithDeclaration(fields));
+            loader.getExtensionsForFixture(withFieldDeclaration(fields));
             fail("Expected ExtensionInitialisationException");
         } catch (ExtensionInitialisationException e) {
             assertThat(e.getMessage(), containsString("must implement org.concordion.api.extension.ConcordionExtension"));
         }
     }
     
-    private Object compiledWithDeclaration(String declaration) throws Exception, InstantiationException,
+    private Object withFieldDeclaration(String declaration) throws Exception, InstantiationException,
             IllegalAccessException {
-        return compiledWithDeclaration(declaration, null);
+        return withFieldDeclaration(declaration, null);
     }
 
-    private Object compiledWithDeclaration(String declaration, String superClassName) throws Exception, InstantiationException,
+    private Object withFieldDeclaration(String declaration, String superClassName) throws Exception, InstantiationException,
             IllegalAccessException {
         String className = "ExampleFixture";
-        Class<?> clazz = createAndCompile(declaration, className, superClassName);
+        Class<?> clazz = classWithFieldDeclaration(declaration, className, superClassName);
         Object fixture = clazz.newInstance();
         return fixture;
     }
     
-    private Class<?> createAndCompile(String declaration, String className, String superClassName) throws Exception {
+    private Class<?> classWithFieldDeclaration(String declaration, String className, String superClassName) throws Exception {
         String code = 
             "import org.concordion.api.extension.Extension;" +
             "import org.concordion.api.extension.ConcordionExtension;" +
             "import org.concordion.api.extension.ConcordionExtender;" +
-            "import test.concordion.extension.*;" +
+            "import test.concordion.extension.fake.*;" +
             "public class " + className + (superClassName != null ? " extends " + superClassName : "") + " {" +
             declaration +
             "}";    
