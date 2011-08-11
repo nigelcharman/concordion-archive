@@ -18,7 +18,7 @@ import test.concordion.extension.fake.FakeExtension1;
 import test.concordion.extension.fake.FakeExtension2;
 
 @SuppressWarnings({"rawtypes","unchecked"})
-public class FixtureExtensionLoaderTest {
+public class FixtureExtensionLoaderWithAnnotatedFieldsTest {
     private JavaSourceCompiler compiler = new JavaSourceCompiler();
     private FixtureExtensionLoader loader = new FixtureExtensionLoader();
 

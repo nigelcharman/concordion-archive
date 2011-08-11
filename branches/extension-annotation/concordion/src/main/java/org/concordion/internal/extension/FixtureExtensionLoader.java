@@ -13,7 +13,7 @@ import org.concordion.api.extension.Extension;
 import org.concordion.api.extension.Extensions;
 import org.concordion.internal.ConcordionBuilder;
 
-public class FixtureExtensionLoader implements ExtensionLoader {
+public class FixtureExtensionLoader {
     
     public void addExtensions(final Object fixture, ConcordionBuilder concordionBuilder) {
         for (ConcordionExtension concordionExtension : getExtensionsForFixture(fixture)) {
@@ -28,7 +28,7 @@ public class FixtureExtensionLoader implements ExtensionLoader {
         
         for (Class<?> class1 : classes) {
             extensions.addAll(getExtensionsFromClassAnnotation(class1));
-            extensions.addAll(getExtensionFromClassFields(fixture, class1));
+            extensions.addAll(getExtensionsFromAnnotatedFields(fixture, class1));
         }
         
         return extensions;
@@ -73,7 +73,7 @@ public class FixtureExtensionLoader implements ExtensionLoader {
         return object;
     }
 
-    private List<ConcordionExtension> getExtensionFromClassFields(Object fixture, Class<?> class1) {
+    private List<ConcordionExtension> getExtensionsFromAnnotatedFields(Object fixture, Class<?> class1) {
         List<ConcordionExtension> extensions = new ArrayList<ConcordionExtension>();
         Field[] declaredFields = class1.getDeclaredFields();      
         for (Field field : declaredFields) {

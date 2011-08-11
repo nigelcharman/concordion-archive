@@ -8,7 +8,6 @@ import org.concordion.api.Resource;
 import org.concordion.api.ResultSummary;
 import org.concordion.internal.ConcordionBuilder;
 import org.concordion.internal.SimpleEvaluatorFactory;
-import org.concordion.internal.extension.ExtensionLoader;
 import org.concordion.internal.extension.FixtureExtensionLoader;
 
 
@@ -18,7 +17,7 @@ public class TestRig {
     private EvaluatorFactory evaluatorFactory = new SimpleEvaluatorFactory();
     private StubSource stubSource = new StubSource();
     private StubTarget stubTarget;
-    private ExtensionLoader fixtureExtensionLoader = new FixtureExtensionLoader(); 
+    private FixtureExtensionLoader fixtureExtensionLoader = new FixtureExtensionLoader(); 
 
     public TestRig withFixture(Object fixture) {
         this.fixture = fixture;

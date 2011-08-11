@@ -4,11 +4,10 @@ import java.io.IOException;
 
 import org.concordion.api.FullOGNL;
 import org.concordion.api.ResultSummary;
-import org.concordion.internal.extension.ExtensionLoader;
 import org.concordion.internal.extension.FixtureExtensionLoader;
 
 public class FixtureRunner {
-    private ExtensionLoader fixtureExtensionLoader = new FixtureExtensionLoader(); 
+    private FixtureExtensionLoader fixtureExtensionLoader = new FixtureExtensionLoader(); 
     
     public ResultSummary run(final Object fixture) throws IOException {
         ConcordionBuilder concordionBuilder = new ConcordionBuilder();

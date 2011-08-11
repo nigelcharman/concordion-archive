@@ -18,7 +18,7 @@ import test.concordion.extension.fake.FakeExtension1;
 import test.concordion.extension.fake.FakeExtension2;
 
 @SuppressWarnings({"rawtypes","unchecked"})
-public class FixtureExtensionsLoaderTest {
+public class FixtureExtensionLoaderWithClassAnnotationTest {
     private JavaSourceCompiler compiler = new JavaSourceCompiler();
     private FixtureExtensionLoader loader = new FixtureExtensionLoader();
 
@@ -76,88 +76,6 @@ public class FixtureExtensionsLoaderTest {
                     containsString("ConcordionExtension or"), containsString("ConcordionExtensionFactory")));
         }
     }
-    
-    
-    
-    //  
-//    
-//    @Test
-//    public void loadsPublicFieldFromSuperClassWithExtensionAnnotation() throws Exception {
-//        String superClassFields = 
-//            "@Extension " +
-//            "public ConcordionExtension extension = new FakeExtension2();";
-//        
-//        classWithFieldDeclaration(superClassFields, "BaseFixture", null);
-//        List extensions = loader.getExtensionsForFixture(withFieldDeclaration("", "BaseFixture"));
-//        
-//        assertThat((List<Object>)extensions, hasItem(instanceOf(FakeExtension2.class)));
-//    }
-//    
-//    @Test
-//    public void ignoresFieldsWithoutExtensionAnnotation() throws Exception {
-//        String fields = 
-//            "public ConcordionExtension extension = new FakeExtension1();";
-//        
-//        List extensions = loader.getExtensionsForFixture(withClassAnnotation(fields));
-//        
-//        assertThat(extensions.size(), equalTo(0));
-//    }
-//
-//    @Test
-//    public void errorsIfProtectedFieldHasExtensionAnnotation() throws Exception {
-//        String fields = 
-//            "@Extension " +
-//            "protected ConcordionExtension extension = new FakeExtension1();";
-//        
-//        try {
-//            loader.getExtensionsForFixture(withClassAnnotation(fields));
-//            fail("Expected ExtensionInitialisationException");
-//        } catch (ExtensionInitialisationException e) {
-//            assertThat(e.getMessage(), containsString("must be public"));
-//        }
-//    }
-//    
-//    @Test
-//    public void errorsIfPackageAccessibleFieldHasExtensionAnnotation() throws Exception {
-//        String fields = 
-//            "@Extension " +
-//            "ConcordionExtension extension = new FakeExtension1();";
-//        
-//        try {
-//            loader.getExtensionsForFixture(withClassAnnotation(fields));
-//            fail("Expected ExtensionInitialisationException");
-//        } catch (ExtensionInitialisationException e) {
-//            assertThat(e.getMessage(), containsString("must be public"));
-//        }
-//    }
-//    
-//    @Test
-//    public void errorsIfFieldWithExtensionAnnotationIsNull() throws Exception {
-//        String fields = 
-//            "@Extension " +
-//            "public ConcordionExtension badExtension = null;";
-//        
-//        try {
-//            loader.getExtensionsForFixture(withClassAnnotation(fields));
-//            fail("Expected ExtensionInitialisationException");
-//        } catch (ExtensionInitialisationException e) {
-//            assertThat(e.getMessage(), containsString("must be non-null"));
-//        }
-//    }
-//    
-//    @Test
-//    public void errorsIfFieldWithExtensionAnnotationIsNotAConcordionExtension() throws Exception {
-//        String fields = 
-//            "@Extension " +
-//            "public String notAnExtension = \"foo\";";
-//        
-//        try {
-//            loader.getExtensionsForFixture(withClassAnnotation(fields));
-//            fail("Expected ExtensionInitialisationException");
-//        } catch (ExtensionInitialisationException e) {
-//            assertThat(e.getMessage(), containsString("must implement org.concordion.api.extension.ConcordionExtension"));
-//        }
-//    }
     
     private Object withClassAnnotation(String annotation) throws Exception, InstantiationException,
             IllegalAccessException {
