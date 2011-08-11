@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.concordion.integration.junit4.ConcordionRunner;
+import org.junit.After;
 import org.junit.runner.RunWith;
 
 import test.concordion.JavaSourceCompiler;
@@ -16,6 +17,11 @@ public class ExtensionConfigurationTest {
     private JavaSourceCompiler compiler = new JavaSourceCompiler();
     private static final Pattern CLASS_NAME_PATTERN = Pattern.compile("class\\s*(.*?)\\s*(\\{|extends)");
 
+    @After
+    public void clearConcordionExtensionsSystemProperty() {
+        System.clearProperty("concordion.extensions");
+    }
+    
     public String process() throws Exception {
         return process("public class ExampleFixture { }");
     }
