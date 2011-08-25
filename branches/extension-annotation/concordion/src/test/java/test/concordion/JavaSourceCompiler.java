@@ -18,9 +18,17 @@ public class JavaSourceCompiler {
 
     public Class<?> compile(String className, String sourceCode) throws Exception {
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-        StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
-        new File(TARGET_DIR).mkdirs();
-    
+        
+        StandardJavaFileManager fileManager;
+        try {
+            fileManager = compiler.getStandardFileManager(null, null, null);
+            new File(TARGET_DIR).mkdirs();
+        } catch (NullPointerException e) {
+            throw new IllegalStateException("Test requires the system Java compiler. " +
+            		"Check that your classpath contains tools.jar, or run the tests using a Java Development Kit (JDK), rather than a Java Runtime Environment (JRE). " +
+            		"The Java version must be 1.6.0 or later.");
+        }
+        
         try {
             JavaSourceFileObject source = new JavaSourceFileObject(className, sourceCode);
             Iterable<? extends JavaFileObject> compilationUnits = Arrays.asList(new JavaSourceFileObject[] { source });
