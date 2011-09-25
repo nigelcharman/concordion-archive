@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import test.concordion.JavaSourceCompiler;
 import test.concordion.ProcessingResult;
 import test.concordion.TestRig;
+import test.concordion.extension.fake.FakeExtensionBase;
 
 @RunWith(ConcordionRunner.class)
 public class ExtensionConfigurationTest {
@@ -30,7 +31,7 @@ public class ExtensionConfigurationTest {
         String htmlFragment = "";
         Object fixture = compileFixture(javaFragment);
         ProcessingResult result = process(htmlFragment, fixture);
-        return result.getOutputFragmentXML();
+        return result.getRootElement().getAttributeValue(FakeExtensionBase.FAKE_EXTENSION_ATTR_NAME);
     }
 
     public String process(String javaFragment1, String javaFragment2) throws Exception {
@@ -38,7 +39,7 @@ public class ExtensionConfigurationTest {
         compileFixture(javaFragment1);
         Object fixture = compileFixture(javaFragment2);
         ProcessingResult result = process(htmlFragment, fixture);
-        return result.getOutputFragmentXML();
+        return result.getRootElement().getAttributeValue(FakeExtensionBase.FAKE_EXTENSION_ATTR_NAME);
     }
 
     private ProcessingResult process(String htmlFragment, Object fixture) {

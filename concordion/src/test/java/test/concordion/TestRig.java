@@ -6,6 +6,7 @@ import org.concordion.Concordion;
 import org.concordion.api.EvaluatorFactory;
 import org.concordion.api.Resource;
 import org.concordion.api.ResultSummary;
+import org.concordion.api.extension.ConcordionExtension;
 import org.concordion.internal.ConcordionBuilder;
 import org.concordion.internal.SimpleEvaluatorFactory;
 import org.concordion.internal.extension.FixtureExtensionLoader;
@@ -17,7 +18,8 @@ public class TestRig {
     private EvaluatorFactory evaluatorFactory = new SimpleEvaluatorFactory();
     private StubSource stubSource = new StubSource();
     private StubTarget stubTarget;
-    private FixtureExtensionLoader fixtureExtensionLoader = new FixtureExtensionLoader(); 
+    private FixtureExtensionLoader fixtureExtensionLoader = new FixtureExtensionLoader();
+    private ConcordionExtension extension; 
 
     public TestRig withFixture(Object fixture) {
         this.fixture = fixture;
@@ -39,6 +41,9 @@ public class TestRig {
             .withTarget(stubTarget);
         if (fixture != null) {
             fixtureExtensionLoader.addExtensions(fixture, concordionBuilder);
+        }
+        if (extension != null) {
+            extension.addTo(concordionBuilder);
         }
         Concordion concordion = concordionBuilder.build();
 
@@ -81,5 +86,10 @@ public class TestRig {
     
     public boolean hasCopiedResource(Resource resource) {
         return stubTarget.hasCopiedResource(resource);
+    }
+
+    public TestRig withExtension(ConcordionExtension extension) {
+        this.extension = extension;
+        return this;
     }
 }
