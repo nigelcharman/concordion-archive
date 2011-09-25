@@ -1,10 +1,12 @@
 package test.concordion.extension.fake;
 
+import org.concordion.api.Element;
+
 import nu.xom.Document;
-import nu.xom.Element;
 
 public abstract class FakeExtensionBase {
 
+    public static final String FAKE_EXTENSION_ATTR_NAME = "fake.extensions";
     private final String text;
 
     public FakeExtensionBase() {
@@ -16,16 +18,12 @@ public abstract class FakeExtensionBase {
     }
 
     public void beforeParsing(Document document) {
-        Element fragment = document.getRootElement().getFirstChildElement("body").getFirstChildElement("fragment");
-        String newText = getText();
-        if ("" != fragment.getValue()) {
-            newText = ", " + newText;
+        Element rootElement = new Element(document.getRootElement());
+        String newValue = text;
+        String existingValue = rootElement.getAttributeValue(FAKE_EXTENSION_ATTR_NAME);
+        if (existingValue != null) {
+            newValue = existingValue + ", " + newValue;
         }
-        fragment.appendChild(newText);
+        rootElement.addAttribute(FAKE_EXTENSION_ATTR_NAME, newValue);
     }
-
-    private String getText() {
-        return text;
-    }
-
 }
