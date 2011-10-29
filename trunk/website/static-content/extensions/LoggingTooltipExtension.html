@@ -80,32 +80,24 @@ tests. This is discussed further in <a class="externalLink" href="http://tutansb
 
 <p>By default, this extension will capture all output from the root
 logger and disable console logging of the root logger.</p>
-<p>To install the extension:</p>
-<pre class="java">System.setProperty(&quot;concordion.extensions&quot;, &quot;org.concordion.ext.LoggingTooltipExtension&quot;);</pre>
+
+<p>To install the extension with default configuration, either annotate the fixture class with:</p>
+<pre class="java">@Extensions(LoggingTooltipExtension.class)</pre>
+<p>or set the system property <code>concordion.extensions</code> to <br/>
+<code>org.concordion.ext.LoggingTooltipExtension</code></p>
 
 <h2><a name="Custom_Configuration"/>Custom Configuration</h2>
 <p>The extension can be customised to restrict the log output to
 named loggers, and by logging level. The output of logging to the
 console can also be enabled.</p>
-<p>For example:</p>
+<p>The easiest way is to use the <code>@Extension</code> annotation on an <code>LoggingTooltipExtension</code> instance field within the fixture class. For example:</p>
+
 <pre class="java">
-package carbon;
-
-import java.util.logging.Level;
-import org.concordion.api.extension.ConcordionExtension;
-import org.concordion.api.extension.ConcordionExtensionFactory;
-import org.concordion.ext.LoggingTooltipExtension;
-
-public class LoggingTooltipExtensionFactory implements ConcordionExtensionFactory {
-    @Override
-    public ConcordionExtension createExtension() {
-        String loggers = &quot;carbon.CarbonCalculatorTest, selenium.events&quot;;
-        return new LoggingTooltipExtension(loggers, Level.FINE, false);
-    }
-}
+    String loggers = &quot;carbon.CarbonCalculatorTest, selenium.events&quot;;
+    @Extension
+    public ConcordionExtension extension = 
+        new LoggingTooltipExtension(loggers, Level.FINE, false);
 </pre>
-<p>To install this example extension factory:</p>
-<pre class="java">System.setProperty(&quot;concordion.extensions&quot;, &quot;carbon.LoggingTooltipExtensionFactory&quot;);</pre>
 
 <h1><a name="Specification"/>Specification</h1>
 <p>See also the <a href="spec/spec/concordion/ext/loggingTooltip/LoggingTooltip.html">logging tooltip specification</a>.</p>
@@ -120,8 +112,8 @@ public class LoggingTooltipExtensionFactory implements ConcordionExtensionFactor
 </div> <!-- page -->
 
 <div class="copyright">
- &nbsp; Copyright &copy; 2010
- <a href="http://tutansblog.blogspot.com">Nigel Charman</a>. All rights reserved.
+ &nbsp; Copyright &copy; 2010-2011
+ <a href="http://gplus.to/NigelCharman">Nigel Charman</a>. All rights reserved.
 </div> <!-- copyright -->
 
 </body>
