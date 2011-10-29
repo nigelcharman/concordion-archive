@@ -65,9 +65,11 @@
 <p>A simple extension that reformats the footer of the Concordion
 output to show hours, minutes and seconds rather than milliseconds.</p>
 
-<p>This extension is installed by setting the <tt>concordion.extensions</tt>
-system property to <tt>org.concordion.ext.TimestampFormatterExtension</tt>.
-</p>
+<p>To install the extension, either annotate the fixture class with:</p>
+<pre class="java">@Extensions(TimestampFormatterExtension.class)</pre>
+
+<p>or set the system property <code>concordion.extensions</code> to <br/>
+<code>org.concordion.ext.TimestampFormatterExtension</code></p>
 
 <h1><a name="Configuration"/>Configuration</h1>
 <p>This extension currently has no configuration options. Feel free
@@ -83,8 +85,8 @@ to suggest enhancement ideas on our <a class="externalLink" href="http://code.go
 </div> <!-- page -->
 
 <div class="copyright">
- &nbsp; Copyright &copy; 2010
- <a href="http://tutansblog.blogspot.com">Nigel Charman</a>. All rights reserved.
+ &nbsp; Copyright &copy; 2010-2011
+ <a href="http://gplus.to/NigelCharman">Nigel Charman</a>. All rights reserved.
 </div> <!-- copyright -->
 
 </body>
