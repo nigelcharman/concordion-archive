@@ -63,33 +63,25 @@
 
 <h1><a name="Introduction"/>Introduction</h1>
 <p>This extension embeds HTML in the Concordion output.  It is similar to the <a href="http://www.concordion.org/dist/1.4.1/test-output/concordion/spec/concordion/command/echo/Echo.html">echo</a> 
-command, except that it inserts (unescaped) HTML, rather than text.</p>
+command, except that it does not escape HTML text.</p>
 
 <h1><a name="Configuration"/>Configuration</h1>
-<p>This extension is installed by setting the <tt>concordion.extensions</tt>
-system property to <tt>org.concordion.ext.EmbedExtension</tt>.
-</p>
+<p>To install the extension with no namespace declarations, either annotate the fixture class with:</p>
+<pre class="java">@Extensions(EmbedExtension.class)</pre>
+<p>or set the system property <code>concordion.extensions</code> to <br/>
+<code>org.concordion.ext.EmbedExtension</code></p>
 
 <h2>Declaring additional namespaces</h2>
-<p>If the HTML fragment includes elements or attributes with a namespace prefix, the additional namespaces must be declared, both in the HTML specification, and to the extension.</p> 
-<p>For example, the following code declares that the <code>myns</code> prefix maps to the <code>http://com.myco/myns</code> namespace. 
-</p>
+<p>If the HTML fragment includes elements or attributes with a namespace prefix, the additional namespaces must be declared, both in the HTML specification, and to the extension.
+The easiest way is to use the <code>@Extension</code> annotation on an <code>EmbedExtension</code> instance field within the fixture class.</p> 
+<p>For example, to map the <code>myns</code> prefix to the <code>http://com.myco/myns</code> namespace:</p>
 <pre class="java">
-public class EmbedExtensionWithNamespaceFactory implements ConcordionExtensionFactory {
-    @Override
-    public ConcordionExtension createExtension() {
-        EmbedExtension extension = new EmbedExtension();
-        extension.withNamespace("myns", "http://com.myco/myns");
-        return extension;
-    }
-}</pre>
-
-<p>To install this example extension factory:</p>
-<pre class="java">
-System.setProperty(&quot;concordion.extensions&quot;, EmbedExtensionWithNamespaceFactory.class.getName());
+    @Extension
+    public ConcordionExtension extension = 
+        new EmbedExtension().withNamespace("myns", "http://com.myco/myns");
 </pre>
 
-<h1><a name="Embedding"/>Embedding HTML</h1>
+<h1>Embedding HTML</h1>
 <p>To use the <code>embed</code> command, add an attribute named <tt>embed</tt>
 using the namespace <tt>&quot;urn:concordion-extensions:2010&quot;</tt>
 to an element in your Concordion HTML. For example:</p>
@@ -111,7 +103,7 @@ to an element in your Concordion HTML. For example:</p>
 
 <div class="copyright">
  &nbsp; Copyright &copy; 2011
- <a href="http://tutansblog.blogspot.com">Nigel Charman</a>. All rights reserved.
+ <a href="http://gplus.to/NigelCharman">Nigel Charman</a>. All rights reserved.
 </div> <!-- copyright -->
 
 </body>

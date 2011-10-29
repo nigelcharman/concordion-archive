@@ -72,7 +72,7 @@ screenshot taker can capture an image of the entire web page, even if
 the test is running in the background.</p>
 <h1><a name="Diagnosing_failures"/>Diagnosing test failures</h1>
 <p>When running GUI tests it can be difficult to determine what was
-being shown on the GUI at the time of failure <tt>[1]</tt>, especially
+being shown on the GUI at the time of failure<sup>1</sup>, especially
 if the tests are running in the background or on a Continuous
 Integration server.</p>
 <p>This extension adds screenshots to the Concordion output when
@@ -121,60 +121,39 @@ custom configuration details.</p>
 <h1><a name="Configuration"/>Configuration</h1>
 
 <h2><a name="Default_Configuration"/>Default Configuration</h2>
-<p>By default, this extension will add screenshots to the output
+<p>By default, this extension will take screenshots using <code>java.awt.Robot</code> 
 whenever an assertion fails, or an uncaught Throwable occurs in the
 test.</p>
-<p>To install the extension:</p>
-<pre class="java">System.setProperty(&quot;concordion.extensions&quot;, &quot;org.concordion.ext.ScreenshotExtension&quot;);</pre>
+<p>To install the extension with default configuration, either annotate the fixture class with:</p>
+<pre class="java">@Extensions(ScreenshotExtension.class)</pre>
+<p>or set the system property <code>concordion.extensions</code> to <br/>
+<code>org.concordion.ext.ScreenshotExtension</code></p>
 <h2><a name="Custom_Configuration"></a>Custom Configuration</h2>
-<p>The extension can be customised using a <tt>ConcordionExtensionFactory</tt>
-to create and modify the extension.</p>
+<p>Alternatively, use the <code>@Extension</code> annotation on a ScreenshotExtension 
+instance field. This allows methods to be called to configure the extension.</p>
 <p>For example, the following code configures a custom <tt>ScreenshotTaker</tt>,
 takes screenshots on assertion success as well as failure, and limits
 the maximum width of the screenshot images on mouse hover to 400 pixels.
 </p>
 <pre class="java">
-package nz.co.twoten.concordion.selenium;
-
-import org.concordion.api.extension.ConcordionExtension;
-import org.concordion.api.extension.ConcordionExtensionFactory;
-import org.concordion.ext.ScreenshotExtension;
-
-import org.openqa.selenium.WebDriver;
-
-public class ScreenshotExtensionFactory implements ConcordionExtensionFactory {
-
-    private static WebDriver driver;
-
-    public static void setDriver(WebDriver driver) {
-        ScreenshotExtensionFactory.driver = driver;
-    }
-
-    @Override
-    public ConcordionExtension createExtension() {
-        SeleniumScreenshotTaker screenshotTaker = new SeleniumScreenshotTaker(driver);
-        ScreenshotExtension extension = new ScreenshotExtension();
-        extension.setScreenshotTaker(screenshotTaker);
-        extension.setScreenshotOnAssertionSuccess(true);
-        extension.setMaxWidth(400);
-        return extension;
-    }
-}
-</pre>
-
-<p>To install this example extension factory:</p>
-<pre class="java">
-System.setProperty(&quot;concordion.extensions&quot;, 
-    &quot;nz.co.twoten.concordion.selenium.ScreenshotExtensionFactory&quot;);
+    private ScreenshotTaker camera = new SeleniumScreenshotTaker(driver);
+    
+    @Extension
+    public ConcordionExtension extension = 
+        new ScreenshotExtension().setScreenshotTaker(camera).setScreenshotOnAssertionSuccess(true)
+                                 .setMaxWidth(400);
 </pre>
 
 <h1><a name="Screenshot_Taker"/>Screenshot Taker</h1>
 <p>By default, the screenshot will be of the full visible screen.
-This can be overridden using a custom <tt>ScreenshotTaker</tt>. For
+This can be overridden using a custom <tt>ScreenshotTaker</tt>.</p>
+<p> For
 example, the <tt>SeleniumScreenshotTaker</tt> in the above examples
 ensures that only the browser window is captured, that the full browser
 page is captured and that it is captured regardless of whether the
-browser window is currently displayed.</p>
+browser window is currently displayed. (The SeleniumScreenshotTaker is
+included in the concordion-extensions-demo <a href="http://code.google.com/p/concordion-extensions/downloads/list">download</a>
+or the code can be viewed <a href="http://code.google.com/p/concordion-extensions/source/browse/examples/selenium2/src/test/java/org/concordion/ext/selenium/SeleniumScreenshotTaker.java">here</a>).</p>
 
 <h1><a name="Specification"/>Specification</h1>
 <p>See also the <a href="spec/spec/concordion/ext/screenshot/Screenshot.html">screenshot specification</a>.</p>
@@ -195,8 +174,8 @@ browser window is currently displayed.</p>
 </div> <!-- page -->
 
 <div class="copyright">
- &nbsp; Copyright &copy; 2010
- <a href="http://tutansblog.blogspot.com">Nigel Charman</a>. All rights reserved.
+ &nbsp; Copyright &copy; 2010-2011
+ <a href="http://gplus.to/NigelCharman">Nigel Charman</a>. All rights reserved.
 </div> <!-- copyright -->
 
 </body>
