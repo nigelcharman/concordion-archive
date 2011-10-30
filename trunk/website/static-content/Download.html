@@ -69,7 +69,7 @@ Full distribution including source code and all dependencies:
 <table style="margin-left: 40px; background-color:white; padding: 10px; border: 1px solid #d7d7d7; width: 290px;">
 <tr>
 <td><img src="image/shared/download.gif" alt="Download Concordion" /></td>
-<td><b><a href="dist/1.4.1/concordion-1.4.1.zip">concordion-1.4.1.zip</a></b> (1.1MB)</td>
+<td><b><a href="dist/1.4.2/concordion-1.4.2.zip">concordion-1.4.2.zip</a></b> (1.1MB)</td>
 </tr>
 </table>
 </div>
@@ -81,7 +81,7 @@ Full distribution including source code and all dependencies:
 &lt;dependency&gt;
     &lt;groupId&gt;<b>org.concordion</b>&lt;/groupId&gt;
     &lt;artifactId&gt;<b>concordion</b>&lt;/artifactId&gt;
-    &lt;version&gt;<b>1.4.1</b>&lt;/version&gt;
+    &lt;version&gt;<b>1.4.2</b>&lt;/version&gt;
 &lt;/dependency&gt;
 </pre>
 </div>
@@ -91,6 +91,18 @@ Full distribution including source code and all dependencies:
 Or, for the bleeding edge, build from the subversion repository: <a href="http://concordion.googlecode.com/svn/trunk/concordion">
 http://concordion.googlecode.com/svn/trunk/concordion</a>
 </p>
+
+<h4>Changes in Concordion 1.4.2</h4>
+
+<ul>
+<li><a href="Extensions.html#add">Simplified configuration of extensions</a> through new @Extension and @Extensions annotations.</li>
+<li>Fixture classes can now be suffixed with "Fixture" as an alternative to "Test" (<a href="http://code.google.com/p/concordion/issues/detail?id=37">Issue 37</a>)</li>
+<li>Fixed stack-trace rendering problem in Google Chrome (<a href="http://code.google.com/p/concordion/issues/detail?id=36">Issue 36</a>)</li>
+<li>Fixed Concordion output displaying spaces as Â (<a href="http://code.google.com/p/concordion/issues/detail?id=38">Issue 38</a>)</li>
+<li>Expose withSource() and withTarget() via the Concordion Extension mechanism (<a href="http://code.google.com/p/concordion/issues/detail?id=39">Issue 39</a>)</li>
+<li>Fixed JavaScriptLinker producing invalid (x)html (<a href="http://code.google.com/p/concordion/issues/detail?id=26">Issue 26</a>)</li>
+<li>The offending filename is now shown  on HTML parse errors (<a href="http://code.google.com/p/concordion/issues/detail?id=27">Issue 27</a>)</li>
+</ul>
 
 <h4>Non-Java versions</h4>
 
@@ -117,7 +129,7 @@ The command-set for Concordion is purposely small, however, it is possible to ex
 &lt;dependency&gt;
     &lt;groupId&gt;<b>org.concordion</b>&lt;/groupId&gt;
     &lt;artifactId&gt;<b>concordion-extensions</b>&lt;/artifactId&gt;
-    &lt;version&gt;<b>1.0.1</b>&lt;/version&gt;
+    &lt;version&gt;<b>1.1.0</b>&lt;/version&gt;
 &lt;/dependency&gt;
 </pre>
 </div>
@@ -130,10 +142,20 @@ enhances Concordion with abilities such as adding screenshots and logging inform
 </p>
 
 <p>
-Download <a class="externalLink" href="http://code.google.com/p/concordion-extensions/downloads/detail?name=concordion-extensions-1.0.1.jar">concordion-extensions-1.0.1.jar</a>
+Download <a class="externalLink" href="http://code.google.com/p/concordion-extensions/downloads/detail?name=concordion-extensions-1.1.0.jar">concordion-extensions-1.1.0.jar</a>
 or build from the <a class="externalLink" href="http://concordion-extensions.googlecode.com/hg/core/">Mercurial repository</a>.
 </p>
+
+
 </div>
+<h4>Changes in concordion-extensions 1.1.0</h4>
+
+<ul>
+<li>Support method chaining in extensions to provide fluent way of configuring them (<a href="http://code.google.com/p/concordion-extensions/issues/detail?id=15">Issue 15</a>)</li>
+<li>Fixed - Tooltip renderer fails on verify rows (<a href="http://code.google.com/p/concordion-extensions/issues/detail?id=13">Issue 13</a>)</li>
+<li>Updated examples to use new @Extension and @Extensions annotations</li>
+<li>Updated examples to Selenium 2.0 (<a href="http://code.google.com/p/concordion-extensions/issues/detail?id=14">Issue 14</a>)</li>
+</ul>
 
 <h4>Or build your own extensions</h4>
 
@@ -178,7 +200,7 @@ to make some changes to use the public API. If you have any questions please ask
 </p>
 
 <p>
-    [<a target="specs" href="dist/1.4.1/test-output/concordion/spec/concordion/command/run/Run.html">More details</a>]
+    [<a target="specs" href="dist/1.4.2/test-output/concordion/spec/concordion/command/run/Run.html">More details</a>]
 </p>
 
 </div>
@@ -254,7 +276,7 @@ public class GreetingTest extends ConcordionTestCase {
 
 
 <p>See
-<a target="specs" href="dist/1.4.1/test-output/concordion/spec/concordion/annotation/Annotation.html">here</a>
+<a target="specs" href="dist/1.4.2/test-output/concordion/spec/concordion/annotation/Annotation.html">here</a>
 for an explanation of the semantics of each annotation.
 </p>
 
@@ -269,7 +291,7 @@ for an explanation of the semantics of each annotation.
 A special variable <code>"#HREF"</code> lets you access the href attribute for a link. This
         can be used when you want to reference test data from a specification.
 
-        [<a target="specs" href="dist/1.4.1/test-output/concordion/spec/concordion/command/execute/AccessToLinkHref.html">More details</a>]
+        [<a target="specs" href="dist/1.4.2/test-output/concordion/spec/concordion/command/execute/AccessToLinkHref.html">More details</a>]
 </p>
 
 </div>
