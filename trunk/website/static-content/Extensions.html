@@ -80,7 +80,7 @@ public class MyTest {
   <li><b>Or</b> annotating public fields in the fixture class with <code>@org.concordion.api.extension.Extension</code>.  This allows the extensions to be configured per class instance. For example:</p>
   <pre class="java">...
 @Extension
-public ConcordionExtension extension = new ScreenshotExtension().withScreenshotTaker(camera);
+public ConcordionExtension extension = new ScreenshotExtension().setScreenshotTaker(camera);
 ...</pre>
 
    </li>
