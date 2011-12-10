@@ -42,12 +42,11 @@ li {
   margin-bottom: 6px; 
 }
 
-
 .example {
-  padding: 2px 12px 6px 12px;
-  border: 1px solid #C3D9FF;
+  padding: 6px 16px 6px 16px;
+  border: 1px solid #D7D7D7;
   margin: 6px 0px 28px 0px;
-  background-color: #F5F9FD;
+  background-color: #F7F7F7;
 }
 .example h3 {
   margin-top: 8px;
