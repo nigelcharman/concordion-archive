@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Concordion - MultiValueResult</title>
+<link media="all" rel="stylesheet" type="text/css" href="../css/default.css"/>
+<link media="print"  rel="stylesheet" type="text/css" href="../css/print.css"/>
+<style>
+pre.java {
+  background-color: #f7f7f7;
+  padding-left: 32px;
+  border-left: 2px solid #eee;
+}
+
+/* Java keyword */
+.java b {
+  color: #7f0055;
+  font-weight: bold;
+}
+
+/* Java comment */
+.java cite {
+  color: #3f7f5f;
+  font-style: normal;
+  font-weight: normal;
+}
+/* Java string */
+.java var {
+  color: #2a00ff;
+  font-style: normal;
+  font-weight: normal;
+}
+/* Java annotation */
+.java kbd {
+  color: #646464;
+  font-style: normal;
+  font-weight: normal;
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+<div class="content">
+
+<h1>MultiValueResult</h1>
+
+<p>
+I've added a <a href="http://code.google.com/p/concordion/source/browse/trunk/concordion/src/main/java/org/concordion/api/MultiValueResult.java">MultiValueResult</a> class to
+make it easier to return multiple results from a fixture method. You no longer have to create inner classes.
+</p>
+
+<p>
+For example, the following fixture code:
+</p>
+
+
+<pre class="java">
+<span class="keyword">package</span> example;
+
+<span class="keyword">import</span> org.concordion.integration.junit3.ConcordionTestCase;
+
+<span class="keyword">public class</span> SplittingNamesTest <span class="keyword">extends</span> ConcordionTestCase {
+
+    <span class="keyword">public</span> Result split(String fullName) {
+        Result result = <span class="keyword">new</span> Result();
+        String[] words = fullName.split(<span class="string">" "</span>);
+        result.firstName = words[0];
+        result.lastName = words[1];
+        <span class="keyword">return</span> result;
+    }
+
+    <span class="keyword">class</span> Result {
+        <span class="keyword">public</span> String firstName;
+        <span class="keyword">public</span> String lastName;
+    }
+}
+</pre>
+
+<p>
+... can be simplified to this:
+</p>
+
+
+<pre class="java">
+<span class="keyword">package</span> example;
+
+<span class="keyword">import</span> org.concordion.integration.junit3.ConcordionTestCase;
+<span class="keyword">import static</span> org.concordion.api.MultiValueResult.*;
+
+<span class="keyword">public class</span> SplittingNamesTest <span class="keyword">extends</span> ConcordionTestCase {
+
+    <span class="keyword">public</span> MultiValueResult split(String fullName) {
+        String[] words = fullName.split(<span class="string">" "</span>);
+        <span class="keyword">return</span> <em>multiValueResult()</em>
+                  .with(<span class="string">"firstName"</span>, words[0])
+                  .with(<span class="string">"lastName"</span>, words[1]);
+    }
+}
+</pre>
+
+
+</div>
+</div>
+</body>
+</html>
