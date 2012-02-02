@@ -65,9 +65,11 @@ For example, the following fixture code:
 <pre class="java">
 <span class="keyword">package</span> example;
 
-<span class="keyword">import</span> org.concordion.integration.junit3.ConcordionTestCase;
+<span class="keyword">import</span> org.concordion.integration.junit4.ConcordionRunner;
+<span class="keyword">import</span> org.junit.runner.RunWith;
 
-<span class="keyword">public class</span> SplittingNamesTest <span class="keyword">extends</span> ConcordionTestCase {
+@RunWith(ConcordionRunner.<span class="keyword">class</span>)
+<span class="keyword">public class</span> SplittingNamesTest {
 
     <span class="keyword">public</span> Result split(String fullName) {
         Result result = <span class="keyword">new</span> Result();
@@ -92,10 +94,12 @@ For example, the following fixture code:
 <pre class="java">
 <span class="keyword">package</span> example;
 
-<span class="keyword">import</span> org.concordion.integration.junit3.ConcordionTestCase;
+<span class="keyword">import</span> org.concordion.integration.junit4.ConcordionRunner;
+<span class="keyword">import</span> org.junit.runner.RunWith;
 <span class="keyword">import static</span> org.concordion.api.MultiValueResult.*;
 
-<span class="keyword">public class</span> SplittingNamesTest <span class="keyword">extends</span> ConcordionTestCase {
+@RunWith(ConcordionRunner.<span class="keyword">class</span>)
+<span class="keyword">public class</span> SplittingNamesTest {
 
     <span class="keyword">public</span> MultiValueResult split(String fullName) {
         String[] words = fullName.split(<span class="string">" "</span>);
@@ -105,6 +109,52 @@ For example, the following fixture code:
     }
 }
 </pre>
+
+<p>
+The HTML is unchanged and looks like this:
+</p>
+
+<pre class="html">
+&lt;html xmlns:concordion="http://www.concordion.org/2007/concordion"&gt;
+
+    &lt;head&gt;
+        &lt;link href="../concordion.css" rel="stylesheet" type="text/css" /&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+
+        &lt;h1&gt;Splitting Names&lt;/h1&gt;
+
+        &lt;p&gt;
+            To help personalise our mailshots we want to have the first name
+            and last name of the customer. Unfortunately the customer data
+            that we are supplied only contains full names.
+        &lt;/p&gt;
+
+        &lt;p&gt;
+            The system therefore attempts to break a supplied full name into
+            its constituents by splitting around whitespace.
+        &lt;/p&gt;
+
+        &lt;div class="example"&gt;
+
+            &lt;h3&gt;Example&lt;/h3&gt;
+
+            &lt;p&gt;
+                The full name
+                &lt;span concordion:execute="#result = split(#TEXT)"&gt;John Smith&lt;/span&gt;
+                will be broken into first name
+                &lt;span concordion:assertEquals="#result.firstName"&gt;John&lt;/span&gt;
+                and last name
+                &lt;span concordion:assertEquals="#result.lastName"&gt;Smith&lt;/span&gt;.
+            &lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+
 
 <p class="postedBy">
 Posted by David Peterson on 02-Feb-2012 18:36:10
