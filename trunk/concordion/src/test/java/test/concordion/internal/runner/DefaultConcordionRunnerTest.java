@@ -19,11 +19,16 @@ import test.concordion.ConsoleLogGobbler;
 import test.concordion.StubLogger;
 
 public class DefaultConcordionRunnerTest {
-    
-    @Rule 
-    public ConsoleLogGobbler logGobbler = new ConsoleLogGobbler();  // Ensure error log messages don't appear on console
+
+    @Rule
+    public ConsoleLogGobbler logGobbler = new ConsoleLogGobbler(); // Ensure
+                                                                   // error log
+                                                                   // messages
+                                                                   // don't
+                                                                   // appear on
+                                                                   // console
     private StubLogger stubLogger = new StubLogger();
-    
+
     private TestDefaultConcordionRunner runner = new TestDefaultConcordionRunner();
 
     @Test
@@ -31,7 +36,7 @@ public class DefaultConcordionRunnerTest {
         RunnerResult myresult = runner.decodeJUnitResult(UnannotatedClass.class, StubResult.FAILURE);
         assertThat(myresult.getResult(), is(Result.FAILURE));
     }
-    
+
     @Test
     public void returnsSuccessOnJUnitSuccess() throws Exception {
         RunnerResult myresult = runner.decodeJUnitResult(UnannotatedClass.class, StubResult.SUCCESS);
@@ -44,36 +49,28 @@ public class DefaultConcordionRunnerTest {
         RunnerResult myresult = runner.decodeJUnitResult(ExpectedToFailClass.class, StubResult.SUCCESS);
         assertThat(myresult.getResult(), is(Result.IGNORED));
     }
-    
+
     // JUnit success is reported when an Unimplemented test is unimplemented
     @Test
     public void returnsIgnoredOnJUnitSuccessWhenUnimplemented() throws Exception {
         RunnerResult myresult = runner.decodeJUnitResult(UnimplementedClass.class, StubResult.SUCCESS);
         assertThat(myresult.getResult(), is(Result.IGNORED));
     }
-    
-    // JUnit failure is reported when an ExpectedToFail test does not fail
-    @Test
-    public void returnsFailureOnJUnitFailureWhenExpectedToFail() throws Exception {
-        RunnerResult myresult = runner.decodeJUnitResult(ExpectedToFailClass.class, StubResult.FAILURE);
-        assertThat(myresult.getResult(), is(Result.FAILURE));
+
+    // JUnit failure is reported when an ExpectedToFail test does not fail.
+    @Test(expected = AssertionError.class)
+    public void throwsAssertionErrorOnJUnitFailureWhenExpectedToFail() throws Exception {
+        runner.decodeJUnitResult(ExpectedToFailClass.class, StubResult.FAILURE);
     }
-    
+
     // JUnit failure is reported when an Unimplemented test is implemented
-    @Test
-    public void returnsFailureOnJUnitFailureWhenUnimplemented() throws Exception {
-        RunnerResult myresult = runner.decodeJUnitResult(UnimplementedClass.class, StubResult.FAILURE);
-        assertThat(myresult.getResult(), is(Result.FAILURE));
-    }
-    
-    @Test
-    public void returnsIgnoredOnJUnitSuccessWhenIgnoredCountGreaterThanZero() throws Exception {
-        RunnerResult myresult = runner.decodeJUnitResult(UnannotatedClass.class, StubResult.SUCCESS.withIgnoreCount(1));
-        assertThat(myresult.getResult(), is(Result.IGNORED));
+    @Test(expected = AssertionError.class)
+    public void throwsAssertionErrorOnJUnitFailureWhenUnimplemented() throws Exception {
+        runner.decodeJUnitResult(UnimplementedClass.class, StubResult.FAILURE);
     }
 
     @Test
-    public void doesNotThrowExceptionOnAssertionError() throws Exception {
+    public void doesNotThrowExceptionOnAssertionErrorWhenExpectedToPass() throws Exception {
         Throwable error = new AssertionError();
         RunnerResult myresult = runner.decodeJUnitResult(UnannotatedClass.class, new StubResult().withFailure(error));
         assertThat(myresult.getResult(), is(Result.FAILURE));
@@ -113,6 +110,12 @@ public class DefaultConcordionRunnerTest {
     }
 
     @Test
+    public void returnsIgnoredOnJUnitSuccessWhenIgnoredCountGreaterThanZero() throws Exception {
+        RunnerResult myresult = runner.decodeJUnitResult(UnannotatedClass.class, StubResult.SUCCESS.withIgnoreCount(1));
+        assertThat(myresult.getResult(), is(Result.IGNORED));
+    }
+
+    @Test
     public void logsExceptions() throws Exception {
         Throwable error = new IOException("dummy IO exception");
         try {
@@ -120,8 +123,35 @@ public class DefaultConcordionRunnerTest {
         } catch (IOException e) {
         }
         assertThat(stubLogger.getNewLogMessages(), containsString("java.io.IOException: dummy IO exception"));
-    } 
-    
+    }
+
+    @Test
+    public void doesNotLogAssertionErrors() throws Exception {
+        Throwable error = new AssertionError("dummy assertion error");
+        runner.decodeJUnitResult(UnannotatedClass.class, new StubResult().withFailure(error));
+        assertThat(stubLogger.getNewLogMessages(), is(""));
+    }
+
+    @Test
+    public void doesNotLogAssertionErrorsWhenExpectedToFailEither() throws Exception {
+        Throwable error = new AssertionError("dummy assertion error");
+        try {
+            runner.decodeJUnitResult(ExpectedToFailClass.class, new StubResult().withFailure(error));
+        } catch (AssertionError e) {
+        }
+        assertThat(stubLogger.getNewLogMessages(), is(""));
+    }
+
+    @Test
+    public void doesNotLogAssertionErrorsWhenUnimplementedEither() throws Exception {
+        Throwable error = new AssertionError("dummy assertion error");
+        try {
+            runner.decodeJUnitResult(ExpectedToFailClass.class, new StubResult().withFailure(error));
+        } catch (AssertionError e) {
+        }
+        assertThat(stubLogger.getNewLogMessages(), is(""));
+    }
+
     private static final class UnannotatedClass {
     }
 

@@ -54,13 +54,11 @@ public class DefaultConcordionRunner implements Runner {
         return jUnitResult;
     }
 
-    protected RunnerResult decodeJUnitResult(Class<?> concordionClass, org.junit.runner.Result jUnitResult)
-            throws Exception {
+    protected RunnerResult decodeJUnitResult(Class<?> concordionClass, org.junit.runner.Result jUnitResult) throws Exception {
         Result result = Result.FAILURE;
         if (jUnitResult.wasSuccessful()) {
             result = Result.SUCCESS;
-            if (isOnlySuccessfulBecauseItWasExpectedToFail(concordionClass)
-             || isOnlySuccessfulBecauseItIsUnimplemented(concordionClass)) {
+            if (onlyPartiallyImplemented(concordionClass)) {
                 result = Result.IGNORED;
             }
             if (jUnitResult.getIgnoreCount() > 0) {
@@ -70,24 +68,40 @@ public class DefaultConcordionRunner implements Runner {
             List<Failure> failures = jUnitResult.getFailures();
             for (Failure failure : failures) {
                 Throwable exception = failure.getException();
-                if (!(exception instanceof AssertionError)) {
-                    logger.log(Level.WARNING, "", exception);
-                    if (exception instanceof Exception) {
-                        throw (Exception)exception;
-                    } else {
-                        throw new RuntimeException(exception);
-                    }
-                }
+                logExceptionIfNotAssertionError(exception);
+                rethrowExceptionIfWarranted(concordionClass, exception);
             }
         }
         return new RunnerResult(result);
     }
 
-    private boolean isOnlySuccessfulBecauseItWasExpectedToFail(Class<?> concordionClass) {
-        return concordionClass.getAnnotation(ExpectedToFail.class) != null;
+    private void logExceptionIfNotAssertionError(Throwable exception) {
+        if (!(exception instanceof AssertionError)) {
+            logger.log(Level.WARNING, "", exception);
+        }
     }
-    
-    private boolean isOnlySuccessfulBecauseItIsUnimplemented(Class<?> concordionClass) {
-        return concordionClass.getAnnotation(Unimplemented.class) != null;
+
+    private void rethrowExceptionIfWarranted(Class<?> concordionClass, Throwable exception) throws AssertionError, Exception {
+        if (exception instanceof AssertionError) {
+            if (fullyImplemented(concordionClass)) {
+                return; // do not throw exception, failing specs are treated as test failures.
+            } else {
+                // However if the spec is partially implemented we do want an exception so that the caller can be informed of the reason.
+                throw (AssertionError) exception;
+            }
+        }
+        if (exception instanceof Exception) {
+            throw (Exception) exception;
+        }
+        throw new RuntimeException(exception);
+    }
+
+    private boolean onlyPartiallyImplemented(Class<?> concordionClass) {
+        return concordionClass.getAnnotation(ExpectedToFail.class) != null
+            || concordionClass.getAnnotation(Unimplemented.class) != null;
+    }
+
+    private boolean fullyImplemented(Class<?> concordionClass) {
+        return !(onlyPartiallyImplemented(concordionClass));
     }
 }
