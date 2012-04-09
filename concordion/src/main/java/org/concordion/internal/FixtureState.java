@@ -35,7 +35,7 @@ public enum FixtureState {
 
         @Override
         public void printNote(PrintStream out) {
-            out.print("   <-- ERROR: Specification is marked as unimplemented, but has an implemention.");
+            out.print("   <-- Note: This test has been marked as UNIMPLEMENTED");
         }
     },
     EXPECTED_TO_FAIL {
