@@ -1,30 +1,21 @@
 package org.concordion.internal.listener;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.concordion.api.Element;
 import org.concordion.api.Resource;
 import org.concordion.api.Target;
 import org.concordion.api.listener.SpecificationProcessingEvent;
 import org.concordion.api.listener.SpecificationProcessingListener;
-import org.concordion.internal.util.IOUtil;
 
 public class PageFooterRenderer implements SpecificationProcessingListener {
 
     private static final String CONCORDION_WEBSITE_URL = "http://www.concordion.org";
-    private static final String SOURCE_LOGO_RESOURCE_PATH = "/org/concordion/internal/resource/logo.png";
-    private static final Resource TARGET_LOGO_RESOURCE = new Resource("/image/concordion-logo.png");
-    private final Target target;
     private long startMillis;
     private static Logger logger = Logger.getLogger(PageFooterRenderer.class.getName());
 
     public PageFooterRenderer(Target target) {
-        this.target = target;
     }
 
     public void beforeProcessingSpecification(SpecificationProcessingEvent event) {
@@ -33,7 +24,6 @@ public class PageFooterRenderer implements SpecificationProcessingListener {
 
     public void afterProcessingSpecification(SpecificationProcessingEvent event) {
         try {
-            copyLogoToTarget();
             long millisTaken = System.currentTimeMillis() - startMillis;
             addFooterToDocument(event.getRootElement(), event.getResource(), millisTaken);
         } catch (Throwable t) {
@@ -53,13 +43,9 @@ public class PageFooterRenderer implements SpecificationProcessingListener {
             
             Element link = new Element("a");
             link.addAttribute("href", CONCORDION_WEBSITE_URL);
+            link.addAttribute("style", "font-weight: bold; text-decoration: none; color: #89C;");
             footer.appendChild(link);
-            
-            Element img = new Element("img");
-            img.addAttribute("src", resource.getRelativePath(TARGET_LOGO_RESOURCE));
-            img.addAttribute("alt", "Concordion");
-            img.addAttribute("border", "0");
-            link.appendChild(img);
+            link.appendText("Concordion");
             
             Element dateDiv = new Element("div");
             dateDiv.addStyleClass("testTime");
@@ -68,16 +54,6 @@ public class PageFooterRenderer implements SpecificationProcessingListener {
             footer.appendChild(dateDiv);
             
             body.appendChild(footer);
-        }
-    }
-
-    private void copyLogoToTarget() {
-        IOUtil.getResourceAsStream(SOURCE_LOGO_RESOURCE_PATH);
-        InputStream inputStream = getClass().getResourceAsStream(SOURCE_LOGO_RESOURCE_PATH);
-        try {
-            target.copyTo(TARGET_LOGO_RESOURCE, inputStream);
-        } catch (IOException e) {
-            logger.log(Level.WARNING, "Failed to copy Concordion logo to target", e);
         }
     }
 }
