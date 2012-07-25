@@ -3,7 +3,6 @@ package org.concordion.internal.runner;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.concordion.api.ExpectedToFail;
 import org.concordion.api.Resource;
 import org.concordion.api.Result;
@@ -39,7 +38,11 @@ public class DefaultConcordionRunner implements Runner {
         try {
             concordionClass = Class.forName(name);
         } catch (ClassNotFoundException e) {
-            concordionClass = Class.forName(name + "Test");
+            try {
+                concordionClass = Class.forName(name + "Test");
+            } catch (ClassNotFoundException e1) {
+                concordionClass = Class.forName(name + "Fixture"); // FIXED: Issue 47
+            }
         }
         return concordionClass;
     }
