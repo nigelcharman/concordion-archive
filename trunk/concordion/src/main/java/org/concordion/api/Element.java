@@ -2,7 +2,6 @@ package org.concordion.api;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import nu.xom.Attribute;
 import nu.xom.Elements;
 import nu.xom.Node;
@@ -224,5 +223,18 @@ public final class Element {
         nu.xom.Element xomParentElement = (nu.xom.Element) xomElement.getParent();
         int elementIndex = xomParentElement.indexOf(xomElement);
         xomParentElement.insertChild(element.xomElement, elementIndex + 1);
+    }
+    
+    /**
+     * Returns the first child Element with the specified "id" attribute, or null,
+     * if no matching element is found.
+     */
+    public Element getElementById(String id) {
+        String query = ".//*[@id='" + id + "']";
+        Nodes nodes = xomElement.query(query);
+        if (0 == nodes.size()) {
+            return null;
+        }
+        return new Element((nu.xom.Element) nodes.get(0));
     }
 }

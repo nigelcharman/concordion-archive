@@ -1,8 +1,9 @@
 package test.concordion.api;
 
-import org.concordion.api.Element;
-
+import java.io.StringReader;
 import junit.framework.TestCase;
+import nu.xom.Builder;
+import org.concordion.api.Element;
 
 public class ElementTest extends TestCase {
 
@@ -18,5 +19,23 @@ public class ElementTest extends TestCase {
         fred.moveChildrenTo(barney);
         assertEquals("<fred />", fred.toXML());
         assertEquals("<barney><child1 /><child2><grandchild /></child2></barney>", barney.toXML());
+    }
+    
+    public void testChildElementsCanBeFoundById() throws Exception {
+        for (String namespaceDeclaration : new String[] { "", "xmlns='" + Element.XHTML_URI + "'" }) {
+            
+            String xhtml = "<html " + namespaceDeclaration + ">";
+            xhtml += "<body>";
+            xhtml += "<p id='first'>First paragraph</p>";
+            xhtml += "<p id='second'>Second paragraph</p>";
+            xhtml += "</body>";
+            xhtml += "</html>";
+            
+            Element root = new Element(new Builder(false).build(new StringReader(xhtml)).getRootElement());
+            
+            assertEquals("First paragraph", root.getElementById("first").getText());
+            assertEquals("Second paragraph", root.getElementById("second").getText());
+            assertNull(root.getElementById("third"));
+        }
     }
 }
