@@ -3,6 +3,7 @@ package test.concordion.internal;
 import static junit.framework.Assert.fail;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.containsString;
 import static org.junit.matchers.JUnitMatchers.hasItem;
@@ -76,10 +77,27 @@ public class FixtureExtensionLoaderWithClassAnnotationTest {
                     containsString("ConcordionExtension or"), containsString("ConcordionExtensionFactory")));
         }
     }
-    
+
+    @Test
+    public void onlyLoadsExtensionOnceIfParentIsAnnotated() throws Exception {
+        String annotation = "@Extensions({FakeExtension1.class})";
+
+        List extensions = loader.getExtensionsForFixture(withParentWithClassAnnotation(annotation));
+
+        assertThat((List<Object>)extensions, hasItem(instanceOf(FakeExtension1.class)));
+        assertEquals(1, extensions.size());
+    }
+
     private Object withClassAnnotation(String annotation) throws Exception, InstantiationException,
             IllegalAccessException {
         return withClassAnnotation(annotation, null);
+    }
+
+    private Object withParentWithClassAnnotation(String annotation) throws Exception, InstantiationException,
+            IllegalAccessException {
+        String className = "ExampleFixtureParent";
+        classWithAnnotation(annotation, className, null);
+        return withClassAnnotation("", className);
     }
 
     private Object withClassAnnotation(String annotation, String superClassName) throws Exception, InstantiationException,
