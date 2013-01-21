@@ -24,10 +24,10 @@ public class FixtureExtensionLoader {
     public List<ConcordionExtension> getExtensionsForFixture(Object fixture) {
         final List<ConcordionExtension> extensions = new ArrayList<ConcordionExtension>();
 
+        extensions.addAll(getExtensionsFromClassAnnotation(fixture.getClass()));
+
         List<Class<?>> classes = getClassHierarchyParentFirst(fixture.getClass());
-        
         for (Class<?> class1 : classes) {
-            extensions.addAll(getExtensionsFromClassAnnotation(class1));
             extensions.addAll(getExtensionsFromAnnotatedFields(fixture, class1));
         }
         
