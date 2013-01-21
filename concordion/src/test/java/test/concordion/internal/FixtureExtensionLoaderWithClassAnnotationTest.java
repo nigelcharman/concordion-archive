@@ -82,25 +82,39 @@ public class FixtureExtensionLoaderWithClassAnnotationTest {
     public void onlyLoadsExtensionOnceIfParentIsAnnotated() throws Exception {
         String annotation = "@Extensions({FakeExtension1.class})";
 
-        List extensions = loader.getExtensionsForFixture(withParentWithClassAnnotation(annotation));
+        String superClassName = withParentWithClassAnnotation(annotation);
+        List extensions = loader.getExtensionsForFixture(withClassAnnotationAndSuperclass("", superClassName));
 
         assertThat((List<Object>)extensions, hasItem(instanceOf(FakeExtension1.class)));
         assertEquals(1, extensions.size());
     }
 
-    private Object withClassAnnotation(String annotation) throws Exception, InstantiationException,
-            IllegalAccessException {
-        return withClassAnnotation(annotation, null);
+    @Test
+    public void loadsAllExtensionsInHierarchy() throws Exception {
+        String annotation1 = "@Extensions({FakeExtension1.class})";
+        String annotation2 = "@Extensions({FakeExtension2.class})";
+
+        String superClassName = withParentWithClassAnnotation(annotation1);
+        List extensions = loader.getExtensionsForFixture(withClassAnnotationAndSuperclass(annotation2, superClassName));
+
+        assertThat((List<Object>)extensions, hasItem(instanceOf(FakeExtension1.class)));
+        assertThat((List<Object>)extensions, hasItem(instanceOf(FakeExtension2.class)));
+        assertEquals(2, extensions.size());
     }
 
-    private Object withParentWithClassAnnotation(String annotation) throws Exception, InstantiationException,
+    private Object withClassAnnotation(String annotation) throws Exception, InstantiationException,
+            IllegalAccessException {
+        return withClassAnnotationAndSuperclass(annotation, null);
+    }
+
+    private String withParentWithClassAnnotation(String annotation) throws Exception, InstantiationException,
             IllegalAccessException {
         String className = "ExampleFixtureParent";
         classWithAnnotation(annotation, className, null);
-        return withClassAnnotation("", className);
+        return className;
     }
 
-    private Object withClassAnnotation(String annotation, String superClassName) throws Exception, InstantiationException,
+    private Object withClassAnnotationAndSuperclass(String annotation, String superClassName) throws Exception, InstantiationException,
             IllegalAccessException {
         String className = "ExampleFixture";
         Class<?> clazz = classWithAnnotation(annotation, className, superClassName);
