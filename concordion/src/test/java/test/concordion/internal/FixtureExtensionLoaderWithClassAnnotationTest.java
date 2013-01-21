@@ -82,7 +82,7 @@ public class FixtureExtensionLoaderWithClassAnnotationTest {
     public void onlyLoadsExtensionOnceIfParentIsAnnotated() throws Exception {
         String annotation = "@Extensions({FakeExtension1.class})";
 
-        String superClassName = withParentWithClassAnnotation(annotation);
+        String superClassName = createParentWithClassAnnotation(annotation);
         List extensions = loader.getExtensionsForFixture(withClassAnnotationAndSuperclass("", superClassName));
 
         assertThat((List<Object>)extensions, hasItem(instanceOf(FakeExtension1.class)));
@@ -94,7 +94,7 @@ public class FixtureExtensionLoaderWithClassAnnotationTest {
         String annotation1 = "@Extensions({FakeExtension1.class})";
         String annotation2 = "@Extensions({FakeExtension2.class})";
 
-        String superClassName = withParentWithClassAnnotation(annotation1);
+        String superClassName = createParentWithClassAnnotation(annotation1);
         List extensions = loader.getExtensionsForFixture(withClassAnnotationAndSuperclass(annotation2, superClassName));
 
         assertThat((List<Object>)extensions, hasItem(instanceOf(FakeExtension1.class)));
@@ -107,7 +107,7 @@ public class FixtureExtensionLoaderWithClassAnnotationTest {
         return withClassAnnotationAndSuperclass(annotation, null);
     }
 
-    private String withParentWithClassAnnotation(String annotation) throws Exception, InstantiationException,
+    private String createParentWithClassAnnotation(String annotation) throws Exception, InstantiationException,
             IllegalAccessException {
         String className = "ExampleFixtureParent";
         classWithAnnotation(annotation, className, null);
