@@ -1,7 +1,8 @@
 package test.concordion.internal;
 
-import static org.junit.Assert.*;
-import static org.junit.matchers.JUnitMatchers.*;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 import org.concordion.api.Resource;
 import org.concordion.internal.ParsingException;

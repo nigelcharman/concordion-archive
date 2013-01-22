@@ -2,11 +2,11 @@ package test.concordion.internal;
 
 import static junit.framework.Assert.fail;
 import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-import static org.junit.matchers.JUnitMatchers.containsString;
-import static org.junit.matchers.JUnitMatchers.hasItem;
 
 import java.util.List;
 
