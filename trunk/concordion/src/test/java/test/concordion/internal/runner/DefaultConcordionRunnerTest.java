@@ -1,6 +1,6 @@
 package test.concordion.internal.runner;
 
-import static org.junit.matchers.JUnitMatchers.containsString;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
@@ -21,12 +21,7 @@ import test.concordion.StubLogger;
 public class DefaultConcordionRunnerTest {
 
     @Rule
-    public ConsoleLogGobbler logGobbler = new ConsoleLogGobbler(); // Ensure
-                                                                   // error log
-                                                                   // messages
-                                                                   // don't
-                                                                   // appear on
-                                                                   // console
+    public ConsoleLogGobbler logGobbler = new ConsoleLogGobbler(); // Ensure error log messages don't appear on console
     private StubLogger stubLogger = new StubLogger();
 
     private TestDefaultConcordionRunner runner = new TestDefaultConcordionRunner();
@@ -111,7 +106,7 @@ public class DefaultConcordionRunnerTest {
 
     @Test
     public void returnsIgnoredOnJUnitSuccessWhenIgnoredCountGreaterThanZero() throws Exception {
-        RunnerResult myresult = runner.decodeJUnitResult(UnannotatedClass.class, StubResult.SUCCESS.withIgnoreCount(1));
+        RunnerResult myresult = runner.decodeJUnitResult(UnannotatedClass.class, new StubResult().withIgnoreCount(1));
         assertThat(myresult.getResult(), is(Result.IGNORED));
     }
 
