@@ -124,6 +124,8 @@ ins {
 }
 .missing, .missing * {
   background-color: #ff9999;
+  color:#bb5050;
+  text-decoration: line-through;
 }
 .surplus, .surplus * {
   background-color: #ff9999;
