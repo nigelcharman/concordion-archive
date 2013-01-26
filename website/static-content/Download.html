@@ -69,7 +69,7 @@ Full distribution including source code and all dependencies:
 <table style="margin-left: 40px; background-color:white; padding: 10px; border: 1px solid #d7d7d7; width: 290px;">
 <tr>
 <td><img src="image/shared/download.gif" alt="Download Concordion" /></td>
-<td><b><a href="dist/1.4.2/concordion-1.4.2.zip">concordion-1.4.2.zip</a></b> (1.1MB)</td>
+<td><b><a href="dist/1.4.3/concordion-1.4.3.zip">concordion-1.4.3.zip</a></b> (1.2MB)</td>
 </tr>
 </table>
 </div>
@@ -81,7 +81,7 @@ Full distribution including source code and all dependencies:
 &lt;dependency&gt;
     &lt;groupId&gt;<b>org.concordion</b>&lt;/groupId&gt;
     &lt;artifactId&gt;<b>concordion</b>&lt;/artifactId&gt;
-    &lt;version&gt;<b>1.4.2</b>&lt;/version&gt;
+    &lt;version&gt;<b>1.4.3</b>&lt;/version&gt;
 &lt;/dependency&gt;
 </pre>
 </div>
@@ -92,19 +92,23 @@ Or, for the bleeding edge, build from the subversion repository: <a href="http:/
 http://concordion.googlecode.com/svn/trunk/concordion</a>
 </p>
 
-<h4>Changes in Concordion 1.4.2</h4>
+<h3>Changes in Concordion 1.4.3</h3>
 
+<h4>JUnit 4.11</h4>
+<p>JUnit has been <a href="http://code.google.com/p/concordion/issues/detail?id=55">updated</a> to <a href="https://github.com/KentBeck/junit/blob/master/doc/ReleaseNotes4.11.md">4.11</a>. The Hamcrest classes are no longer in JUnit, but must be present on the classpath. </p>
+<p>For those downloading Concordion, <b>you must add the file lib/hamcrest-core-1.3.jar to your classpath</b>. Failure to do so will result in the error "java.lang.NoClassDefFoundError: org/hamcrest/SelfDescribing". </p>
+<p>For those using a dependency management tool, such as Maven, Hamcrest is included in the transitive dependencies of JUnit, so will be added to your classpath by default.</p>
+
+<h4>Other changes</h4>
 <ul>
-<li><a href="Extensions.html#add">Simplified configuration of extensions</a> through new @Extension and @Extensions annotations.</li>
-<li>Fixture classes can now be suffixed with "Fixture" as an alternative to "Test" (<a href="http://code.google.com/p/concordion/issues/detail?id=37">Issue 37</a>)</li>
-<li>Fixed stack-trace rendering problem in Google Chrome (<a href="http://code.google.com/p/concordion/issues/detail?id=36">Issue 36</a>)</li>
-<li>Fixed Concordion output displaying spaces as Â (<a href="http://code.google.com/p/concordion/issues/detail?id=38">Issue 38</a>)</li>
-<li>Expose withSource() and withTarget() via the Concordion Extension mechanism (<a href="http://code.google.com/p/concordion/issues/detail?id=39">Issue 39</a>)</li>
-<li>Fixed JavaScriptLinker producing invalid (x)html (<a href="http://code.google.com/p/concordion/issues/detail?id=26">Issue 26</a>)</li>
-<li>The offending filename is now shown  on HTML parse errors (<a href="http://code.google.com/p/concordion/issues/detail?id=27">Issue 27</a>)</li>
+<li><a href="https://code.google.com/p/concordion/issues/detail?id=23#c3">Fixed: Error message shown for all @Unimplemented tests, not just those with an implementation</li>
+<li><a href="http://code.google.com/p/concordion/issues/detail?id=46">Add support for Element to look for other elements by id</a> (thanks to Alessandro Novarini for the patch)</li>
+<li><a href="http://code.google.com/p/concordion/issues/detail?id=47">Add support to concordion:run for test classes ending in Fixture</a> (thanks to Ricardo da Silva Lima for the patch)</li>
+<li><a href="http://code.google.com/p/concordion/issues/detail?id=49">Modified CSS on verifyRows to show missing rows as struck through</a></li>
+<li><a href="http://code.google.com/p/concordion/issues/detail?id=54">Fixed: Duplicate extension instances created due to inheritance of @Extension annotation</a> (thanks to Bryan Young for the issue report and unit test)</li>
 </ul>
-
-<h4>Non-Java versions</h4>
+<br/>
+<h3>Non-Java versions</h3>
 
 <p>
 Concordion is available for .NET, Ruby, and Python.
@@ -327,6 +331,21 @@ A special variable <code>"#HREF"</code> lets you access the href attribute for a
 </div>
 
 
+<div class="section">
+<h3>Previous releases</h3>
+
+<h4>Changes in Concordion 1.4.2</h4>
+
+<ul>
+<li><a href="Extensions.html#add">Simplified configuration of extensions</a> through new @Extension and @Extensions annotations.</li>
+<li>Fixture classes can now be suffixed with "Fixture" as an alternative to "Test" (<a href="http://code.google.com/p/concordion/issues/detail?id=37">Issue 37</a>)</li>
+<li>Fixed stack-trace rendering problem in Google Chrome (<a href="http://code.google.com/p/concordion/issues/detail?id=36">Issue 36</a>)</li>
+<li>Fixed Concordion output displaying spaces as Â (<a href="http://code.google.com/p/concordion/issues/detail?id=38">Issue 38</a>)</li>
+<li>Expose withSource() and withTarget() via the Concordion Extension mechanism (<a href="http://code.google.com/p/concordion/issues/detail?id=39">Issue 39</a>)</li>
+<li>Fixed JavaScriptLinker producing invalid (x)html (<a href="http://code.google.com/p/concordion/issues/detail?id=26">Issue 26</a>)</li>
+<li>The offending filename is now shown  on HTML parse errors (<a href="http://code.google.com/p/concordion/issues/detail?id=27">Issue 27</a>)</li>
+</ul>
+</div>
 
 
 
