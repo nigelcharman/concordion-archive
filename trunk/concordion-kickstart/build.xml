@@ -46,7 +46,7 @@
                 <pathelement location="build/classes"/>
             </classpath>
 
-            <formatter type="plain" />
+            <formatter type="plain" usefile="false"/>
 
             <batchtest todir="build/test-output">
                 <fileset dir="specs">
