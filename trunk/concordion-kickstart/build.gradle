@@ -7,7 +7,7 @@ repositories {
 }
 
 dependencies {
-    testCompile 'junit:junit:4.8.2'
+    testCompile 'junit:junit:4.11'
     testCompile 'org.concordion:concordion:1.4.3'
 }
 
