@@ -45,10 +45,10 @@
 
 <ul class="menu">
   <li><a href="/">Home</a></li>
-  <li><a href="../Example.html">Screenshots</a></li>
-  <li><a href="../Tutorial.html">Getting Started</a></li>
+  <li><a href="../Tutorial.html">Tutorial</a></li>
   <li><a href="../Technique.html">Hints and Tips</a></li>
-  <li><a href="../Extensions.html">Extensions</a></li>
+  <li><a href="../Extensions.html">Extensions API</a></li>
+  <li><a href="../ExtensionsLibrary.html">Extensions Library</a></li>
   <li><a href="../Download.html">Download</a></li>
   <li><a href="../Questions.html">FAQ</a></li>
 </ul>
@@ -71,7 +71,7 @@ hovering over the tooltip.</p>
 <p>Revealing the implementation detail can help to improve the level of trust in the tests, and sometimes highlights redundant steps in the
 tests. This is discussed further in <a class="externalLink" href="http://tutansblog.blogspot.com/2010/09/whats-happening-in-my-acceptance-tests.html"
   rel="nofollow">this blog entry</a>.</p>
-  
+
 <p>The extension captures the logging information from java.util.logging.</p>
 
 <h1><a name="Configuration"/>Configuration</h1>
@@ -95,7 +95,7 @@ console can also be enabled.</p>
 <pre class="java">
     String loggers = &quot;carbon.CarbonCalculatorTest, selenium.events&quot;;
     @Extension
-    public ConcordionExtension extension = 
+    public ConcordionExtension extension =
         new LoggingTooltipExtension(loggers, Level.FINE, false);
 </pre>
 
@@ -112,7 +112,7 @@ console can also be enabled.</p>
 </div> <!-- page -->
 
 <div class="copyright">
- &nbsp; Copyright &copy; 2010-2011
+ &nbsp; Copyright &copy; 2010-2013
  <a href="http://gplus.to/NigelCharman">Nigel Charman</a>. All rights reserved.
 </div> <!-- copyright -->
 
