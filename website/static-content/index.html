@@ -23,7 +23,25 @@ h2 {
   xbackground-position: 410px 50px;
   background-color: #fcfcfa !important;
 }
-
+.crashCourse {
+  background-color: #f9f9f7;
+  border: 1px solid #eee;
+  padding: 16px;
+  width: 600px;
+  margin-left: 40px
+}
+.crashCourse table {
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+.crashCourse td, .crashCourse th {
+  border: 1px solid black;
+  padding: 4px 8px 4px 8px;
+  background-color: #fff;
+}
+.crashCourse th {
+  background-color: #eee;
+}
 </style>
 </head>
 <body>
@@ -104,7 +122,8 @@ specs to be written in structured language. It also produces prettier output.<sp
 <li>
 <p>
 <span class="keyPoint">Purposely small command-set is simple to learn</span>
-Also, Concordion tests run with JUnit, which makes them easy to run and
+Concordion has been designed with a short learning-curve as a top priority.
+The tests are also integrated with JUnit, which makes them easy to run and
 easy to include in an existing project build.
 </p>
 </li>
@@ -311,6 +330,122 @@ impossible to cut corners.
 
 <p><a href="Example.html">Worked example</a></p>
 
+
+<br />
+<h1>Where is Concordion suitable and not suitable?</h1>
+
+<p class="subtext">
+    No product is perfect for everyone and Concordion is no exception.
+</p>
+
+<h2>Concordion is not a tester-only tool</h2>
+
+<p>
+Concordion is not suitable for testers who don't have access to developers
+or development skills. The test specs can be written by non-developers, but
+the instrumentation and fixture code require Java programming ability.
+</p>
+
+<p>
+The idea behind the product is to allow (non-developer) testers and developers
+to collaborate in a way that draws on the strengths of both without needing to
+step on each others toes.
+</p>
+
+<p>
+It can, however, be used by developers on their own, as an alternative to
+writing JUnit tests. The advantage of doing this, is that helps to separate the
+two concerns: separating the requirements from the implementation.
+</p>
+
+<h2>Concordion test specs are written in HTML</h2>
+
+<p>
+Only a very small subset of HTML is needed (&lt;p&gt;, &lt;table&gt;, &lt;b&gt;),
+however, some people may be intimidated by it or not want to write in HTML.
+</p>
+
+<p>
+In my experience, the problem is normally that developers <em>think</em> that
+testers or business analysts won't want to write in HTML.
+
+No-one I've worked with has ever had a problem picking up the HTML. It's very
+simple (see crash course below) and they usually end up learning how to write
+the instrumentation too.
+</p>
+
+</div> <!-- memo -->
+
+
+<div class="crashCourse">
+<div><b>Crash Course in HTML</b></div>
+<p>HTML documents are written in text with special start and end tags around items.
+For example:</p>
+<div style="padding: 8px; background-color: white"><code>&lt;p&gt;This is a paragraph&lt;/p&gt;</code></div>
+
+<p>The tag &lt;p&gt; signals the start of the paragraph and &lt;/p&gt; signals the end.</p>
+
+<p>You can nest tags.</p>
+
+<div style="padding: 8px; background-color: white"><code>&lt;p&gt;This is &lt;b&gt;bold text&lt;/b&gt; in a paragraph&lt;/p&gt;</code></div>
+
+<p>When the document is displayed in a web browser, it will be rendered like this:</p>
+
+<div style="padding: 8px; background-color: white">This is <b>bold</b> text in a paragraph</div>
+
+<p>The syntax for a table is more complicated, but once you understand this,
+you'll have everything you need to write tests in Concordion.</p>
+
+<p>A table uses the following tags: &lt;table&gt;, &lt;tr&gt; (table row) , &lt;th&gt; (table heading), &lt;td&gt; (table data).
+The table is expressed row by row. The first row contains the headings, the following rows are data. For example:</p>
+
+
+<pre style="padding: 8px; background-color: white; margin: 0;">
+&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Name&lt;/th&gt;
+        &lt;th&gt;Age&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Fred Flintstone&lt;/td&gt;
+        &lt;td&gt;35&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Betty Rubble&lt;/td&gt;
+        &lt;td&gt;27&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+
+<p>Which produces:</p>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+    </tr>
+    <tr>
+        <td>Fred Flintstone</td>
+        <td>35</td>
+    </tr>
+    <tr>
+        <td>Betty Rubble</td>
+        <td>27</td>
+    </tr>
+</table>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div class="memo">
 
 <br />
 <h1>Spelling of Concordion</h1>
