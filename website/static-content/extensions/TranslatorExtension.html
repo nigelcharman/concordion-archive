@@ -43,12 +43,13 @@
 
 <div class="menuBar">
 
+
 <ul class="menu">
   <li><a href="/">Home</a></li>
-  <li><a href="../Example.html">Screenshots</a></li>
-  <li><a href="../Tutorial.html">Getting Started</a></li>
+  <li><a href="../Tutorial.html">Tutorial</a></li>
   <li><a href="../Technique.html">Hints and Tips</a></li>
-  <li><a href="../Extensions.html">Extensions</a></li>
+  <li><a href="../Extensions.html">Extensions API</a></li>
+  <li><a href="../ExtensionsLibrary.html">Extensions Library</a></li>
   <li><a href="../Download.html">Download</a></li>
   <li><a href="../Questions.html">FAQ</a></li>
 </ul>
@@ -62,26 +63,26 @@
 <div class="memo">
 
 <h1><a name="Introduction"/>Introduction</h1>
-<p>This extension provides the ability to modify exception message text.  While initially created to remove superfluous debug information from WebDriver exception messages, 
+<p>This extension provides the ability to modify exception message text.  While initially created to remove superfluous debug information from WebDriver exception messages,
 it could be used for translating exception messages to other languages.</p>
 
 <h1><a name="Configuration"/>Configuration</h1>
 <p>The easiest way to configure is to use the <code>@Extension</code> annotation on an <code>TranslatorExtension</code> instance field within the fixture class. For example:</p>
 
-<p>For example, the following code configures the extension to remove text 
+<p>For example, the following code configures the extension to remove text
 from the exception message starting from the string "Debug info:".</p>
 
 <pre class="java">
     @Extension
-    public ConcordionExtension extension = 
+    public ConcordionExtension extension =
         new TranslatorExtension(new ExampleMessageTranslator());
 </pre>
 
 <p>where <code>ExampleMessageTranslator</code> is:</p>
-        
+
 <pre class="java">
     public class ExampleMessageTranslator() implements MessageTranslator {
-            
+
         @Override
         public String translate(String originalMessage) {
             int debugInfoStart = originalMessage.indexOf("Build info:");
@@ -102,7 +103,7 @@ from the exception message starting from the string "Debug info:".</p>
 </div> <!-- page -->
 
 <div class="copyright">
- &nbsp; Copyright &copy; 2011
+ &nbsp; Copyright &copy; 2011-2013
  <a href="http://gplus.to/NigelCharman">Nigel Charman</a>. All rights reserved.
 </div> <!-- copyright -->
 

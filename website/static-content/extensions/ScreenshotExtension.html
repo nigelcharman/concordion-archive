@@ -45,10 +45,10 @@
 
 <ul class="menu">
   <li><a href="/">Home</a></li>
-  <li><a href="../Example.html">Screenshots</a></li>
-  <li><a href="../Tutorial.html">Getting Started</a></li>
+  <li><a href="../Tutorial.html">Tutorial</a></li>
   <li><a href="../Technique.html">Hints and Tips</a></li>
-  <li><a href="../Extensions.html">Extensions</a></li>
+  <li><a href="../Extensions.html">Extensions API</a></li>
+  <li><a href="../ExtensionsLibrary.html">Extensions Library</a></li>
   <li><a href="../Download.html">Download</a></li>
   <li><a href="../Questions.html">FAQ</a></li>
 </ul>
@@ -100,7 +100,7 @@ command that explicitly add screenshots to the output HTML for documentation pur
 <p>To use the command, add an attribute named <tt>screenshot</tt>
 using the namespace <tt>&quot;urn:concordion-extensions:2010&quot;</tt>
 to an element in your Concordion HTML. For example:</p>
-<pre class="html">&lt;html xmlns:concordion=&quot;http://www.concordion.org/2007/concordion&quot; 
+<pre class="html">&lt;html xmlns:concordion=&quot;http://www.concordion.org/2007/concordion&quot;
       xmlns:ext=&quot;urn:concordion-extensions:2010&quot;&gt;
 
 ....
@@ -121,7 +121,7 @@ custom configuration details.</p>
 <h1><a name="Configuration"/>Configuration</h1>
 
 <h2><a name="Default_Configuration"/>Default Configuration</h2>
-<p>By default, this extension will take screenshots using <code>java.awt.Robot</code> 
+<p>By default, this extension will take screenshots using <code>java.awt.Robot</code>
 whenever an assertion fails, or an uncaught Throwable occurs in the
 test.</p>
 <p>To install the extension with default configuration, either annotate the fixture class with:</p>
@@ -129,7 +129,7 @@ test.</p>
 <p>or set the system property <code>concordion.extensions</code> to <br/>
 <code>org.concordion.ext.ScreenshotExtension</code></p>
 <h2><a name="Custom_Configuration"></a>Custom Configuration</h2>
-<p>Alternatively, use the <code>@Extension</code> annotation on a ScreenshotExtension 
+<p>Alternatively, use the <code>@Extension</code> annotation on a ScreenshotExtension
 instance field. This allows methods to be called to configure the extension.</p>
 <p>For example, the following code configures a custom <tt>ScreenshotTaker</tt>,
 takes screenshots on assertion success as well as failure, and limits
@@ -137,9 +137,9 @@ the maximum width of the screenshot images on mouse hover to 400 pixels.
 </p>
 <pre class="java">
     private ScreenshotTaker camera = new SeleniumScreenshotTaker(driver);
-    
+
     @Extension
-    public ConcordionExtension extension = 
+    public ConcordionExtension extension =
         new ScreenshotExtension().setScreenshotTaker(camera).setScreenshotOnAssertionSuccess(true)
                                  .setMaxWidth(400);
 </pre>
@@ -159,9 +159,9 @@ or the code can be viewed <a href="http://code.google.com/p/concordion-extension
 <p>See also the <a href="spec/spec/concordion/ext/screenshot/Screenshot.html">screenshot specification</a>.</p>
 
 <h4><a name="Acknowledgements"/>Acknowledgements</h4>
-<p>This extension was partly inspired by Mark Derricutt&#x27;s <a class="externalLink" 
+<p>This extension was partly inspired by Mark Derricutt&#x27;s <a class="externalLink"
   href="http://github.com/talios/concordion-examples/blob/master/src/test/java/com/talios/ScreenshotCommand.java"
-  rel="nofollow">ScreenshotCommand</a>, and by Adam Setch&#x27;s <a class="externalLink" 
+  rel="nofollow">ScreenshotCommand</a>, and by Adam Setch&#x27;s <a class="externalLink"
   href="http://tech.groups.yahoo.com/group/concordion/message/618"
   rel="nofollow">post</a> to the Concordion list.</p>
 
@@ -174,7 +174,7 @@ or the code can be viewed <a href="http://code.google.com/p/concordion-extension
 </div> <!-- page -->
 
 <div class="copyright">
- &nbsp; Copyright &copy; 2010-2011
+ &nbsp; Copyright &copy; 2010-2013
  <a href="http://gplus.to/NigelCharman">Nigel Charman</a>. All rights reserved.
 </div> <!-- copyright -->
 
