@@ -1121,95 +1121,6 @@ Successes: 1  Failures: 0
 <a name="advanced"/>
 <h2>Advanced Features</h2>
 
-
-<div class="feature">
-
-<div style="float: right; margin-left: 8px">
-<img src="image/example/online-shop/ConcordionRunExample.png" alt="Example of concordion:run"/>
-</div>
-
-
-<h3>concordion:run</h3>
-
-<p>
-    This command, contributed by <a href="http://skytteren.blogspot.com/" class="externalLink">Stein K&#x00E5;re Skytteren</a>, lets you link to another specification and run it,
-    displaying the link's background in green / red / gray as appropriate.
-</p>
-
-<p>
-    You might use this to create a page containing a list of all the acceptance tests
-    for a feature, in a similar way you would use a JUnit test suite.
-</p>
-
-<p> You can even nest the pages to form a hierarchical index, with results aggregated to display a single green / red / gray 
-    result for all specifications accessible from the link.
-</p>
-
-<p>
-    [<a target="specs" href="dist/1.4.3/test-output/concordion/spec/concordion/command/run/Run.html">More details</a>]
-</p>
-
-</div>
-
-
-
-<br/>
-<div class="feature">
-
-<div style="float: right; margin-left: 8px; margin-top: 8px">
-<img src="image/tutorial/breadcrumbs.png" alt="Example of breadcrumbs"/>
-</div>
-
-
-<h3>Breadcrumbs</h3>
-
-<p>
-    To make it easier to navigate around the results, and to remove the headache of having to maintain upward links manually, breadcrumbs are automatically added to output.
-</p>
-<p>
-    In order for breadcrumbs to be generated, certain conventions must be followed. 
-</p>
-<p>
-    [<a target="specs" href="dist/1.4.3/test-output/concordion/spec/concordion/results/breadcrumbs/Breadcrumbs.html">More details</a>]
-</p>
-
-</div>
-
-
-<div class="feature">
-<h3>Support for JUnit 4.x</h3>
-
-<p>Example syntax:</p>
-
-<pre class="java">
-<span class="keyword">package</span> spec.examples;
-
-<span class="keyword">import</span> org.concordion.integration.junit4.ConcordionRunner;
-<span class="keyword">import</span> org.junit.runner.RunWith;
-
-<span class="annotation">@RunWith</span>(ConcordionRunner.<span class="keyword">class</span>)
-<span class="keyword">public class</span> Demo {
-
-    <span class="keyword">public</span> String greetingFor(String firstName) {
-        <span class="keyword">return</span> String.format(<span class="string">"Hello %s!"</span>, firstName);
-    }
-}
-</pre>
-
-<center>
-<p style="width: 500px; border: 1px solid #900; padding: 4px; background-color: white">
-    <span style="color: #900">Please note that <b>JUnit 4.4 is no longer supported</b> due to changes
-    in JUnit's API between 4.4 and 4.5. JUnit 3.8.x is still supported, however.</span>
-</p>
-</center>
-
-</div>
-
-
-
-
-
-
 <div class="feature">
 <h3>Annotations</h3>
 
@@ -1248,20 +1159,61 @@ for an explanation of the semantics of each annotation.
 </p>
 
 
-</div>
 
 
 <div class="feature">
-<h3>Linked Test Data</h3>
+
+<div style="float: right; margin-left: 8px; margin-top: 8px">
+<img src="image/tutorial/breadcrumbs.png" alt="Example of breadcrumbs"/>
+</div>
+
+<h3>Breadcrumbs</h3>
 
 <p>
-A special variable <code>"#HREF"</code> lets you access the href attribute for a link. This
-        can be used when you want to reference test data from a specification.
-
-        [<a target="specs" href="dist/1.4.3/test-output/concordion/spec/concordion/command/execute/AccessToLinkHref.html">More details</a>]
+    To make it easier to navigate around the results, and to remove the headache of having to maintain upward links manually, breadcrumbs are automatically added to output.
+</p>
+<p>
+    In order for breadcrumbs to be generated, certain conventions must be followed. 
+</p>
+<p>
+    [<a target="specs" href="dist/1.4.3/test-output/concordion/spec/concordion/results/breadcrumbs/Breadcrumbs.html">More details</a>]
 </p>
 
 </div>
+
+
+
+
+<div class="feature">
+
+<div style="float: right; margin-left: 8px">
+<img src="image/example/online-shop/ConcordionRunExample.png" alt="Example of concordion:run"/>
+</div>
+
+<h3>concordion:run</h3>
+
+<p>
+    This command, contributed by <a href="http://skytteren.blogspot.com/" class="externalLink">Stein K&#x00E5;re Skytteren</a>, lets you link to another specification and run it,
+    displaying the link's background in green / red / gray as appropriate.
+</p>
+
+<p>
+    You might use this to create a page containing a list of all the acceptance tests
+    for a feature, in a similar way you would use a JUnit test suite.
+</p>
+
+<p> You can even nest the pages to form a hierarchical index, with results aggregated to display a single green / red / gray 
+    result for all specifications accessible from the link.
+</p>
+
+<p>
+    [<a target="specs" href="dist/1.4.3/test-output/concordion/spec/concordion/command/run/Run.html">More details</a>]
+</p>
+
+</div>
+
+
+
 
 
 <div class="feature">
@@ -1296,6 +1248,59 @@ A special variable <code>"#HREF"</code> lets you access the href attribute for a
     Note that <b>assertEquals</b> should be preferred over <b>assertTrue</b> and <b>assertFalse</b> since, on failure, it displays the actual value rather than "false" or "true".
 </div>
 </div>
+
+
+
+
+<div class="feature">
+<h3>Support for JUnit 4.x</h3>
+
+<p>Example syntax:</p>
+
+<pre class="java">
+<span class="keyword">package</span> spec.examples;
+
+<span class="keyword">import</span> org.concordion.integration.junit4.ConcordionRunner;
+<span class="keyword">import</span> org.junit.runner.RunWith;
+
+<span class="annotation">@RunWith</span>(ConcordionRunner.<span class="keyword">class</span>)
+<span class="keyword">public class</span> Demo {
+
+    <span class="keyword">public</span> String greetingFor(String firstName) {
+        <span class="keyword">return</span> String.format(<span class="string">"Hello %s!"</span>, firstName);
+    }
+}
+</pre>
+
+<center>
+<p style="width: 500px; border: 1px solid #900; padding: 4px; background-color: white">
+    <span style="color: #900">Please note that <b>JUnit 4.4 is no longer supported</b> due to changes
+    in JUnit's API between 4.4 and 4.5. JUnit 3.8.x is still supported, however.</span>
+</p>
+</center>
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+<div class="feature">
+<h3>Linked Test Data</h3>
+
+<p>
+A special variable <code>"#HREF"</code> lets you access the href attribute for a link. This
+        can be used when you want to reference test data from a specification.
+
+        [<a target="specs" href="dist/1.4.3/test-output/concordion/spec/concordion/command/execute/AccessToLinkHref.html">More details</a>]
+</p>
+
+</div>
+
 
 
 
