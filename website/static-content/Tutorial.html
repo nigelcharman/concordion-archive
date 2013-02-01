@@ -83,7 +83,7 @@ h3 {
         </div>
         <div class="language">
         <a href="Tutorial_es.html"><img border="0" src="image/shared/Flag_es.png"/></a>
-        <a href="Tutorial_es.html"><br/>en español</a>
+        <a href="Tutorial_es.html"><br/>en espaÃ±ol</a>
         </div>
         <div class="language">
         <a href="http://science.webhostinggeeks.com/concordion"><img border="0" src="image/shared/Flag_hr.png"/></a>
@@ -1132,13 +1132,17 @@ Successes: 1  Failures: 0
 <h3>concordion:run</h3>
 
 <p>
-    This new command, contributed by <a href="http://skytteren.blogspot.com/" class="externalLink">Stein K&#x00E5;re Skytteren</a>, lets you link to another specification and run it,
+    This command, contributed by <a href="http://skytteren.blogspot.com/" class="externalLink">Stein K&#x00E5;re Skytteren</a>, lets you link to another specification and run it,
     displaying the link's background in green / red / gray as appropriate.
 </p>
 
 <p>
     You might use this to create a page containing a list of all the acceptance tests
     for a feature, in a similar way you would use a JUnit test suite.
+</p>
+
+<p> You can even nest the pages to form a hierarchical index, with results aggregated to display a single green / red / gray 
+    result for all specifications accessible from the link.
 </p>
 
 <p>
@@ -1149,6 +1153,27 @@ Successes: 1  Failures: 0
 
 
 
+<br/>
+<div class="feature">
+
+<div style="float: right; margin-left: 8px; margin-top: 8px">
+<img src="image/tutorial/breadcrumbs.png" alt="Example of breadcrumbs"/>
+</div>
+
+
+<h3>Breadcrumbs</h3>
+
+<p>
+    To make it easier to navigate around the results, and to remove the headache of having to maintain upward links manually, breadcrumbs are automatically added to output.
+</p>
+<p>
+    In order for breadcrumbs to be generated, certain conventions must be followed. 
+</p>
+<p>
+    [<a target="specs" href="dist/1.4.3/test-output/concordion/spec/concordion/results/breadcrumbs/Breadcrumbs.html">More details</a>]
+</p>
+
+</div>
 
 
 <div class="feature">
@@ -1240,7 +1265,7 @@ A special variable <code>"#HREF"</code> lets you access the href attribute for a
 
 
 <div class="feature">
-<h3>concordion:assertTrue</h3>
+<h3>concordion:assertTrue and concordion:assertFalse</h3>
 
 <p>For example:</p>
 
@@ -1266,6 +1291,10 @@ A special variable <code>"#HREF"</code> lets you access the href attribute for a
 
     <p><img style="padding-left: 25px"
         src="image/tutorial/assertTrue/AssertTrueOutput.png" /></p>
+
+<div>
+    Note that <b>assertEquals</b> should be preferred over <b>assertTrue</b> and <b>assertFalse</b> since, on failure, it displays the actual value rather than "false" or "true".
+</div>
 </div>
 
 
