@@ -146,28 +146,28 @@ simple "Hello World!" example and a basic Ant build file.
 
 <table class="spread">
 <tr>
-    <td valign="top" style="padding-right: 10px"><img src="image/shared/1.png"></td>
+    <td valign="top" style="padding-right: 10px"><img src="image/shared/1.png"/></td>
     <td valign="top" ><code>"Greeter.java"</code> is the class we want to test</td>
 </tr>
 <tr>
-    <td valign="top" style="padding-right: 10px"><img src="image/shared/2.png"></td>
+    <td valign="top" style="padding-right: 10px"><img src="image/shared/2.png"/></td>
     <td valign="top" ><code>"specs"</code> is a source folder for the acceptance tests. JUnit tests are typically held in a folder <code>"test"</code>
     but we prefer the name <code>"specs"</code>, for the Concordion acceptance tests, to emphasise the fact that
     these tests are concerned with <i>external</i> behaviour.
     </td>
 </tr>
 <tr>
-    <td valign="top" style="padding-right: 10px"><img src="image/shared/3.png"></td>
+    <td valign="top" style="padding-right: 10px"><img src="image/shared/3.png"/></td>
     <td valign="top" ><code>"HelloWorldFixture.java"</code> is a JUnit test. We'll explain how this works, below.
     </td>
 </tr>
 <tr>
-    <td valign="top" style="padding-right: 10px"><img src="image/shared/4.png"></td>
+    <td valign="top" style="padding-right: 10px"><img src="image/shared/4.png"/></td>
     <td valign="top" ><code>"HelloWorld.html"</code> is the Concordion specification and is processed by the <code>"HelloWorldFixture.java"</code> test. The name of the test fixture and the HTML share the same base name. The test fixture has an optional suffix of <code>"Fixture"</code> or <code>"Test"</code> - for example, it may be named <code>"HelloWorld.java"</code>, <code>"HelloWorldFixture.java"</code> or <code>"HelloWorldTest.java"</code>.
     </td>
 </tr>
 <tr>
-    <td valign="top" style="padding-right: 10px"><img src="image/shared/5.png"></td>
+    <td valign="top" style="padding-right: 10px"><img src="image/shared/5.png"/></td>
     <td valign="top" ><code>"concordion.css"</code> is a stylesheet to make the specs look nice while you're writing them.
     </td>
 </tr>
@@ -747,7 +747,7 @@ Successes: 1  Failures: 0
 </pre>
 
 <p>
-    Alternatively, the <a href="#multiValueResult">MultiValueResult<a/> class makes it easy to return multiple values without creating a new object, or you can <a href="#executeMapResult">return a Map result</a>.
+    Alternatively, the <a href="#multiValueResult">MultiValueResult</a> class makes it easy to return multiple values without creating a new object, or you can <a href="#executeMapResult">return a Map result</a>.
 </p>
 
 
@@ -1176,7 +1176,7 @@ For example:
 <a target="specs" href="dist/1.4.3/test-output/concordion/spec/concordion/annotation/Annotation.html">here</a>
 for an explanation of the semantics of each annotation.
 </p>
-
+</div>
 
 
 
@@ -1326,12 +1326,12 @@ for an explanation of the semantics of each annotation.
 <div class="feature">
 <a name="executeMapResult" />
 <h3>Returning a Map result</h3>
-<p>As described in the tutorial, to check more than one result of a behaviour, you can <a href="#executeObjectResult">return an object</a>. An alternative is to return a Map object, for example:
+<p>As described in the tutorial, to check more than one result of a behaviour, you can <a href="#executeObjectResult">return an object</a> from the <code>execute</code> command. An alternative is to return a <code>Map</code> object, for example:
 
 <pre class="java">
     <span class="keyword">public</span> Map split(String fullName) {
         String[] words = fullName.split(" ");
-        Map<String, String> results = new HashMap<String, String>();
+        Map&lt;String, String&gt; results = new HashMap&lt;String, String&gt;();
         results.put("firstName", words[0]);
         results.put("lastName", words[1]);
         <span class="keyword">return</span> results;
@@ -1341,12 +1341,13 @@ for an explanation of the semantics of each annotation.
 <p>
     This is particularly useful when calling existing methods that return <code>Map</code>s, or when using a JVM language with native language support for <code>Map</code>s, such as Groovy.
 </p>
+</div>
 
 <div class="feature">
 <a name="multiValueResult" />
 <h4>MultiValueResult</h4>
 <p>
-  The simplest way to return more than one result is the <a href="http://code.google.com/p/concordion/source/browse/trunk/concordion/src/main/java/org/concordion/api/MultiValueResult.java">MultiValueResult class</a>. For example, <a href="#splittingNamesTest">SplittingNamesTest</a> can be simplified to:
+  The <a href="http://code.google.com/p/concordion/source/browse/trunk/concordion/src/main/java/org/concordion/api/MultiValueResult.java">MultiValueResult</a> class makes it even simpler to return more than one result from the <code>execute</code> command. For example, <a href="#splittingNamesTest">SplittingNamesTest</a> can be simplified to:
 </p>
 
 <pre class="java">
@@ -1364,7 +1365,6 @@ for an explanation of the semantics of each annotation.
         <span class="keyword">return</span> <i>multiValueResult()</i>
                 .with("firstName", words[0])
                 .with("lastName", words[1]);
-        return</span> results;
     }
 }
 </pre>
