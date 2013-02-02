@@ -83,7 +83,7 @@ h3 {
         </div>
         <div class="language">
         <a href="Tutorial_es.html"><img border="0" src="image/shared/Flag_es.png"/></a>
-        <a href="Tutorial_es.html"><br/>en español</a>
+        <a href="Tutorial_es.html"><br/>en espa&#241;ol</a>
         </div>
         <div class="language">
         <a href="http://science.webhostinggeeks.com/concordion"><img border="0" src="image/shared/Flag_hr.png"/></a>
@@ -271,7 +271,7 @@ simple "Hello World!" example and a basic Ant build file.
 
 @RunWith(ConcordionRunner.class)
 <span class="keyword">public class</span> HelloWorldFixture {
-    
+
     <span class="keyword">public</span> String getGreeting() {
         <span class="keyword">return</span> <span class="string">"Hello World!"</span>;
     }
@@ -1128,7 +1128,7 @@ Successes: 1  Failures: 0
 <p>
     These are the essential features of Concordion and should be all you need to get
     started. Read the page on <a href="Technique.html">Technique</a> for
-    advice on the approach to writing the specifications, or see below if you wish to 
+    advice on the approach to writing the specifications, or see below if you wish to
     look at advanced features.
 </p>
 
@@ -1136,10 +1136,10 @@ Successes: 1  Failures: 0
 
 
 <a name="advanced"/>
-<h2>Advanced Features</h2>
+<h1>Advanced Features</h1>
 
 <div class="feature">
-<h3>Annotations</h3>
+<h2>Annotations</h2>
 
 <p>
 You can include partially-implemented specifications in your normal build
@@ -1186,13 +1186,13 @@ for an explanation of the semantics of each annotation.
 <img src="image/tutorial/breadcrumbs.png" alt="Example of breadcrumbs"/>
 </div>
 
-<h3>Breadcrumbs</h3>
+<h2>Breadcrumbs</h2>
 
 <p>
     To make it easier to navigate around the results, and to remove the headache of having to maintain upward links manually, breadcrumbs are automatically added to output.
 </p>
 <p>
-    In order for breadcrumbs to be generated, certain conventions must be followed. 
+    In order for breadcrumbs to be generated, certain conventions must be followed.
 </p>
 <p>
     [<a target="specs" href="dist/1.4.3/test-output/concordion/spec/concordion/results/breadcrumbs/Breadcrumbs.html">More details</a>]
@@ -1209,7 +1209,7 @@ for an explanation of the semantics of each annotation.
 <img src="image/example/online-shop/ConcordionRunExample.png" alt="Example of concordion:run"/>
 </div>
 
-<h3>concordion:run</h3>
+<h2>concordion:run</h2>
 
 <p>
     This command, contributed by <a href="http://skytteren.blogspot.com/" class="externalLink">Stein K&#x00E5;re Skytteren</a>, lets you link to another specification and run it,
@@ -1221,7 +1221,7 @@ for an explanation of the semantics of each annotation.
     for a feature, in a similar way you would use a JUnit test suite.
 </p>
 
-<p> You can even nest the pages to form a hierarchical index, with results aggregated to display a single green / red / gray 
+<p> You can even nest the pages to form a hierarchical index, with results aggregated to display a single green / red / gray
     result for all specifications accessible from the link.
 </p>
 
@@ -1236,7 +1236,7 @@ for an explanation of the semantics of each annotation.
 
 
 <div class="feature">
-<h3>concordion:assertTrue and concordion:assertFalse</h3>
+<h2>concordion:assertTrue</h2>
 
 <p>For example:</p>
 
@@ -1264,27 +1264,45 @@ for an explanation of the semantics of each annotation.
         src="image/tutorial/assertTrue/AssertTrueOutput.png" /></p>
 
 <p>
-    Note that <b>assertEquals</b> should be preferred over <b>assertTrue</b> and <b>assertFalse</b> since, on failure, it displays the actual value rather than "false" or "true".
+    For symmetry, there is also an <b>assertFalse</b> command.
 </p>
+
+<h3>When to use it?</h3>
+
+<p>
+    In most cases, <b>assertEquals</b> is a better choice than <b>assertTrue</b> as
+    its error message is more intuitive.
+</p>
+
+<p>
+    <b>assertTrue</b> is useful when the fixture needs to know the expected value
+    in order to perform the test. For example, when testing an asynchronous system
+    the fixture may need to poll for an expected value. The alternative would be
+    to put in a sleep before getting the value, but that leads to slow and fragile
+    tests.
+</p>
+
 </div>
 
 
 
 
 <div class="feature">
-<h3>JUnit support</h3>
+<h2>JUnit support</h2>
 
-<h4>JUnit 3.x</h4>
+<h3>JUnit 3.x</h3>
+
 <p>
     To run Concordion with JUnit 3.x, the Concordion fixture must extend <code>ConcordionTestCase</code>. For example:
 </p>
+
 <pre class="java">
 <span class="keyword">package</span> example;
 
 <b><span class="keyword">import</span> org.concordion.integration.junit3.ConcordionTestCase;</b>
 
 <span class="keyword">public class</span> HelloWorldFixture <b>extends ConcordionTestCase</b> {
-    
+
     <span class="keyword">public</span> String getGreeting() {
         <span class="keyword">return</span> <span class="string">"Hello World!"</span>;
     }
@@ -1292,10 +1310,10 @@ for an explanation of the semantics of each annotation.
 </pre>
 
 
- <h4>JUnit 4.x</h4>
+<h3>JUnit 4.x</h3>
 
 <p>
-    Alternatively, to run Concordion with JUnit 4.5 or later, the Concordion fixture should use the <code>ConcordionRunner</code>. For example:
+    To run Concordion with JUnit 4.5 or later, the Concordion fixture should use the <code>ConcordionRunner</code>. For example:
 </p>
 
 <pre class="java">
@@ -1313,19 +1331,17 @@ for an explanation of the semantics of each annotation.
 }
 </pre>
 
-<center>
-<p style="width: 500px; border: 1px solid #900; padding: 4px; background-color: white">
-    <span style="color: #900">Please note that <b>JUnit 4.4 is no longer supported</b> due to changes
-    in JUnit's API between 4.4 and 4.5. JUnit 3.8.x is still supported, however.</span>
+<p>
+Note that <b>JUnit 4.4 and earlier are no longer supported</b> due to changes
+  in JUnit's API between 4.4 and 4.5.
 </p>
-</center>
 
 </div>
 
 
 <div class="feature">
 <a name="executeMapResult" />
-<h3>Returning a Map result</h3>
+<h2>Returning a Map result</h2>
 <p>As described in the tutorial, to check more than one result of a behaviour, you can <a href="#executeObjectResult">return an object</a> from the <code>execute</code> command. An alternative is to return a <code>Map</code> object, for example:
 
 <pre class="java">
@@ -1345,7 +1361,7 @@ for an explanation of the semantics of each annotation.
 
 <div class="feature">
 <a name="multiValueResult" />
-<h3>Returning a MultiValueResult</h3>
+<h2>Returning a MultiValueResult</h2>
 <p>
   The <a href="http://code.google.com/p/concordion/source/browse/trunk/concordion/src/main/java/org/concordion/api/MultiValueResult.java">MultiValueResult</a> class makes it even simpler to return more than one result from the <code>execute</code> command. For example, <a href="#splittingNamesTest">SplittingNamesTest</a> can be simplified to:
 </p>
@@ -1360,7 +1376,7 @@ for an explanation of the semantics of each annotation.
 @RunWith(ConcordionRunner.class)
 <span class="keyword">public class</span> SplittingNamesTest {
 
-    <span class="keyword">public</span> Map split(String fullName) {
+    <span class="keyword">public</span> MultiValueResult split(String fullName) {
         String[] words = fullName.split(" ");
         <span class="keyword">return</span> <i>multiValueResult()</i>
                 .with("firstName", words[0])
@@ -1375,7 +1391,7 @@ for an explanation of the semantics of each annotation.
 
 
 <div class="feature">
-<h3>Linked Test Data</h3>
+<h2>Linked Test Data</h2>
 
 <p>
 A special variable <code>"#HREF"</code> lets you access the href attribute for a link. This
