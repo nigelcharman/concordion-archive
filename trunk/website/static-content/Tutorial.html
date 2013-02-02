@@ -568,6 +568,7 @@ Successes: 1  Failures: 0
     and the last name are correctly extracted from the full name:
 </p>
 
+<a name="splittingNamesSpec"/>
 <pre class="html">
 &lt;html <b>xmlns:concordion="http://www.concordion.org/2007/concordion"</b>&gt;
 
@@ -683,6 +684,7 @@ Successes: 1  Failures: 0
     fun...
 </p>
 
+<a name="splittingNamesTest" />
 <pre class="java">
 <span class="keyword">package</span> example;
 
@@ -744,7 +746,9 @@ Successes: 1  Failures: 0
 }
 </pre>
 
-
+<p>
+    Alternatively, the <a href="#multiValueResult">MultiValueResult<a/> class makes it easy to return multiple values without creating a new object, or you can <a href="#executeMapResult">return a Map result</a>.
+</p>
 
 
 <a name="executeUnusualSentences" />
@@ -1319,9 +1323,53 @@ for an explanation of the semantics of each annotation.
 </div>
 
 
+<div class="feature">
+<a name="executeMapResult" />
+<h3>Returning a Map result</h3>
+<p>As described in the tutorial, to check more than one result of a behaviour, you can <a href="#executeObjectResult">return an object</a>. An alternative is to return a Map object, for example:
 
+<pre class="java">
+    <span class="keyword">public</span> Map split(String fullName) {
+        String[] words = fullName.split(" ");
+        Map<String, String> results = new HashMap<String, String>();
+        results.put("firstName", words[0]);
+        results.put("lastName", words[1]);
+        <span class="keyword">return</span> results;
+    }
+</pre>
 
+<p>
+    This is particularly useful when calling existing methods that return <code>Map</code>s, or when using a JVM language with native language support for <code>Map</code>s, such as Groovy.
+</p>
 
+<div class="feature">
+<a name="multiValueResult" />
+<h4>MultiValueResult</h4>
+<p>
+  The simplest way to return more than one result is the <a href="http://code.google.com/p/concordion/source/browse/trunk/concordion/src/main/java/org/concordion/api/MultiValueResult.java">MultiValueResult class</a>. For example, <a href="#splittingNamesTest">SplittingNamesTest</a> can be simplified to:
+</p>
+
+<pre class="java">
+<span class="keyword">package</span> example;
+
+<span class="keyword">import</span> org.concordion.api.MultiValueResult;
+<span class="keyword">import</span> org.concordion.integration.junit4.ConcordionRunner;
+<span class="keyword">import</span> org.junit.runner.RunWith;
+
+@RunWith(ConcordionRunner.class)
+<span class="keyword">public class</span> SplittingNamesTest {
+
+    <span class="keyword">public</span> Map split(String fullName) {
+        String[] words = fullName.split(" ");
+        <span class="keyword">return</span> <i>multiValueResult()</i>
+                .with("firstName", words[0])
+                .with("lastName", words[1]);
+        return</span> results;
+    }
+}
+</pre>
+<p>
+    The specification can reference the properties of the MultiValueResult as if they were bean properties, as shown in the <a href="#splittingNamesSpec">Splitting Names</a> specification.
 
 </div>
 
