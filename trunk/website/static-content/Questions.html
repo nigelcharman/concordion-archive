@@ -111,7 +111,7 @@ h3 {
 Concordion was developed by <a class="externalLink" href="http://www.davidpeterson.co.uk">David&nbsp;Peterson</a>,
 an agile consultant based in London, UK. The idea was sparked by conversations with testers and developers, in particular
 <a class="externalLink" href="http://www.natpryce.com/">Nat&nbsp;Pryce</a> and
-<a class="externalLink" href="http://www.m3p.co.uk">Steve&nbsp;Freeman</a>,
+<a class="externalLink" href="http://www.higherorderlogic.com/">Steve&nbsp;Freeman</a>,
 while working at Easynet (BSkyB) in 2006.
 </p>
 
@@ -333,14 +333,17 @@ scripting API that the fixtures call into.
 <a name="comparisonWithSelenium"> </a>
 <h3>How does Concordion differ from Selenium?</h3>
 <p>
-<a class="externalLink" href="http://www.openqa.org/selenium-core/usage.html">Selenium</a>
+<a class="externalLink" href="http://seleniumhq.org/">Selenium</a>
 is a test scripting tool for driving web browsers.
 Concordion is a specification tool and hides scripting activity inside
-Java fixture code. My recommended tool for controlling web browsers
-from Java code (i.e. the one I've used) is
-<a class="externalLink" href="http://code.google.com/p/webdriver/">WebDriver</a>, though
-it may be possible to use Selenium in "driven mode" as an alternative.
+Java fixture code. For tests that exercise the browser, we recommend 
+<a class="externalLink" href="http://seleniumhq.org/projects/webdriver/">Selenium WebDriver</a> 
+with Concordion.
 </p>
+<p>
+    The <a href="Download.html#concordion-extensions-demo"/>concordion-extensions-demo</a> 
+    project demonstrates Concordion working with Selenium WebDriver.
+  </p>
 
 
 <a name="scriptVsSpecify"> </a>
