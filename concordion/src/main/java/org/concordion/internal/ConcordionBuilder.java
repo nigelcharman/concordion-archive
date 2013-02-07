@@ -7,10 +7,11 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
-
 import org.concordion.Concordion;
 import org.concordion.api.Command;
 import org.concordion.api.EvaluatorFactory;
+import org.concordion.api.FailFast;
+import org.concordion.api.FullOGNL;
 import org.concordion.api.Resource;
 import org.concordion.api.Source;
 import org.concordion.api.SpecificationLocator;
@@ -87,19 +88,13 @@ public class ConcordionBuilder implements ConcordionExtender {
     private ThrowableCaughtPublisher throwableListenerPublisher = new ThrowableCaughtPublisher();
     private LinkedHashMap<String, Resource> resourceToCopyMap = new LinkedHashMap<String, Resource>();
     private List<SpecificationProcessingListener> specificationProcessingListeners = new ArrayList<SpecificationProcessingListener>();
+    private boolean failFast;
+    private boolean builtAlready;
     
     {
         withThrowableListener(new ThrowableRenderer());
         
         commandRegistry.register("", "specification", specificationCommand);
-        withApprovedCommand(NAMESPACE_CONCORDION_2007, "run", runCommand);
-        withApprovedCommand(NAMESPACE_CONCORDION_2007, "execute", executeCommand);
-        withApprovedCommand(NAMESPACE_CONCORDION_2007, "set", new SetCommand());
-        withApprovedCommand(NAMESPACE_CONCORDION_2007, "assertEquals", assertEqualsCommand);
-        withApprovedCommand(NAMESPACE_CONCORDION_2007, "assertTrue", assertTrueCommand);
-        withApprovedCommand(NAMESPACE_CONCORDION_2007, "assertFalse", assertFalseCommand);
-        withApprovedCommand(NAMESPACE_CONCORDION_2007, "verifyRows", verifyRowsCommand);
-        withApprovedCommand(NAMESPACE_CONCORDION_2007, "echo", echoCommand);
         
         AssertResultRenderer assertRenderer = new AssertResultRenderer();
         withAssertEqualsListener(assertRenderer);
@@ -179,7 +174,7 @@ public class ConcordionBuilder implements ConcordionExtender {
     }
     
     private ConcordionBuilder withApprovedCommand(String namespaceURI, String commandName, Command command) {
-        ThrowableCatchingDecorator throwableCatchingDecorator = new ThrowableCatchingDecorator(new LocalTextDecorator(command));
+        ThrowableCatchingDecorator throwableCatchingDecorator = new ThrowableCatchingDecorator(new LocalTextDecorator(command), failFast);
         throwableCatchingDecorator.addThrowableListener(throwableListenerPublisher);
         Command decoratedCommand = throwableCatchingDecorator;
         commandRegistry.register(namespaceURI, commandName, decoratedCommand);
@@ -230,6 +225,18 @@ public class ConcordionBuilder implements ConcordionExtender {
     }
     
     public Concordion build() {
+        Check.isFalse(builtAlready, "ConcordionBuilder currently does not support calling build() twice");
+        builtAlready = true;
+        
+        withApprovedCommand(NAMESPACE_CONCORDION_2007, "run", runCommand);
+        withApprovedCommand(NAMESPACE_CONCORDION_2007, "execute", executeCommand);
+        withApprovedCommand(NAMESPACE_CONCORDION_2007, "set", new SetCommand());
+        withApprovedCommand(NAMESPACE_CONCORDION_2007, "assertEquals", assertEqualsCommand);
+        withApprovedCommand(NAMESPACE_CONCORDION_2007, "assertTrue", assertTrueCommand);
+        withApprovedCommand(NAMESPACE_CONCORDION_2007, "assertFalse", assertFalseCommand);
+        withApprovedCommand(NAMESPACE_CONCORDION_2007, "verifyRows", verifyRowsCommand);
+        withApprovedCommand(NAMESPACE_CONCORDION_2007, "echo", echoCommand);
+
         if (target == null) {
             target = new FileTarget(getBaseOutputDir());
         }
@@ -322,5 +329,20 @@ public class ConcordionBuilder implements ConcordionExtender {
             return new File(System.getProperty("java.io.tmpdir"), "concordion");
         }
         return new File(outputPath);
+    }
+
+    public ConcordionBuilder withFailFast(boolean failFast) {
+        this.failFast = failFast;
+        return this;
+    }
+
+    public ConcordionBuilder withFixture(Object fixture) {
+        if (fixture.getClass().isAnnotationPresent(FailFast.class)) {
+            withFailFast(true);
+        }
+        if (fixture.getClass().isAnnotationPresent(FullOGNL.class)) {
+            withEvaluatorFactory(new OgnlEvaluatorFactory());
+        }
+        return this;
     }
 }
