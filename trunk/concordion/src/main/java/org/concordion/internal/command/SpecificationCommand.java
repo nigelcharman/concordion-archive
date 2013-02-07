@@ -8,6 +8,7 @@ import org.concordion.api.Resource;
 import org.concordion.api.ResultRecorder;
 import org.concordion.api.listener.SpecificationProcessingEvent;
 import org.concordion.api.listener.SpecificationProcessingListener;
+import org.concordion.internal.FailFastException;
 import org.concordion.internal.util.Announcer;
 
 public class SpecificationCommand extends AbstractCommand {
@@ -20,7 +21,11 @@ public class SpecificationCommand extends AbstractCommand {
     @Override
     public void execute(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
         announceBeforeProcessingEvent(commandCall.getResource(), commandCall.getElement());
-        commandCall.getChildren().processSequentially(evaluator, resultRecorder);
+        try {
+            commandCall.getChildren().processSequentially(evaluator, resultRecorder);
+        } catch (FailFastException e) {
+            // Ignore
+        }
         announceAfterProcessingEvent(commandCall.getResource(), commandCall.getElement());
     }
 

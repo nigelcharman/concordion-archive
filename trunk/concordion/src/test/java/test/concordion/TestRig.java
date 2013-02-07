@@ -1,7 +1,6 @@
 package test.concordion;
 
 import java.io.IOException;
-
 import org.concordion.Concordion;
 import org.concordion.api.EvaluatorFactory;
 import org.concordion.api.Resource;
@@ -39,8 +38,10 @@ public class TestRig {
             .withSource(stubSource)
             .withEvaluatorFactory(evaluatorFactory)
             .withTarget(stubTarget);
+        
         if (fixture != null) {
             fixtureExtensionLoader.addExtensions(fixture, concordionBuilder);
+            concordionBuilder.withFixture(fixture);
         }
         if (extension != null) {
             extension.addTo(concordionBuilder);
