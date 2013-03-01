@@ -50,6 +50,11 @@ If something goes wrong, you can rollback using `mvn release:rollback`.
 
 = Upload to Sonatype Staging repository =
 
+* This release process is not yet tested *
+
+_2 Mar 2013 - The legacy sync process is being switched off, and we are changing the release process to use Sonatype's OSS Maven Repository.
+See https://issues.sonatype.org/browse/OSSRH-5552 and https://issues.sonatype.org/browse/MVNCENTRAL-285._
+
 `mvn release:perform` 
 
 Hopefully this will prompt for the GPG passphrase, otherwise we could use:
