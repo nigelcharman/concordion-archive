@@ -12,7 +12,12 @@ By executing `mvn release:prepare ` we get:
 
 = Pre-conditions =
 
-All the changes have to be committed to SVN.
+ * All the changes have to be committed to SVN.
+ * Maven 2.2.1+ is installed on your command line path.
+    _ Note: Maven 2.1.0 and 2.2.0 produce incorrect GPG signatures and checksums respectively. _
+ * A GPG client is installed on your command line path. For more information, please refer to http://www.gnupg.org/.
+ * You have created your GPG keys and distributed your public key to hkp://pool.sks-keyservers.net/. For more information, please refer to [https://docs.sonatype.org/display/Repository/How+To+Generate+PGP+Signatures+With+Maven How To Generate PGP Signatures With Maven].
+
 
 = Checking the release =
 
@@ -43,7 +48,27 @@ Maven will ask again for the versions (you can avoid asking again by not using r
 
 If something goes wrong, you can rollback using `mvn release:rollback`.
 
-= Upload to remote repository =
+= Upload to Sonatype Staging repository =
+
+`mvn release:perform` 
+
+Hopefully this will prompt for the GPG passphrase, otherwise we could use:
+
+`mvn release:perform -Darguments=-Dgpg.passphrase=_yourpassphrase_'
+
+, where _yourpassphrase_ contains your GPG passphrase.
+
+This command will checkout the project from the tag and will execute the following goals: source:jar javadoc:jar deploy. Instead of the default (deploy site-deploy). See maven-release-plugin configuration in the pom.xml. 
+
+The artifacts will also be signed using the maven-gpg-plugin, which is required for deployment to Maven Central.
+
+
+----
+= Legacy instructions =
+
+* To be removed once the new process is working well *
+
+The previous release process deployed the artifacts to the Concordion svn repository, which was then sync'd using Sonatype's legacy sync process.
 
 `mvn release:perform`
 
