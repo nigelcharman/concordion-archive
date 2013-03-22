@@ -69,6 +69,8 @@ Maven will ask again for the versions (you can avoid asking again by not using r
 
 If something goes wrong, you can rollback using `mvn release:rollback`.
 
+If it fails due to authentication issues, append `-Dusername=myid -Dpassword=mypassword` to the mvn command.
+
 = Upload to Sonatype Staging repository =
 
 * This release process is not yet tested *
