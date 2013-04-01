@@ -2,130 +2,47 @@
 #labels Phase-Deploy
 
 = Introduction =
-
-Using [http://maven.apache.org Maven] and [http://maven.apache.org/plugins/maven-release-plugin maven-release-plugin] we can automate part of the process of a release.
-
-By executing `mvn release:prepare ` we get:
-  # a revision in the trunk without -SNAPSHOT
-  # a tag named concordion-"version"
-  # a revision in the trunk with the new version plus -SNAPSHOT
+The project is using the [https://github.com/bmuschko/gradle-nexus-plugin Nexus] and [https://github.com/townsfolk/gradle-release release] plugins for Gradle.
 
 = Pre-conditions =
-
- * All the changes have to be committed to SVN.
- * Maven 2.2.1+ is installed on your command line path.
-    _ Note: Maven 2.1.0 and 2.2.0 produce incorrect GPG signatures and checksums respectively. _
  * A GPG client is installed on your command line path. For more information, please refer to http://www.gnupg.org/.
  * You have created your GPG keys and distributed your public key to hkp://pool.sks-keyservers.net/. For more information, please refer to [https://docs.sonatype.org/display/Repository/How+To+Generate+PGP+Signatures+With+Maven How To Generate PGP Signatures With Maven].
  * You have a [https://issues.sonatype.org Sonatype JIRA account], which has [https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide#SonatypeOSSMavenRepositoryUsageGuide-3.CreateaJIRAticket approval] for publishing to the Concordion project.
- * You have configured your Maven settings.xml, typically located in your ~/.m2 directory:
+ * You have configured your gradle.properties, typically located in your ~/.gradle directory:
 
 {{{
-<settings>
-  ...
-  <servers>
-    <server>
-      <id>sonatype-nexus-snapshots</id>
-      <username>your-jira-id</username>
-      <password>your-jira-pwd</password>
-    </server>
-    <server>
-      <id>sonatype-nexus-staging</id>
-      <username>your-jira-id</username>
-      <password>your-jira-pwd</password>
-    </server>
-  </servers>
-  ...
-</settings>
-}}}
-where _your-jira-id_ and _your-jira-password_ are the credentials for your Sonatype JIRA account.
+signing.keyId=your-key-id
+signing.password=your-key-password
+signing.secretKeyRingFile=your-home-dir/.gnupg/secring.gpg
 
-= Checking the release =
-
-`mvn release:prepare -DdryRun=true`
-
-During this build, Maven will ask interactively:
-{{{
-What is the release version for "concordion"? (org.concordion:concordion) 1.3.1: : 1.3.1-RC5
-What is SCM release tag or label for "concordion"? (org.concordion:concordion) concordion-1.3.1-RC5: : 
-What is the new development version for "concordion"? (org.concordion:concordion) 1.3.2-SNAPSHOT: : 1.3.1-SNAPSHOT
+nexusUsername=your-jira-username
+nexusPassword=your-jira-password
 }}}
 
-and then it will execute `mvn clean verify` 
-{{{
-[INFO] Executing preparation goals - since this is simulation mode it is running against the original project, not the rewritten ones
-[INFO] Executing goals 'clean verify'...
-[INFO] Executing: mvn clean verify --no-plugin-updates
-}}}
+  where _your-key-id_ and _your-key-password_ relate to your GPG key, _your-home-dir_ is set to the location of your home directory which contains the `.gnupg` sub-directory, and  _your-jira-username_ and _your-jira-password_ are the credentials for your Sonatype JIRA account.
 
-= Executing the real preparation =
+= Performing a release =
+ * Commit and push all the changes to !GitHub. (The release plugin will fail if you have any changes that aren't committed and pushed.)
+ * Run `gradle release`. During this build, Gradle will prompt for the version number of the release, and for the next version number to use. See [https://github.com/townsfolk/gradle-release#introduction here] for the steps taken by the release plugin. 
 
-`mvn release:clean release:prepare`
+== Releasing the artifacts to Maven Central ==
+The `gradle release` task also triggers the `uploadArchives` task to upload the artifacts to Sonatype's OSS staging repository. 
 
-Maven will ask again for the versions (you can avoid asking again by not using relese:clean). This will actually commit the changes in SVN.
-  # a revision in the trunk without -SNAPSHOT
-  # a tag named concordion-"version"
-  # a revision in the trunk with the new version plus -SNAPSHOT
+To complete the release, you must Close and Release the artifacts:
 
-If something goes wrong, you can rollback using `mvn release:rollback`.
+ # Login to the [https://oss.sonatype.org/ Nexus UI].
+ # Go to Staging Repositories page.
+ # Select the staging repository for org.concordion.
+ # Click the Close button.
+ # After it has closed the repository, select the closed staging repository for org.concordion.
+ # Click the Release button.
 
-If it fails due to authentication issues, append `-Dusername=myid -Dpassword=mypassword` to the mvn command.
+For full details, see the [https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide#SonatypeOSSMavenRepositoryUsageGuide-8a.ReleaseIt Sonatype OSS Maven Repository Usage Guide].
 
-= Upload to Sonatype Staging repository =
-
-* This release process is not yet tested *
-
-_2 Mar 2013 - The legacy sync process is being switched off, and we are changing the release process to use Sonatype's OSS Maven Repository.
-See https://issues.sonatype.org/browse/OSSRH-5552 and https://issues.sonatype.org/browse/MVNCENTRAL-285._
-
-`mvn release:perform` 
-
-Hopefully this will prompt for the GPG passphrase, otherwise we could use:
-
-`mvn release:perform -Darguments=-Dgpg.passphrase=_yourpassphrase_'
-
-, where _yourpassphrase_ contains your GPG passphrase.
-
-This command will checkout the project from the tag and will execute the following goals: source:jar javadoc:jar deploy. Instead of the default (deploy site-deploy). See maven-release-plugin configuration in the pom.xml. 
-
-The artifacts will also be signed using the maven-gpg-plugin, which is required for deployment to Maven Central.
-
-
-----
-= Legacy instructions =
-
-* To be removed once the new process is working well *
-
-The previous release process deployed the artifacts to the Concordion svn repository, which was then sync'd using Sonatype's legacy sync process.
-
-`mvn release:perform`
-
-This command will checkout the project from the tag and will execute the following goals: source:jar javadoc:jar deploy. Instead of the default (deploy site-deploy). See maven-release-plugin configuration in the pom.xml.
-
-The goal `deploy` will use the information in the distributionManagement section (in pom.xml) in order to upload all the artifacts to the repository for releases. It is located in http://concordion.googlecode.com/svn/repos/releases and you can use it by including in your pom.xml the corresponding entry:
-
-{{{
-<repository>
-  <id>concordion-releases</id>
-  <url>http://concordion.googlecode.com/svn/repos/releases</url>
-  <releases>
-    <enabled>true</enabled>
-  </releases>
-</repository>
-}}}
-
-Not everyone is allowed to deploy in this repository because you have to be a developer in the Concordion project and you need to put your username and password in your settings.xml like follows:
-
-{{{
-<servers>
-  <server>
-    <id>concordion-releases</id>
-    <username>yourusername</username>
-    <password>xyxyxyyx</password>
-  </server>
-</servers>
-}}}
-
-= Automated synchronization with Maven Central Repository =
-
-We don't need to upload manually a bundle artifact to the [http://code.google.com/p/concordion/downloads/list Download area] of this site in order to request in JIRA the deployment in the Maven Central Repository as explained in [http://maven.apache.org/guides/mini/guide-central-repository-upload.html Maven documentation]. Now we have automated this process and it is done by synchronizing our remote repository with the Maven Central Repo.
+= Rolling back a release =
+ * Reset the version number in gradle.properties, and commit and push to !GitHub.
+ * If the release was pushed to Sonatype OSS, you must Drop the artifacts:
+   # Login to the [https://oss.sonatype.org/ Nexus UI].
+   # Go to Staging Repositories page.
+   # Select the staging repository for org.concordion.
+   # Click the Drop button.
