@@ -21,6 +21,13 @@ nexusPassword=your-jira-password
 
   where _your-key-id_ and _your-key-password_ relate to your GPG key, _your-home-dir_ is set to the location of your home directory which contains the `.gnupg` sub-directory, and  _your-jira-username_ and _your-jira-password_ are the credentials for your Sonatype JIRA account.
 
+= Publishing a snapshot =
+ * Ensure the `gradle.properties` file contains the correct version, and ends with `-SNAPSHOT`.
+ * Commit and push all the changes to !GitHub.
+ * Run `gradle uploadArchives`.
+ * The snapshot should appear under https://oss.sonatype.org/content/repositories/snapshots/org/concordion/concordion.
+
+
 = Performing a release =
  * Commit and push all the changes to !GitHub. (The release plugin will fail if you have any changes that aren't committed and pushed.)
  * Run `gradle release`. During this build, Gradle will prompt for the version number of the release, and for the next version number to use. See [https://github.com/townsfolk/gradle-release#introduction here] for the steps taken by the release plugin. 
