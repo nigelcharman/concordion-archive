@@ -1,0 +1,28 @@
+# Introduction #
+
+If you are a maven purist and want to put your own CSS stylesheet in `src/test/resources`, then you should use this snippet to put in the output directory you said to ConcordionRunner.
+
+
+# Details #
+
+```
+<plugin>
+  <artifactId>maven-resources-plugin</artifactId>
+  <executions>
+    <execution>
+      <phase>process-test-resources</phase>
+      <goals>
+        <goal>testResources</goal>
+      </goals>
+      <configuration>
+        <resources>
+          <resource>
+            <directory>src/test/resources/styles/</directory>
+          </resource>
+        </resources>
+        <outputDirectory>target/concordion/</outputDirectory>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
+```

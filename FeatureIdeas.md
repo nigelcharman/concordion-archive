@@ -1,0 +1,65 @@
+(In no particular order)
+
+  * Type adapters
+  * Copy referenced resources (e.g. images, stylesheets) to the output directory. (<i>This can now be achieved using extensions.  Do we want resources copied implicitly?</i>)
+  * Reduce the embedded CSS to a minimal set (just enough to support successes / failures / stack trace toggling).
+  * Write a realistic sample application using the tool and the approach.
+    * a blog
+    * a product catalog (that can evolve later to a shop or something else)
+    * a standard pet-store e.g. [iBatis JPetstore](http://ibatis.apache.org/overview.html)
+    * _any more ideas?_
+  * Support TestNG
+  * Looping
+  * Better warning messages and error detection:
+    * Warning if encounter attribute on Concordion namespace that is not supported, i.e. catch typos.
+    * Improve XML parsing error messages (e.g. show context)
+    * Improve rendering of failures & exceptions on `<b>` or `<strong>` (Don't want the whole message to be in bold). Similarly: `<em>` and `<i>`
+    * Detect broken links
+    * Catch common mistakes and provide useful messages (e.g. Prevent "execute" on `<tr>``<th>` row Common mistake to put execute on `<tr>` instead of `<table>`)
+    * For exceptions, display the values of relevant variables
+    * Detect and prevent child tags where not reachable
+    * Improve stack traces inside `<pre>` elements Could use !important to set font family
+    * Improve handling of row-level exceptions (should be XHTML compliant)
+    * Allow the user to supply the failure text for assertTrue
+    * Log a debug transcript
+  * assertEquals nested actions
+  * Do a screencast (see http://www.debugmode.com/wink/)
+  * Commands on detail rows should override commands on header rows
+  * Command: include
+  * Ability to create lists of objects from tables E.g. in command/exception/Exception.html
+  * Allow sections of the document to be marked "expected to fail"
+  * forEach: Support lists `<ol>` and `<ul>`
+  * assertEquals: Show diffs within a string
+  * Shortcut for  "set" variable = camel case heading
+  * forEach: Support arrays
+  * Support colspan
+  * Use Logger instead of System.out
+  * Export formats:
+    * PDF
+    * [ODF](http://en.wikipedia.org/wiki/OpenDocument)
+    * RSS/Atom
+  * Multiple root objects to provide the ability to add (mix-in) several "fittings" to remove duplication of code across fixtures. E.g. `public void setUp() { add(new PersonFitting()); } `
+  * Maven plugin for:
+    * customized options instead of general Surefire settings
+    * generating an index.html for every test suite run by Concordion and link all together
+  * Mark fixture methods as @Unimplemented and display results on the output appropriately (e.g. gray background?)
+
+## 1.4.1 ##
+  * Document extension points with examples
+
+## 1.3.1-RC5 ##
+
+  * Improved exceptions on `<a>` elements (no longer prints stack-trace within the link)
+  * Story pages that automatically run child tests and report success / failure. Perhaps a new "runTest" command?
+  * Some means (an annotation perhaps?) for saying "This test is supposed to fail"
+  * Print console "(Expected)" after an expected test failure
+  * Provide an #HREF variable to provide access to the href of `<a>` elements.
+  * Command: echo (evaluates an expression and inserts result into the output. This will be easy and useful)
+    * See [revision 20 in SVN](http://code.google.com/p/concordion/source/detail?r=20)
+
+## 1.3.0 ##
+
+  * Upload onto Maven repositories (see http://maven.apache.org/repository/index.html)
+    * http://tech.groups.yahoo.com/group/concordion/message/64
+  * Add code coverage to build (see http://mojo.codehaus.org/cobertura-maven-plugin)
+    * Execute `mvn clean test site` and open `target/site/cobertura/index.html`
